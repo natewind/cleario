@@ -5,10 +5,12 @@
 
 namespace clear
 {
-	inline auto write(char c)
+	inline auto write(bool b)
 	{
-		impl::fputc(c, stdout);
+		impl::fputs(b ? "True" : "False", impl::stdout);
 	}
+
+	inline auto write(char c) { impl::fputc(c, impl::stdout); }
 
 	// TODO: Replace with custom non-zero-terinated string class
 	template <impl::size_t Size>
@@ -29,18 +31,12 @@ namespace clear
 		impl::fwrite(str, sizeof(char), count, impl::stdout);
 	}
 
-	inline void print()
-	{
-		write('\n');
-	}
+	inline void print() { write('\n'); }
 
 	template <class T, class... Args>
 	inline void print(const T &value, const Args... args)
 	{
-		if constexpr (std::is_same<T, bool>::value)
-			value ? write("True") : write("False");
-		else
-			write(value);
+		write(value);
 
 		if constexpr (sizeof...(Args) > 0)
 			write(' ');

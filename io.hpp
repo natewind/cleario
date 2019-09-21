@@ -12,7 +12,7 @@ namespace clear
 
 	inline auto write(char c) { impl::fputc(c, impl::stdout); }
 
-	// TODO: Replace with custom non-zero-terinated string class
+	// TODO: Replace with custom non-zero-terminated string class
 	template <impl::size_t Size>
 	inline auto write(const char (&str)[Size])
 	{
@@ -24,6 +24,7 @@ namespace clear
 	{
 		using Int = IntTraits<10, T>;
 
+		// TODO: replace by std::array?
 		char buff[Int::maxlen];
 		const auto str = Int::to_string(value, buff);
 		const auto count = std::distance(str, std::end(buff));

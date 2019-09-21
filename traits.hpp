@@ -6,9 +6,9 @@
 namespace clear
 {
 	template <class T>
-	using IsIntegral = std::enable_if_t<std::is_integral_v<T>>;
+	using IsIntegral = std::enable_if_t<std::is_integral_v<T>, bool>;
 
-	template <int Base, class T, IsIntegral<T>...>
+	template <int Base, class T, IsIntegral<T> = true>
 	class IntTraits
 	{
 		using limits = std::numeric_limits<T>;

@@ -19,7 +19,7 @@ namespace clear
 		impl::fwrite(str, sizeof(char), Size - 1, impl::stdout);
 	}
 
-	template <class T, IsIntegral<T>...>
+	template <class T, IsIntegral<T> = true>
 	inline auto write(T value)
 	{
 		using Int = IntTraits<10, T>;

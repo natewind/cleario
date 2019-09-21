@@ -5,22 +5,22 @@
 
 namespace clear
 {
-	inline auto write(bool b)
+	inline void write(bool b)
 	{
 		impl::fputs(b ? "True" : "False", impl::stdout);
 	}
 
-	inline auto write(char c) { impl::fputc(c, impl::stdout); }
+	inline void write(char c) { impl::fputc(c, impl::stdout); }
 
 	// TODO: Replace with custom non-zero-terminated string class
 	template <impl::size_t Size>
-	inline auto write(const char (&str)[Size])
+	inline void write(const char (&str)[Size])
 	{
 		impl::fwrite(str, sizeof(char), Size - 1, impl::stdout);
 	}
 
 	template <class T, IsIntegral<T> = true>
-	inline auto write(T value)
+	inline void write(T value)
 	{
 		using Int = IntTraits<10, T>;
 

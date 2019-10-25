@@ -14,7 +14,7 @@ void clear::write(const Point &point)
 	write(')');
 }
 
-int main()
+auto main() -> int
 {
 	clear::print("Hello World!", 42, true, Point {3, 4});
 }

@@ -29,7 +29,7 @@ namespace clear
 		const auto str = Int::to_string(value, buff);
 		const auto count = std::distance(str, std::end(buff));
 
-		impl::fwrite(str, sizeof(char), count, impl::stdout);
+		impl::fwrite(str, sizeof(char), std::size_t(count), impl::stdout);
 	}
 
 	inline void print() { write('\n'); }

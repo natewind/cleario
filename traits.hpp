@@ -19,6 +19,7 @@ namespace clear
 			return (x == 0) ? acc : log(x / Base, acc + 1);
 		}
 
+		// TODO: Fix a bug: charlen(0) returns 0
 		static constexpr auto charlen(T x) -> T
 		{
 			return log(x, T((x < 0) ? 1 : 0));

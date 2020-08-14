@@ -1,11 +1,11 @@
 struct Point { int x, y; };
 
 // TODO: Find a way to get rid of this uglyness!
-namespace clear { void write(const Point &); }
+namespace clear { void write(Point const &); }
 
 #include "io.hpp"
 
-void clear::write(const Point &point)
+void clear::write(Point const &point)
 {
 	write('(');
 	write(point.x);

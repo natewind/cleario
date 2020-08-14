@@ -44,7 +44,7 @@ namespace clear
 				"0123456789abcdefghijklmnopqrstuvwxyz";
 			static constexpr auto digits = &digits_impl[max_base - 1];
 
-			const auto negative = value < 0;
+			auto const negative = value < 0;
 
 			auto end = std::end(result);
 

@@ -14,7 +14,7 @@ namespace clear
 
 	// TODO: Replace with custom non-zero-terminated string class
 	template <impl::size_t Size>
-	inline void write(const char (&str)[Size])
+	inline void write(char const (&str)[Size])
 	{
 		impl::fwrite(str, sizeof(char), Size - 1, impl::stdout);
 	}
@@ -26,8 +26,8 @@ namespace clear
 
 		// TODO: replace by std::array?
 		char buff[Int::maxlen];
-		const auto str = Int::to_string(value, buff);
-		const auto count = std::distance(str, std::end(buff));
+		auto const str = Int::to_string(value, buff);
+		auto const count = std::distance(str, std::end(buff));
 
 		impl::fwrite(str, sizeof(char), std::size_t(count), impl::stdout);
 	}
@@ -35,7 +35,7 @@ namespace clear
 	inline void print() { write('\n'); }
 
 	template <class T, class... Args>
-	inline void print(const T &value, const Args... args)
+	inline void print(T const &value, Args const... args)
 	{
 		write(value);
 

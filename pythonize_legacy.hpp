@@ -13,8 +13,6 @@
 
 namespace py
 {
-	bool const __dummy = std::ios_base::sync_with_stdio(false);
-
 	class istream_iterator
 	{
 		// TODO: Reduce code size (here, in derived and in input())

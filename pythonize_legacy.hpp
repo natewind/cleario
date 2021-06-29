@@ -21,7 +21,7 @@ namespace py
 		std::istream &in;
 
 		// TODO: Iterate through chars without reading everything twice!
-		inline void skip_ws(char stop = '\n')
+		void skip_ws(char stop = '\n')
 		{
 			for (char c; (c = in.peek()) != stop && std::isspace(c); in.get());
 		}
@@ -30,7 +30,7 @@ namespace py
 		constexpr istream_iterator(std::istream &stream) : in(stream) {}
 
 		template <typename T>
-		inline operator T()
+		operator T()
 		{
 			T res;
 			in >> res;
@@ -38,7 +38,7 @@ namespace py
 			return res;
 		}
 
-		inline operator char() { return in.get(); }
+		operator char() { return in.get(); }
 
 		using value_type = istream_iterator;
 		using difference_type = std::ptrdiff_t;
@@ -46,15 +46,9 @@ namespace py
 		using reference = istream_iterator &;
 		using iterator_category	= std::input_iterator_tag;
 
-		inline bool operator==(std::nullptr_t) const
-		{
-			return in.peek() == '\n';
-		}
+		bool operator==(std::nullptr_t) const { return in.peek() == '\n'; }
 
-		inline bool operator!=(std::nullptr_t end) const
-		{
-			return !(*this == end);
-		}
+		bool operator!=(std::nullptr_t end) const { return !(*this == end); }
 
 		constexpr auto operator++() const { return *this; }
 		constexpr auto operator*() const { return *this; }
@@ -69,7 +63,7 @@ namespace py
 		using istream_iterator::istream_iterator;
 
 		template <typename T>
-		inline operator T()
+		operator T()
 		{
 			T res;
 			in >> res;
@@ -77,21 +71,15 @@ namespace py
 			return res;
 		}
 
-		inline operator char() { return in.get(); }
+		operator char() { return in.get(); }
 
 		using value_type = ifstream_iterator;
 		using pointer = ifstream_iterator *;
 		using reference = ifstream_iterator &;
 
-		inline bool operator==(std::nullptr_t) const
-		{
-			return in.peek() == EOF;
-		}
+		bool operator==(std::nullptr_t) const { return in.peek() == EOF; }
 
-		inline bool operator!=(std::nullptr_t end) const
-		{
-			return !(*this == end);
-		}
+		bool operator!=(std::nullptr_t end) const { return !(*this == end); }
 
 		constexpr auto operator++() const { return *this; }
 		constexpr auto operator*() const { return *this; }
@@ -104,13 +92,13 @@ namespace py
 	struct input
 	{
 		std::istream &stream;
-		inline input(std::string_view prompt = "", std::istream &in = std::cin)
+		input(std::string_view prompt = "", std::istream &in = std::cin)
 			: stream(in) { std::cout << prompt; }
 		constexpr auto begin() { return istream_iterator(stream); }
 		constexpr auto end() { return nullptr; }
 
 		template <typename T>
-		inline operator T()
+		operator T()
 		{
 			T res;
 			stream >> res;
@@ -164,10 +152,10 @@ namespace py
 	public:
 		printer print;
 
-		inline open(std::string const &filename, openmode mode = read)
+		open(std::string const &filename, openmode mode = read)
 			: print(stream) { stream.open(filename, mode); }
 
-		inline auto input() { return py::input("", stream); }
+		auto input() { return py::input("", stream); }
 		constexpr auto begin() { return ifstream_iterator(stream); }
 		constexpr auto end() { return nullptr; }
 

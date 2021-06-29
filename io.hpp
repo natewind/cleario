@@ -5,22 +5,22 @@
 
 namespace clear
 {
-	inline void write(bool b)
+	void write(bool b)
 	{
 		impl::fputs(b ? "True" : "False", impl::stdout);
 	}
 
-	inline void write(char c) { impl::fputc(c, impl::stdout); }
+	void write(char c) { impl::fputc(c, impl::stdout); }
 
 	// TODO: Replace with custom non-zero-terminated string class
 	template <impl::size_t Size>
-	inline void write(char const (&str)[Size])
+	void write(char const (&str)[Size])
 	{
 		impl::fwrite(str, sizeof(char), Size - 1, impl::stdout);
 	}
 
 	template <class T, IsIntegral<T> = true>
-	inline void write(T value)
+	void write(T value)
 	{
 		using Int = IntTraits<10, T>;
 
@@ -32,10 +32,13 @@ namespace clear
 		impl::fwrite(str, sizeof(char), std::size_t(count), impl::stdout);
 	}
 
-	inline void print() { write('\n'); }
+	template <class T, IsClass<T> = true>
+	void write(T const&);
+
+	void print() { write('\n'); }
 
 	template <class T, class... Args>
-	inline void print(T const &value, Args const... args)
+	void print(T const &value, Args const... args)
 	{
 		write(value);
 

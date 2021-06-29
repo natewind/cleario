@@ -8,37 +8,11 @@
 #include <fstream>     // std::ifstream
 #include <cstddef>     // std::ptrdiff_t, std::nullptr_t
 #include <iostream>    // std::cin, std::cout
-#include <string_view> // std::string(_view), std::to_string, std::sto(f/d/ld)
-#include <type_traits> // std::is_same, std::is_arithmetic
+#include <string_view> // std::string_view
+#include <type_traits> // std::is_same
 
 namespace py
 {
-	class str : public std::string
-	{
-		template <typename T>
-		static constexpr auto stringify(T arg)
-		{
-			if constexpr (std::is_arithmetic<T>::value)
-				return std::to_string(arg);
-			else return arg;
-		}
-
-	public:
-		using std::string::string;
-
-		template <typename T, typename... Args>
-		constexpr str(T first, Args... args)
-			: std::string(stringify(first), args...) {}
-
-		class split; // TODO
-		str join(/* Many args or a list? */); // TODO
-
-		explicit inline operator       float() { return std::stof (*this); }
-		explicit inline operator      double() { return std::stod (*this); }
-		explicit inline operator long double() { return std::stold(*this); }
-	};
-
-
 	bool const __dummy = std::ios_base::sync_with_stdio(false);
 
 	class istream_iterator
@@ -61,14 +35,6 @@ namespace py
 		inline operator T()
 		{
 			T res;
-			in >> res;
-			skip_ws();
-			return res;
-		}
-
-		inline operator str()
-		{
-			str res;
 			in >> res;
 			skip_ws();
 			return res;
@@ -113,13 +79,6 @@ namespace py
 			return res;
 		}
 
-		inline operator str()
-		{
-			str res;
-			std::getline(in, res);
-			return res;
-		}
-
 		inline operator char() { return in.get(); }
 
 		using value_type = ifstream_iterator;
@@ -157,13 +116,6 @@ namespace py
 		{
 			T res;
 			stream >> res;
-			return res;
-		}
-
-		inline operator str()
-		{
-			str res;
-			std::getline(stream, res);
 			return res;
 		}
 

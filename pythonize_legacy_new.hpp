@@ -6,40 +6,41 @@
 #include <istream>  // std::istream
 #include <fstream>  // std::fstream
 #include <cstddef>  // std::ptrdiff_t, std::nullptr_t
+#include <utility>  // std::move
 #include <iterator> // std::input_iterator_tag
 
 template <class T>
-constexpr auto read_one(std::istream &source)
+constexpr auto read_one(std::istream &src)
 {
 	T x;
-	source >> x;
+	src >> x;
 	return x;
 }
 
 class istream_iterator
 {
 protected:
-	std::istream &in;
+	std::istream &src;
 
 	void skip_ws(char stop = '\n')
 	{
 		char c;
-		while ((c = in.get()) != stop && std::isspace(c));
-		in.unget();
+		while ((c = src.get()) != stop && std::isspace(c));
+		src.unget();
 	}
 
 public:
-	constexpr istream_iterator(std::istream &stream) : in(stream) {}
+	constexpr istream_iterator(std::istream &stream) : src(stream) {}
 
 	template <class T>
 	operator T()
 	{
-		auto res = read_one<T>(in);
+		auto res = read_one<T>(src);
 		skip_ws();
 		return res;
 	}
 
-	operator char() { return in.get(); }
+	operator char() { return src.get(); }
 
 	using value_type = istream_iterator;
 	using difference_type = std::ptrdiff_t;
@@ -47,7 +48,7 @@ public:
 	using reference = istream_iterator &;
 	using iterator_category	= std::input_iterator_tag;
 
-	bool operator==(std::nullptr_t) const { return in.peek() == '\n'; }
+	bool operator==(std::nullptr_t) const { return src.peek() == '\n'; }
 
 	bool operator!=(std::nullptr_t end) const { return !(*this == end); }
 
@@ -66,18 +67,18 @@ struct ifstream_iterator : public istream_iterator
 	template <class T>
 	operator T()
 	{
-		auto res = read_one<T>(in);
+		auto res = read_one<T>(src);
 		skip_ws(EOF);
 		return res;
 	}
 
-	operator char() { return in.get(); }
+	operator char() { return src.get(); }
 
 	using value_type = ifstream_iterator;
 	using pointer = ifstream_iterator *;
 	using reference = ifstream_iterator &;
 
-	bool operator==(std::nullptr_t) const { return in.peek() == EOF; }
+	bool operator==(std::nullptr_t) const { return src.peek() == EOF; }
 
 	bool operator!=(std::nullptr_t end) const { return !(*this == end); }
 
@@ -103,7 +104,11 @@ public:
 	constexpr auto read()
 	{
 		if constexpr (sizeof...(Ts) > 0)
-			return std::tuple { read_one<T>(stream), read_one<Ts>(stream)... };
+		{
+			auto x = read_one<T>(stream);
+			return std::tuple(std::move(x), read_one<Ts>(stream)...);
+		}
+
 		else return read_one<T>(stream);
 	}
 

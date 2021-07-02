@@ -1,7 +1,7 @@
-#ifndef IO_HPP
-#define IO_HPP
+#ifndef FILE_HPP
+#define FILE_HPP
 
-#include <tuple>    // std::tuple
+#include <tuple>    // std::tuple, std::tuple_cat
 #include <cctype>   // std::isspace
 #include <istream>  // std::istream
 #include <fstream>  // std::fstream
@@ -15,6 +15,17 @@ constexpr auto read_one(std::istream &src)
 	T x;
 	src >> x;
 	return x;
+}
+
+template <class T, class... Ts>
+constexpr auto read_tuple(std::istream &src)
+{
+	auto x = std::tuple(read_one<T>(src));
+
+	if constexpr (sizeof...(Ts) == 0)
+		return x;
+	else
+		return std::tuple_cat(std::move(x), read_tuple<Ts...>(src));
 }
 
 class istream_iterator
@@ -100,16 +111,13 @@ public:
 	constexpr auto begin() { return ifstream_iterator(stream); }
 	constexpr auto end() { return nullptr; }
 
-	template <class T, class... Ts>
+	template <class... Ts>
 	constexpr auto read()
 	{
-		if constexpr (sizeof...(Ts) > 0)
-		{
-			auto x = read_one<T>(stream);
-			return std::tuple(std::move(x), read_one<Ts>(stream)...);
-		}
-
-		else return read_one<T>(stream);
+		if constexpr (sizeof...(Ts) == 1)
+			return read_one<Ts...>(stream);
+		else
+			return read_tuple<Ts...>(stream);
 	}
 
 	template <class T, class... Ts>

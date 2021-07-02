@@ -163,23 +163,6 @@ namespace py
 	};
 
 	printer print(std::cout);
-
-	/*template <typename T = char const*, typename... Args>
-	inline void print(T const value = "", Args const... args)
-	{
-		if constexpr (std::is_same<T, bool>::value)
-			std::cout << (value ? "True" : "False");
-		else
-			std::cout << value;
-
-		if constexpr (sizeof...(Args) > 0)
-		{
-			std::cout << ' ';
-			print(args...);
-		}
-
-		else std::cout << '\n';
-	}*/
 }
 
 #endif

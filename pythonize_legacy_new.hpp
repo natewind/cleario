@@ -20,6 +20,7 @@ constexpr auto read_one(std::istream &src)
 template <class T, class... Ts>
 constexpr auto read_tuple(std::istream &src)
 {
+	// No fold expressions! Argument evaluation order in unspecified!
 	auto x = std::tuple(read_one<T>(src));
 
 	if constexpr (sizeof...(Ts) == 0)

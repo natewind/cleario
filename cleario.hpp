@@ -1,11 +1,8 @@
 #include "traits.hpp"
 
-// TODO: Hide in a module partition to avoid global namespace pollution
 #include <cstdio>
 #include <iterator>
 #include <type_traits>
-
-// TODO: Optional error-managed IO (try_write, try_read etc.)
 
 namespace clear
 {
@@ -16,7 +13,6 @@ namespace clear
 
 	inline void write(char c) { std::fputc(c, stdout); }
 
-	// TODO: Replace with custom non-zero-terminated string class
 	template <std::size_t Size>
 	void write(char const (&str)[Size])
 	{

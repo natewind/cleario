@@ -32,6 +32,7 @@ namespace clear
 		static constexpr auto maxlen = std::max(charlen(min), charlen(max));
 
 		// TODO: Also return size
+		// TODO: Also make version with reverse for adding to existing string?
 		static auto to_string(T value, char (&result)[maxlen]) -> char *
 		{
 			static constexpr auto min_base = 2, max_base = 36;

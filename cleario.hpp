@@ -1,5 +1,7 @@
-#include "impl.hpp"
 #include "traits.hpp"
+
+// TODO: Hide in a module partition to avoid global namespace pollution
+#include <cstdio>
 #include <iterator>
 #include <type_traits>
 
@@ -7,16 +9,16 @@ namespace clear
 {
 	void write(bool b)
 	{
-		impl::fputs(b ? "True" : "False", impl::stdout);
+		std::fputs(b ? "True" : "False", stdout);
 	}
 
-	void write(char c) { impl::fputc(c, impl::stdout); }
+	void write(char c) { std::fputc(c, stdout); }
 
 	// TODO: Replace with custom non-zero-terminated string class
-	template <impl::size_t Size>
+	template <std::size_t Size>
 	void write(char const (&str)[Size])
 	{
-		impl::fwrite(str, sizeof(char), Size - 1, impl::stdout);
+		std::fwrite(str, sizeof(char), Size - 1, stdout);
 	}
 
 	template <class T, IsIntegral<T> = true>
@@ -29,7 +31,7 @@ namespace clear
 		auto const str = Int::to_string(value, buff);
 		auto const count = std::distance(str, std::end(buff));
 
-		impl::fwrite(str, sizeof(char), std::size_t(count), impl::stdout);
+		std::fwrite(str, sizeof(char), std::size_t(count), stdout);
 	}
 
 	template <class T, IsClass<T> = true>

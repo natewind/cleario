@@ -5,8 +5,7 @@ namespace impl
 
 	extern "C"
 	{
-		// TODO [Fix]: this only works on Unix, standard says these are macros
-		// Wait for C++20 modules and just include stdio?
+		// This only works on Unix, standard says these are macros
 		extern FILE *stdin, *stdout, *stderr;
 
 		auto fputc(char c, FILE *stream) -> int;

@@ -21,9 +21,7 @@ namespace clear
 		std::FILE *const stream;
 
 		explicit open(cstring name, cstring mode = "r+")
-		{
-			std::fopen(name.data, mode.data);
-		}
+			: stream(std::fopen(name.data, mode.data)) {}
 
 		~open() { std::fclose(stream); }
 	};

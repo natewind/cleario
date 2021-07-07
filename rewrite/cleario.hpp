@@ -5,7 +5,7 @@ namespace clear
 {
 	struct cstring
 	{
-		char const *data;
+		char const *const data;
 		std::size_t const size;
 
 		template <std::size_t BuffSize>

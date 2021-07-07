@@ -11,19 +11,19 @@ public:
 		std::fputs(b ? "True" : "False", handle);
 	}
 
-    void write(int x)
+	void write(int x)
 	{
 		std::fprintf(handle, "%d", x);
 	}
 
 	// TODO: constructor(char const*) { fopen }, destructor { fclose }
 
-    static auto cout() -> open
-    {
-        auto file = open();
-        file.handle = stdout;
-        return file;
-    }
+	static auto cout() -> open
+	{
+		auto file = open();
+		file.handle = stdout;
+		return file;
+	}
 };
 
 template <class T>

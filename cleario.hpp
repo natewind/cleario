@@ -7,12 +7,12 @@
 
 namespace clear
 {
-	void write(bool b)
+	inline void write(bool b)
 	{
 		std::fputs(b ? "True" : "False", stdout);
 	}
 
-	void write(char c) { std::fputc(c, stdout); }
+	inline void write(char c) { std::fputc(c, stdout); }
 
 	// TODO: Replace with custom non-zero-terminated string class
 	template <std::size_t Size>
@@ -37,7 +37,7 @@ namespace clear
 	template <class T, IsClass<T> = true>
 	void write(T const&);
 
-	void print() { write('\n'); }
+	inline void print() { write('\n'); }
 
 	template <class T, class... Args>
 	void print(T const &value, Args const... args)

@@ -5,6 +5,8 @@
 #include <iterator>
 #include <type_traits>
 
+// TODO: Optional error-managed IO (try_write, try_read etc.)
+
 namespace clear
 {
 	inline void write(bool b)

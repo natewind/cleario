@@ -36,8 +36,8 @@
 * [ ] Output iterator
 * [ ] Optional `write()` (default?)
 * [ ] Optional `print()` (default?)
-* [ ] `read() -> std::optional`
-* [ ] `input() -> std::optional`
+* [ ] `safe_read() -> std::optional`
+* [ ] `safe_input() -> std::optional`
 * [ ] Modularize cleario to get rid of global namespace pollution
 * [ ] Use `<format>` instead of custom serialization of basic types [?]
 * [ ] Nice README with examples

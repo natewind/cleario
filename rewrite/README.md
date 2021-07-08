@@ -11,7 +11,6 @@
     * [ ] Pointer types
     * [ ] Arrays
     * [ ] `std::nullptr_t` -> None
-    * [ ] `std::size_t` [?]
     * [ ] `std::char8_t` [?]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
 * [ ] `write()` for STL types [?]

@@ -3,7 +3,7 @@
 struct Point { int x, y; };
 
 template <>
-void clear::stream::write<Point>(Point const &point)
+inline void clear::stream::write<Point>(Point const &point)
 {
 	/*write('(');
 	write(point.x);

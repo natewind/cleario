@@ -5,7 +5,7 @@
 * [ ] `write()` for basic types
     * [ ] `char`
     * [ ] C-style string
-    * [ ] `bool` -> False/True
+    * [x] `bool` -> False/True
     * [ ] Integer types
     * [ ] Floating types
     * [ ] Pointer types

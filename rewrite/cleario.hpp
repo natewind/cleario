@@ -1,7 +1,7 @@
 #include <string> // std::string
 #include <cstdio> // Wrappee
 
-namespace clear
+class clear
 {
 	struct cstring
 	{
@@ -16,13 +16,32 @@ namespace clear
 			: data(str.c_str()), size(str.size()) {}
 	};
 
+	class stream
+	{
+		std::FILE *file;
+
+	public:
+		explicit stream(std::FILE *file) : file(file) {}
+
+		// TODO: move constructor/assignment op
+		// TODO: ban copy constructor/assignment op
+
+		template <class T>
+		void write(const &T);
+
+		void write(bool x) { std::fputs(x ? "True" : "False", file); }
+	};
+
 	struct open
 	{
-		std::FILE *const stream;
-
 		explicit open(cstring name, cstring mode = "r+")
-			: stream(std::fopen(name.data, mode.data)) {}
+		{
+			file = std::fopen(name.data, mode.data);
+		}
 
-		~open() { std::fclose(stream); }
+		~open() { std::fclose(file); }
 	};
-}
+
+	template <class T>
+	void write(T &&x) { stream{stdout}.write(std::forward<T>(x));}
+};

@@ -1,7 +1,8 @@
-#include <string> // std::string
-#include <cstdio> // Wrappee
+#include <string>  // std::string
+#include <utility> // std::move, std::swap, std::forward
+#include <cstdio>  // Wrappee
 
-class clear
+namespace clear
 {
 	struct cstring
 	{
@@ -18,30 +19,46 @@ class clear
 
 	class stream
 	{
-		std::FILE *file;
+		std::FILE *handle;
 
 	public:
-		explicit stream(std::FILE *file) : file(file) {}
+		explicit constexpr stream(std::FILE *h) : handle(h) {}
+		constexpr auto unsafe() { return handle; }
 
-		// TODO: move constructor/assignment op
-		// TODO: ban copy constructor/assignment op
+		stream(stream const&) = delete;
+		auto operator=(stream const&) = delete;
 
-		template <class T>
-		void write(const &T);
+		stream(stream &&other) { (*this) = std::move(other); }
 
-		void write(bool x) { std::fputs(x ? "True" : "False", file); }
-	};
-
-	struct open
-	{
-		explicit open(cstring name, cstring mode = "r+")
+		auto operator=(stream &&other) -> stream&
 		{
-			file = std::fopen(name.data, mode.data);
+			std::swap(handle, other.handle);
+			return *this;
 		}
 
-		~open() { std::fclose(file); }
+		template <class T>
+		void write(const T&);
+
+		void write(bool x) { std::fputs(x ? "True" : "False", handle); }
+	};
+
+	class open
+	{
+		stream file;
+
+	public:
+		explicit open(cstring name, cstring mode = "r+")
+			: file(std::fopen(name.data, mode.data)) {}
+
+		open(open&&) = default;
+		auto operator=(open&&) -> open& = default;
+
+		~open() { std::fclose(file.unsafe()); }
+
+		template <class T>
+		void write(T &&x) { file.write(std::forward<T>(x)); }
 	};
 
 	template <class T>
-	void write(T &&x) { stream{stdout}.write(std::forward<T>(x));}
-};
+	void write(T &&x) { stream(stdout).write(std::forward<T>(x)); }
+}

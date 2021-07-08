@@ -19,7 +19,7 @@ namespace clear
 
 	class stream
 	{
-		std::FILE *handle;
+		std::FILE *handle = nullptr;
 
 	public:
 		explicit constexpr stream(std::FILE *h) : handle(h) {}
@@ -53,7 +53,11 @@ namespace clear
 		open(open&&) = default;
 		auto operator=(open&&) -> open& = default;
 
-		~open() { std::fclose(file.unsafe()); }
+		~open()
+		{
+			if (file.unsafe() != nullptr)
+				std::fclose(file.unsafe());
+		}
 
 		template <class T>
 		void write(T &&x) { file.write(std::forward<T>(x)); }

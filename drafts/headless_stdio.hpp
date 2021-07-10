@@ -5,7 +5,7 @@ namespace impl
 
 	extern "C"
 	{
-		// This only works on Unix, standard says these are macros
+		// This only works on Unix, the standard says these are macros
 		extern FILE *stdin, *stdout, *stderr;
 
 		auto fputc(char c, FILE *stream) -> int;

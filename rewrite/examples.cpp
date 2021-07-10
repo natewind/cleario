@@ -19,5 +19,5 @@ auto main() -> int
 {
 	auto file = clear::open("file.txt", "w");
 
-	file.write(Point {3, 4});
+	file.print(Point {3, 4});
 }

@@ -40,9 +40,22 @@ namespace clear
 		template <class T>
 		void write(const T&);
 
-		void write(bool x)     { std::fputs(x ? "True" : "False", handle); }
-		void write(char x)     { std::fputc(x, handle); }
-		void write(cstring xs) { std::fputs(xs.data, handle); }
+		void write(bool b)    { std::fputs(b ? "True" : "False", handle); }
+		void write(char c)    { std::fputc(c, handle); }
+		void write(cstring s) { std::fputs(s.data, handle); }
+
+		void print() { write('\n'); }
+
+		template <class T, class... Ts>
+		void print(T const &x, Ts const&... xs)
+		{
+			write(x);
+
+			if constexpr (sizeof...(Ts) > 0)
+				write(' ');
+
+			print(xs...);
+		}
 	};
 
 	class open
@@ -64,8 +77,14 @@ namespace clear
 
 		template <class T>
 		void write(T &&x) { file.write(std::forward<T>(x)); }
+
+		template <class... Ts>
+		void print(Ts &&... xs) { file.print(std::forward<Ts>(xs)...); }
 	};
 
 	template <class T>
 	void write(T &&x) { stream(stdout).write(std::forward<T>(x)); }
+
+	template <class... Ts>
+	void print(Ts &&... xs) { stream(stdout).print(std::forward<Ts>(xs)...); }
 }

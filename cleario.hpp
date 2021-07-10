@@ -38,7 +38,7 @@ namespace clear
 	inline void print() { write('\n'); }
 
 	template <class T, class... Args>
-	void print(T const &value, Args const... args)
+	void print(T const &value, Args const&... args)
 	{
 		write(value);
 

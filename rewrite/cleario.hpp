@@ -4,6 +4,7 @@
 
 namespace clear
 {
+	// TODO: Do I need size, or this class at all?
 	struct cstring
 	{
 		char const *const data;
@@ -39,7 +40,9 @@ namespace clear
 		template <class T>
 		void write(const T&);
 
-		void write(bool x) { std::fputs(x ? "True" : "False", handle); }
+		void write(bool x)     { std::fputs(x ? "True" : "False", handle); }
+		void write(char x)     { std::fputc(x, handle); }
+		void write(cstring xs) { std::fputs(xs.data, handle); }
 	};
 
 	class open

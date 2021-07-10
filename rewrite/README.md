@@ -3,8 +3,8 @@
 * [x] Open/close file (RAII class) with name and mode
 * [ ] Non-zero-terminated string class [?]
 * [ ] `write()` for basic types
-    * [ ] `char`
-    * [ ] C-style string
+    * [x] `char`
+    * [x] C-style string
     * [x] `bool` -> False/True
     * [ ] Integer types
     * [ ] Floating types
@@ -14,7 +14,7 @@
     * [ ] `std::char8_t` [?]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
 * [ ] `write()` for STL types [?]
-    * [ ] `std::string`
+    * [x] `std::string`
     * [ ] `std::string_view`
     * [ ] `std::vector`
     * [ ] `std::optional` -> None/Refl
@@ -40,4 +40,5 @@
 * [ ] `safe_input() -> std::optional`
 * [ ] Modularize cleario to get rid of global namespace pollution
 * [ ] Use `<format>` instead of custom serialization of basic types [?]
-* [ ] Nice README with examples
+* [ ] Add `noexcept` specifiers for performance (esp. on GCC) [?]
+* [ ] Nice README with examples (test beforehand)

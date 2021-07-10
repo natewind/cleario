@@ -40,9 +40,9 @@ namespace clear
 		template <class T>
 		void write(const T&);
 
-		void write(bool b)    { std::fputs(b ? "True" : "False", stream); }
-		void write(char c)    { std::fputc(c, stream); }
-		void write(cstring s) { std::fputs(s.data, stream); }
+		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
+		void write(char c)        { std::fputc(c, stream); }
+		void write(char const *s) { std::fputs(s, stream); }
 
 		void print() { write('\n'); }
 

@@ -3,16 +3,13 @@
 struct Point { int x, y; };
 
 template <>
-inline void clear::fstream::write<Point>(Point const &point)
+inline void clear::fstream::write<Point>(Point const &/*point*/)
 {
-	/*write('(');
-	write(point.x);
+	write('(');
+	// write(point.x);
 	write(", ");
-	write(point.y);
-	write(')');*/
-
-	// TEST
-	write(point.x == 0);
+	// write(point.y);
+	write(')');
 }
 
 auto main() -> int

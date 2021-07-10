@@ -14,7 +14,7 @@
 	* [ ] `std::char8_t` [?]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
 * [ ] `write()` for STL types [?]
-	* [x] `std::string`
+	* [ ] `std::string`
 	* [ ] `std::string_view`
 	* [ ] `std::vector`
 	* [ ] `std::optional` -> None/Refl

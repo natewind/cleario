@@ -18,31 +18,31 @@ namespace clear
 			: data(str.c_str()), size(str.size()) {}
 	};
 
-	class stream
+	class fstream
 	{
-		std::FILE *handle = nullptr;
+		std::FILE *stream = nullptr;
 
 	public:
-		explicit constexpr stream(std::FILE *h) : handle(h) {}
-		constexpr auto unsafe() { return handle; }
+		explicit constexpr fstream(std::FILE *f) : stream(f) {}
+		constexpr auto unsafe() { return stream; }
 
-		stream(stream const&) = delete;
-		auto operator=(stream const&) = delete;
+		fstream(fstream const&) = delete;
+		auto operator=(fstream const&) = delete;
 
-		stream(stream &&other) { (*this) = std::move(other); }
+		fstream(fstream &&other) { (*this) = std::move(other); }
 
-		auto operator=(stream &&other) -> stream&
+		auto operator=(fstream &&other) -> fstream&
 		{
-			std::swap(handle, other.handle);
+			std::swap(stream, other.stream);
 			return *this;
 		}
 
 		template <class T>
 		void write(const T&);
 
-		void write(bool b)    { std::fputs(b ? "True" : "False", handle); }
-		void write(char c)    { std::fputc(c, handle); }
-		void write(cstring s) { std::fputs(s.data, handle); }
+		void write(bool b)    { std::fputs(b ? "True" : "False", stream); }
+		void write(char c)    { std::fputc(c, stream); }
+		void write(cstring s) { std::fputs(s.data, stream); }
 
 		void print() { write('\n'); }
 
@@ -60,7 +60,7 @@ namespace clear
 
 	class open
 	{
-		stream file;
+		fstream file;
 
 	public:
 		explicit open(cstring name, cstring mode = "r+")
@@ -83,8 +83,8 @@ namespace clear
 	};
 
 	template <class T>
-	void write(T &&x) { stream(stdout).write(std::forward<T>(x)); }
+	void write(T &&x) { fstream(stdout).write(std::forward<T>(x)); }
 
 	template <class... Ts>
-	void print(Ts &&... xs) { stream(stdout).print(std::forward<Ts>(xs)...); }
+	void print(Ts &&... xs) { fstream(stdout).print(std::forward<Ts>(xs)...); }
 }

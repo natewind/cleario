@@ -18,5 +18,7 @@ auto main() -> int
 
 	file.print(Point {3, 4});
 
-	clear::print(std::array{true, false, true, false}, std::array<bool, 0>{});
+	bool arr1[] = {true, false, true, false};
+
+	clear::print(arr1);
 }

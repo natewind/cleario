@@ -9,7 +9,7 @@
 	* [ ] Integer types
 	* [ ] Floating types
 	* [ ] Pointers -> <TYPE object at 0x00...>
-	* [ ] Arrays -> [a0, a1]
+	* [x] Arrays -> [a0, a1]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
 * [ ] Printing integers in other bases
 * [ ] Reading integers in other bases

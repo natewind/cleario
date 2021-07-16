@@ -68,8 +68,14 @@ namespace clear
 			write(']');
 		}
 
-		template <class T, std::size_t N>
-		void write(std::array<T, N> const &xs)
+		template <class T, std::size_t Size>
+		void write(T const (&xs)[Size])
+		{
+			write_sequence(xs, xs + Size);
+		}
+
+		template <class T, std::size_t Size>
+		void write(std::array<T, Size> const &xs)
 		{
 			write_sequence(begin(xs), end(xs));
 		}

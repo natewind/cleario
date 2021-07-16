@@ -42,7 +42,7 @@
 		* [ ] `std::nullptr_t` -> None
 		* [ ] `std::byte` -> 0x00
 		* [ ] `std::char8_t` [?]
-		* [ ] `std::complex` -> ai + bj
+		* [ ] `std::complex` -> a + bi
 		* [ ] `std::span` (C++20) -> [a0, a1]
 * [x] `write()` for user-class specializations
 * [x] Variadic `print()` with spaces and a newline

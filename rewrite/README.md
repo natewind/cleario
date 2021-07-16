@@ -43,7 +43,7 @@
 		* [ ] `std::byte` -> 0x00
 		* [ ] `std::char8_t` [?]
 		* [ ] `std::complex` -> ai + bj
-		* [ ] `std::span` (C++20) -> [,]
+		* [ ] `std::span` (C++20) -> [a0, a1]
 * [x] `write()` for user-class specializations
 * [x] Variadic `print()` with spaces and a newline
 * [x] `::write()` and `::print()` to `stdout`

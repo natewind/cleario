@@ -25,7 +25,7 @@
 		* [ ] `std::multiset`
 		* [ ] `std::unordered_set`
 		* [ ] `std::unordered_multiset`
-	* [ ] Maps -> {a0 : b0, a1 : b1}
+	* [ ] Maps -> {a0: b0, a1: b1}
 		* [ ] `std::map`
 		* [ ] `std::multimap`
 		* [ ] `std::unordered_map`

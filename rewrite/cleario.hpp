@@ -1,3 +1,4 @@
+#include <array>     // std::array
 #include <string>    // std::string
 #include <vector>    // std::vector
 #include <utility>   // std::move, std::swap, std::forward
@@ -47,16 +48,16 @@ namespace clear
 		void write(char c)        { std::fputc(c, stream); }
 		void write(char const *s) { std::fputs(s, stream); }
 
-		template <class T>
-		void write(std::vector<T> const &xs)
+		template <class InputIt1, class InputIt2>
+		void write_sequence(InputIt1 first, InputIt2 last)
 		{
 			write('[');
 
-			if (auto const it = begin(xs); it != end(xs))
+			if (first != last)
 			{
-				write(*it);
+				write(*first);
 
-				std::for_each(next(it), end(xs), [this](auto const &x)
+				std::for_each(std::next(first), last, [this](auto const &x)
 				{
 					write(',');
 					write(' ');
@@ -65,6 +66,18 @@ namespace clear
 			}
 
 			write(']');
+		}
+
+		template <class T, std::size_t N>
+		void write(std::array<T, N> const &xs)
+		{
+			write_sequence(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::vector<T> const &xs)
+		{
+			write_sequence(begin(xs), end(xs));
 		}
 
 		void print() { write('\n'); }

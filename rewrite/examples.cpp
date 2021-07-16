@@ -18,5 +18,5 @@ auto main() -> int
 
 	file.print(Point {3, 4});
 
-	clear::print(std::vector{true, false, true, false}, std::vector<bool>{});
+	clear::print(std::array{true, false, true, false}, std::array<bool, 0>{});
 }

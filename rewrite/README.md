@@ -16,7 +16,7 @@
 * [ ] `write()` for STL types
 	* [ ] Sequences -> [a0, a1]
 		* [ ] `std::array`
-		* [ ] `std::vector`
+		* [x] `std::vector`
 		* [ ] `std::deque`
 		* [ ] `std::forward_list`
 		* [ ] `std::list`

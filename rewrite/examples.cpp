@@ -17,4 +17,6 @@ auto main() -> int
 	auto file = clear::open("file.txt", "w");
 
 	file.print(Point {3, 4});
+
+	clear::print(std::vector{true, false, true, false}, std::vector<bool>{});
 }

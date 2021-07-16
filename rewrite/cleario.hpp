@@ -1,6 +1,9 @@
-#include <string>  // std::string
-#include <utility> // std::move, std::swap, std::forward
-#include <cstdio>  // Wrappee
+#include <string>    // std::string
+#include <vector>    // std::vector
+#include <utility>   // std::move, std::swap, std::forward
+#include <iterator>  // std::next
+#include <algorithm> // std::for_each
+#include <cstdio>    // Wrappee
 
 namespace clear
 {
@@ -43,6 +46,26 @@ namespace clear
 		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
 		void write(char c)        { std::fputc(c, stream); }
 		void write(char const *s) { std::fputs(s, stream); }
+
+		template <class T>
+		void write(std::vector<T> const &xs)
+		{
+			write('[');
+
+			if (auto const it = begin(xs); it != end(xs))
+			{
+				write(*it);
+
+				std::for_each(next(it), end(xs), [this](auto const &x)
+				{
+					write(',');
+					write(' ');
+					write(x);
+				});
+			}
+
+			write(']');
+		}
 
 		void print() { write('\n'); }
 

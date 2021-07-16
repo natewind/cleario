@@ -2,27 +2,52 @@
 
 * [x] Open/close file (RAII class) with name and mode
 * [ ] Non-zero-terminated string class [?]
-* [ ] `write()` for basic types
+* `write()` for basic types
 	* [x] `char`
 	* [x] C-style string
 	* [x] `bool` -> False/True
 	* [ ] Integer types
 	* [ ] Floating types
-	* [ ] Pointer types
-	* [ ] Arrays
-	* [ ] `std::nullptr_t` -> None
-	* [ ] `std::char8_t` [?]
+	* [ ] Pointers -> <TYPE object at 0x00...>
+	* [ ] Arrays -> [a0, a1]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
-* [ ] `write()` for STL types [?]
-	* [ ] `std::string`
-	* [ ] `std::string_view`
-	* [ ] `std::vector`
-	* [ ] `std::optional` -> None/Refl
-	* [ ] [More]
+* [ ] Printing integers in other bases
+* [ ] Reading integers in other bases
+* `write()` for STL types
+	* Sequences -> [a0, a1]
+		* [ ] `std::array`
+		* [ ] `std::vector`
+		* [ ] `std::deque`
+		* [ ] `std::forward_list`
+		* [ ] `std::list`
+	* Sets -> {a0, a1}
+		* [ ] `std::set`
+		* [ ] `std::multiset`
+		* [ ] `std::unordered_set`
+		* [ ] `std::unordered_multiset`
+	* Maps -> {a0 : b0, a1 : b1}
+		* [ ] `std::map`
+		* [ ] `std::multimap`
+		* [ ] `std::unordered_map`
+		* [ ] `std::unordered_multimap`
+	* Pointers -> <TYPE object at 0x00...>
+		* [ ] `std::unique_ptr`
+		* [ ] `std::shared_ptr`
+	* Strings
+		* [ ] `std::string`
+		* [ ] `std::string_view`
+	* Other
+		* [ ] `std::tuple` -> (a0, a1)
+		* [ ] `std::optional` -> None/Refl
+		* [ ] `std::nullptr_t` -> None
+		* [ ] `std::byte` -> 0x00
+		* [ ] `std::char8_t` [?]
+		* [ ] `std::complex` -> ai + bj
+		* [ ] `std::span` (C++20) -> [,]
 * [x] `write()` for user-class specializations
 * [x] Variadic `print()` with spaces and a newline
 * [x] `::write()` and `::print()` to `stdout`
-* [ ] Fancy-print floating types
+* Fancy-print floating types
 	* [ ] Precision
 	* [ ] Digits before the point
 	* [ ] Digits after the point

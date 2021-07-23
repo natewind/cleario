@@ -1,3 +1,6 @@
+#ifndef CLEARIO_HPP
+#define CLEARIO_HPP
+
 #include <array>     // std::array
 #include <string>    // std::string
 #include <vector>    // std::vector
@@ -130,3 +133,5 @@ namespace clear
 	template <class... Ts>
 	void print(Ts &&... xs) { fstream(stdout).print(std::forward<Ts>(xs)...); }
 }
+
+#endif

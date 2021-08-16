@@ -8,7 +8,7 @@
 	* [x] `bool` -> False/True
 	* [ ] Integer types
 	* [ ] Floating types
-	* [ ] Pointers -> <TYPE object at 0x00...>
+	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
 	* [x] Arrays -> [a0, a1]
 	* [ ] `void` (`write()`) -> () [?]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
@@ -31,7 +31,7 @@
 		* [ ] `std::multimap`
 		* [ ] `std::unordered_map`
 		* [ ] `std::unordered_multimap`
-	* [ ] Pointers -> <TYPE object at 0x00...>
+	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
 		* [ ] `std::unique_ptr`
 		* [ ] `std::shared_ptr`
 	* [ ] Strings

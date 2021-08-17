@@ -3,16 +3,22 @@
 struct Point { int x, y; };
 
 template <>
-void clear::write<Point>(Point const &point)
+inline void clear::fstream::write<Point>(Point const &/*point*/)
 {
 	write('(');
-	write(point.x);
+	// write(point.x);
 	write(", ");
-	write(point.y);
+	// write(point.y);
 	write(')');
 }
 
 auto main() -> int
 {
-	clear::print("Hello World!", 42, true, Point {3, 4});
+	auto file = clear::open("file.txt", "w");
+
+	file.print(Point {3, 4});
+
+	bool arr1[] = {true, false, true, false};
+
+	clear::print(arr1);
 }

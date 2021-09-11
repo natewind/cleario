@@ -1,3 +1,4 @@
+#include <vector>
 #include "cleario.hpp"
 
 struct Point { int x, y; };
@@ -18,7 +19,7 @@ auto main() -> int
 
 	file.print(Point {3, 4});
 
-	bool arr1[] = {true, false, true, false};
+	auto vec = std::vector{true, false, true, false};
 
-	clear::print(arr1);
+	clear::print(vec);
 }

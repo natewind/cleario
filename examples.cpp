@@ -19,7 +19,7 @@ auto main() -> int
 
 	file.print(Point {3, 4});
 
-	auto vec = std::vector{true, false, true, false};
+	auto vec = std::vector{true, false, true, false, false};
 
 	clear::print(vec);
 }

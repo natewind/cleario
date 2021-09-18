@@ -6,8 +6,8 @@
 	* [x] `char`
 	* [x] C-style string
 	* [x] `bool` -> False/True
-	* [ ] Integer types
-	* [ ] Floating types
+	* [ ] Integer types (use `<charconv>`/`std::to_chars`?)
+	* [ ] Floating types (same)
 	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
 	* [x] Arrays -> [a0, a1]
 	* [ ] `void` (`write()`) -> () [?]

@@ -74,4 +74,5 @@
 * [ ] Modularize cleario to get rid of global namespace pollution
 * [ ] Use `<format>` instead of custom serialization of basic types [?]
 * [ ] Add `noexcept` specifiers for performance (esp. on GCC) [?]
+* [ ] Make reading `const` [?]
 * [ ] Nice README with examples (test beforehand)

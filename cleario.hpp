@@ -11,20 +11,6 @@
 
 namespace clear
 {
-	// TODO: Do I need size, or this class at all?
-	struct cstring
-	{
-		char const *const data;
-		std::size_t const size;
-
-		template <std::size_t BuffSize>
-		constexpr cstring(char const (&ptr)[BuffSize])
-			: data(ptr), size(BuffSize - 1) {}
-
-		cstring(std::string const &str)
-			: data(str.c_str()), size(str.size()) {}
-	};
-
 	class fstream
 	{
 		std::FILE *stream = nullptr;
@@ -108,8 +94,8 @@ namespace clear
 		fstream file;
 
 	public:
-		explicit open(cstring name, cstring mode = "r+")
-			: file(std::fopen(name.data, mode.data)) {}
+		explicit open(char const *name, char const *mode = "r+")
+			: file(std::fopen(name, mode)) {}
 
 		open(open&&) = default;
 		auto operator=(open&&) -> open& = default;

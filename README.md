@@ -1,7 +1,6 @@
 # TODO
 
 * [x] Open/close file (RAII class) with name and mode
-* [ ] Non-zero-terminated string class [?]
 * [ ] `write()` for basic types
 	* [x] `char`
 	* [x] C-style string

@@ -7,7 +7,7 @@
 	* [x] `bool` -> False/True
 	* [x] Integer types
 	* [ ] Floating types
-	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
+	* [x] Pointers -> <object at 0x00...>
 	* [x] Arrays -> [a0, a1]
 	* [ ] `void` (`write()`) -> () [?]
 * [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]

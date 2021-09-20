@@ -3,6 +3,7 @@
 
 #include <array>       // std::array
 #include <vector>      // std::vector
+#include <cstdint>     // std::uintptr_t
 #include <utility>     // std::move, std::swap
 #include <iterator>    // std::next
 #include <charconv>    // std::to_chars
@@ -58,6 +59,25 @@ namespace clear
 
 			auto const size = std::to_chars(begin, end, x).ptr - begin;
 			std::fwrite(begin, size, 1, stream);
+		}
+
+		template <class T>
+		void write(T *ptr)
+		{
+			using IntPtr = std::uintptr_t;
+			// TODO: Add to the array and write everyting at once?
+			write("<object at 0x");
+
+			// TODO: Get rid of the code duplication! (write(int))
+			auto buff = std::array<char, impl::maxlen<IntPtr>(16)>();
+			auto const begin = buff.data();
+			auto const end = begin + buff.size();
+
+			auto const addr = reinterpret_cast<IntPtr>(ptr);
+			auto const size = std::to_chars(begin, end, addr, 16).ptr - begin;
+			std::fwrite(begin, size, 1, stream);
+
+			write('>');
 		}
 
 		template <class InputIt1, class InputIt2>

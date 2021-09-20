@@ -20,4 +20,6 @@ auto main() -> int
 
 	auto vec = std::vector{1, 2, 3, 4, 5};
 	clear::print(vec);
+
+	clear::print(&vec);
 }

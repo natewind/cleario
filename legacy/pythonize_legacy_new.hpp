@@ -120,14 +120,6 @@ public:
 		else
 			return read_tuple<Ts...>(stream);
 	}
-
-	template <class T, class... Ts>
-	constexpr void print(T const &x, Ts const&... xs)
-	{
-		stream << x;
-		((stream << " " << xs), ...);
-		stream << '\n';
-	}
 };
 
 #endif

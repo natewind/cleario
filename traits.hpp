@@ -19,11 +19,11 @@ namespace clear
 		return (x == 0) ? acc : log(base, x / base, acc + 1);
 	}
 
-	// TODO: Fix a bug: charlen(0) returns 0
 	template <class T, IsIntegral<T> = true>
 	constexpr auto charlen(char base, T x) -> T
 	{
-		return log(base, x, T((x < 0) ? 1 : 0));
+		auto const minus_sign = T(x < 0 ? 1 : 0);
+		return (x == 0) ? 1 : log(base, x, minus_sign);
 	}
 
 	template <class T, IsIntegral<T> = true>

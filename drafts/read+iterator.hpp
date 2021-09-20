@@ -41,6 +41,12 @@ protected:
 		src.unget();
 	}
 
+	// No unget() but reads everything twice?
+	void skip_ws_alt(char stop = '\n')
+	{
+		for (char c; (c = src.peek()) != stop && std::isspace(c); src.get());
+	}
+
 public:
 	constexpr istream_iterator(std::istream &stream) : src(stream) {}
 

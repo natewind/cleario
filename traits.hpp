@@ -5,7 +5,7 @@
 #include <algorithm>   // std::max
 #include <type_traits> // std::enable_if_t, std::is_integral_v, std::is_class_v
 
-namespace clear
+namespace clear::impl
 {
 	template <class T>
 	using IsIntegral = std::enable_if_t<std::is_integral_v<T>, bool>;

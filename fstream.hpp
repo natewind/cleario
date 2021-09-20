@@ -41,10 +41,10 @@ namespace clear
 		void write(char c)        { std::fputc(c, stream); }
 		void write(char const *s) { std::fputs(s, stream); }
 
-		template <class T, IsIntegral<T> = true>
+		template <class T, impl::IsIntegral<T> = true>
 		void write(T x)
 		{
-			auto buff = std::array<char, maxlen<T>(10)>();
+			auto buff = std::array<char, impl::maxlen<T>(10)>();
 			auto const begin = buff.data();
 			auto const end = begin + buff.size();
 
@@ -90,7 +90,7 @@ namespace clear
 			write_sequence(begin(xs), end(xs));
 		}
 
-		template <class T, IsClass<T> = true>
+		template <class T, impl::IsClass<T> = true>
 		void write(const T&);
 
 		void print() { write('\n'); }

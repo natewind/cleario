@@ -1,5 +1,5 @@
 #include <vector>
-#include "cleario.hpp"
+#include "../cleario.hpp"
 
 struct Point { int x, y; };
 

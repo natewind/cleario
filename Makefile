@@ -1,2 +1,0 @@
-all:
-	g++ examples.cpp -o examples -std=c++17 -fno-rtti -fstrict-enums -Wfatal-errors -Werror -Wpedantic -pedantic-errors -Wall -Wextra -Wstrict-null-sentinel -Wdouble-promotion -Wfloat-equal -Wcast-qual -Wzero-as-null-pointer-constant -Wlogical-op -Wimplicit-fallthrough=5 -Wnull-dereference -Wduplicated-branches -Wctor-dtor-privacy -Wnon-virtual-dtor -Wsuggest-final-types -Wsuggest-final-methods -Wsuggest-override -Wformat-overflow -Wformat-security -Wformat-signedness -Wuseless-cast -Wextra-semi -Wredundant-decls -O3 -fipa-pta -flto -fdevirtualize-at-ltrans

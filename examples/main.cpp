@@ -27,4 +27,8 @@ auto main() -> int
 	clear::print(std::set{"qwe", "rty", "uio"});
 	clear::print(std::unordered_map<char const*, int>
 		{{"qwe", 4}, {"rty", 5}, {"uio", 6}});
+
+	clear::print(std::deque{1, 2, 3, 4, 5});
+	clear::print(std::forward_list{6, 7, 8, 9, 10});
+	clear::print(std::list{11, 12, 13, 14, 15});
 }

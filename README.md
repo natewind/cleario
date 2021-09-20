@@ -14,12 +14,12 @@
 * [ ] Printing integers in other bases
 * [ ] Reading integers in other bases
 * [ ] `write()` for STL types
-	* [ ] Sequences -> [a0, a1]
+	* [x] Sequences -> [a0, a1]
 		* [x] `std::array`
 		* [x] `std::vector`
-		* [ ] `std::deque`
-		* [ ] `std::forward_list`
-		* [ ] `std::list`
+		* [x] `std::deque`
+		* [x] `std::forward_list`
+		* [x] `std::list`
 	* [ ] Sets -> {a0, a1}
 		* [x] `std::set`
 		* [ ] `std::multiset`

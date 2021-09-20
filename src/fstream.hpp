@@ -2,7 +2,9 @@
 #define CLEARIO_FSTREAM_HPP
 
 #include <set>           // std::set
+#include <list>          // std::list
 #include <array>         // std::array
+#include <deque>         // std::deque
 #include <vector>        // std::vector
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
@@ -10,8 +12,10 @@
 #include <charconv>      // std::to_chars
 #include <algorithm>     // std::for_each
 #include <string_view>   // std::string_view
+#include <forward_list>  // std::forward_list
 #include <unordered_map> // std::unordered_map
 #include <cstdio>        // Wrappee
+
 
 #include "traits.hpp"
 
@@ -138,6 +142,24 @@ namespace clear
 
 		template <class T>
 		void write(std::vector<T> const &xs)
+		{
+			write_list(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::deque<T> const &xs)
+		{
+			write_list(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::forward_list<T> const &xs)
+		{
+			write_list(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::list<T> const &xs)
 		{
 			write_list(begin(xs), end(xs));
 		}

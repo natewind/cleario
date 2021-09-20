@@ -9,6 +9,8 @@
 #include <algorithm> // std::for_each
 #include <cstdio>    // Wrappee
 
+#include "traits.hpp"
+
 namespace clear
 {
 	class fstream

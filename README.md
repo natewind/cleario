@@ -20,16 +20,16 @@
 		* [x] `std::deque`
 		* [x] `std::forward_list`
 		* [x] `std::list`
-	* [ ] Sets -> {a0, a1}
+	* [x] Sets -> {a0, a1}
 		* [x] `std::set`
-		* [ ] `std::multiset`
-		* [ ] `std::unordered_set`
-		* [ ] `std::unordered_multiset`
-	* [ ] Maps -> {a0: b0, a1: b1}
-		* [ ] `std::map`
-		* [ ] `std::multimap`
+		* [x] `std::multiset`
+		* [x] `std::unordered_set`
+		* [x] `std::unordered_multiset`
+	* [x] Maps -> {a0: b0, a1: b1}
+		* [x] `std::map`
+		* [x] `std::multimap`
 		* [x] `std::unordered_map`
-		* [ ] `std::unordered_multimap`
+		* [x] `std::unordered_multimap`
 	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
 		* [ ] `std::unique_ptr`
 		* [ ] `std::shared_ptr`

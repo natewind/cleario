@@ -1,7 +1,8 @@
 #ifndef CLEARIO_FSTREAM_HPP
 #define CLEARIO_FSTREAM_HPP
 
-#include <set>           // std::set
+#include <set>           // std::set, std::multiset
+#include <map>           // std::map, std::multimap
 #include <list>          // std::list
 #include <array>         // std::array
 #include <deque>         // std::deque
@@ -13,7 +14,8 @@
 #include <algorithm>     // std::for_each
 #include <string_view>   // std::string_view
 #include <forward_list>  // std::forward_list
-#include <unordered_map> // std::unordered_map
+#include <unordered_set> // std::unordered_set, std::unordered_multiset
+#include <unordered_map> // std::unordered_map, std::unordered_multimap
 #include <cstdio>        // Wrappee
 
 
@@ -159,8 +161,44 @@ namespace clear
 		template <class T>
 		void write(std::set<T> const &xs) { write_set(begin(xs), end(xs)); }
 
+		template <class T>
+		void write(std::multiset<T> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::unordered_set<T> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
+		template <class T>
+		void write(std::unordered_multiset<T> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
+		template <class Key, class Value>
+		void write(std::map<Key, Value> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
+		template <class Key, class Value>
+		void write(std::multimap<Key, Value> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
 		template <class Key, class Value>
 		void write(std::unordered_map<Key, Value> const &xs)
+		{
+			write_set(begin(xs), end(xs));
+		}
+
+		template <class Key, class Value>
+		void write(std::unordered_multimap<Key, Value> const &xs)
 		{
 			write_set(begin(xs), end(xs));
 		}

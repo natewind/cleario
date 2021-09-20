@@ -1,16 +1,17 @@
 #ifndef CLEARIO_FSTREAM_HPP
 #define CLEARIO_FSTREAM_HPP
 
-#include <set>         // std::set
-#include <array>       // std::array
-#include <vector>      // std::vector
-#include <cstdint>     // std::uintptr_t
-#include <utility>     // std::move, std::swap
-#include <iterator>    // std::next
-#include <charconv>    // std::to_chars
-#include <algorithm>   // std::for_each
-#include <string_view> // std::string_view
-#include <cstdio>      // Wrappee
+#include <set>           // std::set
+#include <array>         // std::array
+#include <vector>        // std::vector
+#include <cstdint>       // std::uintptr_t
+#include <utility>       // std::move, std::swap
+#include <iterator>      // std::next
+#include <charconv>      // std::to_chars
+#include <algorithm>     // std::for_each
+#include <string_view>   // std::string_view
+#include <unordered_map> // std::unordered_map
+#include <cstdio>        // Wrappee
 
 #include "traits.hpp"
 
@@ -124,6 +125,31 @@ namespace clear
 			write('}');
 		}
 
+		// TODO: Print a single key-value pair in a separate function
+		template <class InputIt1, class InputIt2>
+		void write_map(InputIt1 first, InputIt2 last)
+		{
+			write('{');
+
+			if (first != last)
+			{
+				write(first->first);
+				write(": ");
+				write(first->second);
+
+				std::for_each(std::next(first), last, [this](auto const &x)
+				{
+					write(',');
+					write(' ');
+					write(x.first);
+					write(": ");
+					write(x.second);
+				});
+			}
+
+			write('}');
+		}
+
 		template <class T, std::size_t Size>
 		void write(T const (&xs)[Size])
 		{
@@ -144,6 +170,12 @@ namespace clear
 
 		template <class T>
 		void write(std::set<T> const &xs) { write_set(begin(xs), end(xs)); }
+
+		template <class Key, class Value>
+		void write(std::unordered_map<Key, Value> const &xs)
+		{
+			write_map(begin(xs), end(xs));
+		}
 
 		template <class T, impl::IsClass<T> = true>
 		void write(const T&);

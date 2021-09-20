@@ -28,7 +28,7 @@
 	* [ ] Maps -> {a0: b0, a1: b1}
 		* [ ] `std::map`
 		* [ ] `std::multimap`
-		* [ ] `std::unordered_map`
+		* [x] `std::unordered_map`
 		* [ ] `std::unordered_multimap`
 	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
 		* [ ] `std::unique_ptr`

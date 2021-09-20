@@ -1,5 +1,6 @@
 #include <set>
 #include <vector>
+#include <unordered_map>
 #include "../main.hpp"
 
 struct Point { int x, y; };
@@ -24,4 +25,6 @@ auto main() -> int
 	clear::print(&vec);
 
 	clear::print(std::set{"qwe", "rty", "uio"});
+	clear::print(std::unordered_map<char const*, int>
+		{{"qwe", 4}, {"rty", 5}, {"uio", 6}});
 }

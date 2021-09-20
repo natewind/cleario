@@ -12,6 +12,10 @@
 
 #include "traits.hpp"
 
+// TODO: Overloads + references!
+// TODO: IsClass -> IsNotFundamental? (IsCustom?)
+//       (To allow for user-defined enums and unions)
+
 namespace clear
 {
 	class fstream

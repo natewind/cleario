@@ -46,6 +46,9 @@ namespace clear
 			std::fwrite(str.data(), str.size(), 1, stream);
 		}
 
+		// TODO: Combine with write(string_view) without a linking error
+		void write(std::string const &str) { std::fputs(str.c_str(), stream); }
+
 		template <class T, impl::IsIntegral<T> = true>
 		void write(T x)
 		{

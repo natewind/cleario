@@ -34,7 +34,7 @@
 		* [ ] `std::unique_ptr`
 		* [ ] `std::shared_ptr`
 	* [ ] Strings
-		* [ ] `std::string` (already covered by string_view?)
+		* [x] `std::string`
 		* [x] `std::string_view`
 	* [ ] Other
 		* [ ] `std::tuple` -> (a0, a1)

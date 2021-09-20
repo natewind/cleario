@@ -1,14 +1,14 @@
 #ifndef CLEARIO_FSTREAM_HPP
 #define CLEARIO_FSTREAM_HPP
 
-#include <array>     // std::array
-#include <string>    // std::string
-#include <vector>    // std::vector
-#include <utility>   // std::move, std::swap
-#include <iterator>  // std::next
-#include <charconv>  // std::to_chars
-#include <algorithm> // std::for_each
-#include <cstdio>    // Wrappee
+#include <array>       // std::array
+#include <vector>      // std::vector
+#include <utility>     // std::move, std::swap
+#include <iterator>    // std::next
+#include <charconv>    // std::to_chars
+#include <algorithm>   // std::for_each
+#include <string_view> // std::string_view
+#include <cstdio>      // Wrappee
 
 #include "traits.hpp"
 
@@ -40,6 +40,11 @@ namespace clear
 		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
 		void write(char c)        { std::fputc(c, stream); }
 		void write(char const *s) { std::fputs(s, stream); }
+
+		void write(std::string_view str)
+		{
+			std::fwrite(str.data(), str.size(), 1, stream);
+		}
 
 		template <class T, impl::IsIntegral<T> = true>
 		void write(T x)

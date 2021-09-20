@@ -5,7 +5,7 @@
 #include <array>         // std::array
 #include <vector>        // std::vector
 #include <cstdint>       // std::uintptr_t
-#include <utility>       // std::move, std::swap
+#include <utility>       // std::move, std::swap, std::pair
 #include <iterator>      // std::next
 #include <charconv>      // std::to_chars
 #include <algorithm>     // std::for_each
@@ -84,88 +84,62 @@ namespace clear
 			write('>');
 		}
 
+		template <class T>
+		void write_item(T const &x) { write(x); }
+
+		template <class Key, class Value>
+		void write_item(std::pair<Key, Value> const &kv)
+		{
+			write(kv.first);
+			write(": ");
+			write(kv.second);
+		}
+
 		template <class InputIt1, class InputIt2>
 		void write_sequence(InputIt1 first, InputIt2 last)
 		{
-			write('[');
+			if (first == last)
+				return;
 
-			if (first != last)
+			write_item(*first);
+
+			std::for_each(std::next(first), last, [this](auto const &x)
 			{
-				write(*first);
+				write(',');
+				write(' ');
+				write_item(x);
+			});
+		}
 
-				std::for_each(std::next(first), last, [this](auto const &x)
-				{
-					write(',');
-					write(' ');
-					write(x);
-				});
-			}
-
+		template <class InputIt1, class InputIt2>
+		void write_list(InputIt1 first, InputIt2 last)
+		{
+			write('[');
+			write_sequence(first, last);
 			write(']');
 		}
 
-		// TODO: Get rid of code duplication with write_sequence?
 		template <class InputIt1, class InputIt2>
 		void write_set(InputIt1 first, InputIt2 last)
 		{
 			write('{');
-
-			if (first != last)
-			{
-				write(*first);
-
-				std::for_each(std::next(first), last, [this](auto const &x)
-				{
-					write(',');
-					write(' ');
-					write(x);
-				});
-			}
-
-			write('}');
-		}
-
-		// TODO: Print a single key-value pair in a separate function
-		template <class InputIt1, class InputIt2>
-		void write_map(InputIt1 first, InputIt2 last)
-		{
-			write('{');
-
-			if (first != last)
-			{
-				write(first->first);
-				write(": ");
-				write(first->second);
-
-				std::for_each(std::next(first), last, [this](auto const &x)
-				{
-					write(',');
-					write(' ');
-					write(x.first);
-					write(": ");
-					write(x.second);
-				});
-			}
-
+			write_sequence(first, last);
 			write('}');
 		}
 
 		template <class T, std::size_t Size>
-		void write(T const (&xs)[Size])
-		{
-			write_sequence(xs, xs + Size);
-		}
+		void write(T const (&xs)[Size]) { write_list(xs, xs + Size); }
 
 		template <class T, std::size_t Size>
 		void write(std::array<T, Size> const &xs)
 		{
-			write_sequence(begin(xs), end(xs));
+			write_list(begin(xs), end(xs));
 		}
 
 		template <class T>
 		void write(std::vector<T> const &xs)
 		{
-			write_sequence(begin(xs), end(xs));
+			write_list(begin(xs), end(xs));
 		}
 
 		template <class T>
@@ -174,7 +148,7 @@ namespace clear
 		template <class Key, class Value>
 		void write(std::unordered_map<Key, Value> const &xs)
 		{
-			write_map(begin(xs), end(xs));
+			write_set(begin(xs), end(xs));
 		}
 
 		template <class T, impl::IsClass<T> = true>

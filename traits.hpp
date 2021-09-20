@@ -10,9 +10,8 @@ namespace clear
 	template <class T>
 	using IsIntegral = std::enable_if_t<std::is_integral_v<T>, bool>;
 
-	// TODO: Uncomment & use or delete
-	// template <class T>
-	// using IsClass = std::enable_if_t<std::is_class_v<T>, bool>;
+	template <class T>
+	using IsClass = std::enable_if_t<std::is_class_v<T>, bool>;
 
 	template <class T, IsIntegral<T> = true>
 	constexpr auto log(char base, T x, T acc = 0) -> T

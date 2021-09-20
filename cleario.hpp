@@ -6,6 +6,7 @@
 #include <vector>    // std::vector
 #include <utility>   // std::move, std::swap, std::forward
 #include <iterator>  // std::next
+#include <charconv>  // std::to_chars
 #include <algorithm> // std::for_each
 #include <cstdio>    // Wrappee
 
@@ -32,12 +33,20 @@ namespace clear
 			return *this;
 		}
 
-		template <class T>
-		void write(const T&);
-
 		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
 		void write(char c)        { std::fputc(c, stream); }
 		void write(char const *s) { std::fputs(s, stream); }
+
+		template <class T, IsIntegral<T> = true>
+		void write(T x)
+		{
+			auto buff = std::array<char, maxlen<T>(10)>();
+			auto const begin = buff.data();
+			auto const end = begin + buff.size();
+
+			auto const size = std::to_chars(begin, end, x).ptr - begin;
+			std::fwrite(begin, size, 1, stream);
+		}
 
 		template <class InputIt1, class InputIt2>
 		void write_sequence(InputIt1 first, InputIt2 last)
@@ -76,6 +85,9 @@ namespace clear
 		{
 			write_sequence(begin(xs), end(xs));
 		}
+
+		template <class T, IsClass<T> = true>
+		void write(const T&);
 
 		void print() { write('\n'); }
 

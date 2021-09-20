@@ -1,3 +1,4 @@
+#include <set>
 #include <vector>
 #include "../main.hpp"
 
@@ -20,6 +21,7 @@ auto main() -> int
 
 	auto vec = std::vector{1, 2, 3, 4, 5};
 	clear::print(vec);
-
 	clear::print(&vec);
+
+	clear::print(std::set{"qwe", "rty", "uio"});
 }

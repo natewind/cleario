@@ -21,7 +21,7 @@
 		* [ ] `std::forward_list`
 		* [ ] `std::list`
 	* [ ] Sets -> {a0, a1}
-		* [ ] `std::set`
+		* [x] `std::set`
 		* [ ] `std::multiset`
 		* [ ] `std::unordered_set`
 		* [ ] `std::unordered_multiset`

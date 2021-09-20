@@ -1,6 +1,7 @@
 #ifndef CLEARIO_FSTREAM_HPP
 #define CLEARIO_FSTREAM_HPP
 
+#include <set>         // std::set
 #include <array>       // std::array
 #include <vector>      // std::vector
 #include <cstdint>     // std::uintptr_t
@@ -37,6 +38,8 @@ namespace clear
 			std::swap(stream, other.stream);
 			return *this;
 		}
+
+		// TODO: Add quotation marks to strings inside containers?
 
 		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
 		void write(char c)        { std::fputc(c, stream); }
@@ -100,6 +103,27 @@ namespace clear
 			write(']');
 		}
 
+		// TODO: Get rid of code duplication with write_sequence?
+		template <class InputIt1, class InputIt2>
+		void write_set(InputIt1 first, InputIt2 last)
+		{
+			write('{');
+
+			if (first != last)
+			{
+				write(*first);
+
+				std::for_each(std::next(first), last, [this](auto const &x)
+				{
+					write(',');
+					write(' ');
+					write(x);
+				});
+			}
+
+			write('}');
+		}
+
 		template <class T, std::size_t Size>
 		void write(T const (&xs)[Size])
 		{
@@ -117,6 +141,9 @@ namespace clear
 		{
 			write_sequence(begin(xs), end(xs));
 		}
+
+		template <class T>
+		void write(std::set<T> const &xs) { write_set(begin(xs), end(xs)); }
 
 		template <class T, impl::IsClass<T> = true>
 		void write(const T&);

@@ -38,7 +38,7 @@
 		* [x] `std::string_view`
 	* [ ] Other
 		* [ ] `std::tuple` -> (a0, a1)
-		* [ ] `std::optional` -> None/Refl
+		* [x] `std::optional` -> None/Refl
 		* [ ] `std::nullptr_t` -> None
 		* [ ] `std::byte` -> 0x00
 		* [ ] `std::char8_t` [?]

@@ -33,4 +33,6 @@ auto main() -> int
 	clear::print(std::list{11, 12, 13, 14, 15});
 
 	clear::print(std::make_unique<int>(12));
+	clear::print(std::optional<int>(60));
+	clear::print(std::optional<int>());
 }

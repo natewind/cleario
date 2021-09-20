@@ -11,6 +11,7 @@
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
 #include <iterator>      // std::next
+#include <optional>      // std::optional
 #include <charconv>      // std::to_chars
 #include <algorithm>     // std::for_each
 #include <string_view>   // std::string_view
@@ -87,6 +88,12 @@ namespace clear
 
 		template <class T>
 		void write(std::shared_ptr<T> const &ptr) { write(ptr.get()); }
+
+		template <class T>
+		void write(std::optional<T> const &x)
+		{
+			x ? write(*x) : write("None");
+		}
 
 		template <class T>
 		void write_item(T const &x) { write(x); }

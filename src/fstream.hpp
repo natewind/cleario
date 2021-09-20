@@ -7,6 +7,7 @@
 #include <array>         // std::array
 #include <deque>         // std::deque
 #include <vector>        // std::vector
+#include <memory>        // std::unique_ptr, std::shared_ptr
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
 #include <iterator>      // std::next
@@ -17,7 +18,6 @@
 #include <unordered_set> // std::unordered_set, std::unordered_multiset
 #include <unordered_map> // std::unordered_map, std::unordered_multimap
 #include <cstdio>        // Wrappee
-
 
 #include "traits.hpp"
 
@@ -81,6 +81,12 @@ namespace clear
 			write_base<16>(reinterpret_cast<std::uintptr_t>(ptr));
 			write('>');
 		}
+
+		template <class T>
+		void write(std::unique_ptr<T> const &ptr) { write(ptr.get()); }
+
+		template <class T>
+		void write(std::shared_ptr<T> const &ptr) { write(ptr.get()); }
 
 		template <class T>
 		void write_item(T const &x) { write(x); }

@@ -30,10 +30,10 @@
 		* [x] `std::multimap`
 		* [x] `std::unordered_map`
 		* [x] `std::unordered_multimap`
-	* [ ] Pointers -> <TYPE object / memory (`void*`) at 0x00...>
-		* [ ] `std::unique_ptr`
-		* [ ] `std::shared_ptr`
-	* [ ] Strings
+	* [x] Pointers -> <object at 0x00...>
+		* [x] `std::unique_ptr`
+		* [x] `std::shared_ptr`
+	* [x] Strings
 		* [x] `std::string`
 		* [x] `std::string_view`
 	* [ ] Other

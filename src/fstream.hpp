@@ -75,8 +75,7 @@ namespace clear
 
 		void write(std::integral auto x) { write_base<10>(x); }
 
-		template <class T>
-		void write(T *ptr)
+		void write(auto *ptr)
 		{
 			write("<object at 0x");
 			write_base<16>(reinterpret_cast<std::uintptr_t>(ptr));
@@ -95,8 +94,7 @@ namespace clear
 			x ? write(*x) : write("None");
 		}
 
-		template <class T>
-		void write_item(T const &x) { write(x); }
+		void write_item(auto const &x) { write(x); }
 
 		template <class Key, class Value>
 		void write_item(std::pair<Key, Value> const &kv)
@@ -138,8 +136,8 @@ namespace clear
 			write('}');
 		}
 
-		template <class T, std::size_t Size>
-		void write(T const (&xs)[Size]) { write_list(xs, xs + Size); }
+		template <std::size_t Size>
+		void write(auto const (&xs)[Size]) { write_list(xs, xs + Size); }
 
 		template <class T, std::size_t Size>
 		void write(std::array<T, Size> const &xs)
@@ -220,12 +218,11 @@ namespace clear
 
 		void print() { write('\n'); }
 
-		template <class T, class... Ts>
-		void print(T const &x, Ts const&... xs)
+		void print(auto const &x, auto const&... xs)
 		{
 			write(x);
 
-			if constexpr (sizeof...(Ts) > 0)
+			if constexpr (sizeof...(xs) > 0)
 				write(' ');
 
 			print(xs...);

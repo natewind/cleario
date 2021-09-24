@@ -117,8 +117,7 @@ namespace clear
 
 			std::for_each(std::next(first), last, [this](auto const &x)
 			{
-				write(',');
-				write(' ');
+				write(", ");
 				write_item(x);
 			});
 		}

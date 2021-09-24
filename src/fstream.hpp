@@ -11,7 +11,7 @@
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
 #include <concepts>      // std::integral
-#include <iterator>      // std::next
+#include <iterator>      // std::next, std::input_iterator, std::sentinel_for
 #include <optional>      // std::optional
 #include <charconv>      // std::to_chars
 #include <algorithm>     // std::for_each
@@ -104,8 +104,8 @@ namespace clear
 			write(kv.second);
 		}
 
-		template <class InputIt1, class InputIt2>
-		void write_sequence(InputIt1 first, InputIt2 last)
+		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
+		void write_sequence(Iter first, Sent last)
 		{
 			if (first == last)
 				return;
@@ -120,16 +120,16 @@ namespace clear
 			});
 		}
 
-		template <class InputIt1, class InputIt2>
-		void write_list(InputIt1 first, InputIt2 last)
+		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
+		void write_list(Iter first, Sent last)
 		{
 			write('[');
 			write_sequence(first, last);
 			write(']');
 		}
 
-		template <class InputIt1, class InputIt2>
-		void write_set(InputIt1 first, InputIt2 last)
+		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
+		void write_set(Iter first, Sent last)
 		{
 			write('{');
 			write_sequence(first, last);

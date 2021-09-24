@@ -216,8 +216,7 @@ namespace clear
 			write_set(begin(xs), end(xs));
 		}
 
-		template <class T, impl::IsClass<T> = true>
-		void write(const T&);
+		void write(impl::IsClass auto const &);
 
 		void print() { write('\n'); }
 

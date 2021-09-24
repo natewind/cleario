@@ -9,7 +9,7 @@
 namespace clear::impl
 {
 	template <class T>
-	using IsClass = std::enable_if_t<std::is_class_v<T>, bool>;
+	concept IsClass = std::is_class_v<T>;
 
 	template <std::integral T>
 	constexpr auto log(char base, T x, T acc = 0) -> char

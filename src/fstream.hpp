@@ -105,9 +105,11 @@ namespace clear
 			write(kv.second);
 		}
 
-		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
-		void write_sequence(Iter first, Sent last)
+		void write_sequence(std::ranges::input_range auto const &xs)
 		{
+			auto const first = std::begin(xs);
+			auto const last = std::end(xs);
+
 			if (first == last)
 				return;
 
@@ -121,17 +123,17 @@ namespace clear
 			});
 		}
 
-		void write_list(std::ranges::input_range auto const &range)
+		void write_list(std::ranges::input_range auto const &xs)
 		{
 			write('[');
-			write_sequence(std::begin(range), std::end(range));
+			write_sequence(xs);
 			write(']');
 		}
 
-		void write_set(std::ranges::input_range auto const &range)
+		void write_set(std::ranges::input_range auto const &xs)
 		{
 			write('{');
-			write_sequence(std::begin(range), std::end(range));
+			write_sequence(xs);
 			write('}');
 		}
 

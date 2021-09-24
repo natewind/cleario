@@ -12,7 +12,7 @@
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
 #include <concepts>      // std::integral
-#include <iterator>      // std::next, std::input_iterator, std::sentinel_for
+#include <iterator>      // std::next
 #include <optional>      // std::optional
 #include <charconv>      // std::to_chars
 #include <algorithm>     // std::for_each

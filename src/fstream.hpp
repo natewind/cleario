@@ -7,6 +7,7 @@
 #include <array>         // std::array
 #include <deque>         // std::deque
 #include <vector>        // std::vector
+#include <ranges>        // std::ranges::input_range
 #include <memory>        // std::unique_ptr, std::shared_ptr
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
@@ -75,7 +76,7 @@ namespace clear
 
 		void write(std::integral auto x) { write_base<10>(x); }
 
-		void write(auto *ptr)
+		void write(impl::Pointer auto ptr)
 		{
 			write("<object at 0x");
 			write_base<16>(reinterpret_cast<std::uintptr_t>(ptr));
@@ -120,101 +121,66 @@ namespace clear
 			});
 		}
 
-		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
-		void write_list(Iter first, Sent last)
+		void write_list(std::ranges::input_range auto const &range)
 		{
 			write('[');
-			write_sequence(first, last);
+			write_sequence(std::begin(range), std::end(range));
 			write(']');
 		}
 
-		template <std::input_iterator Iter, std::sentinel_for<Iter> Sent>
-		void write_set(Iter first, Sent last)
+		void write_set(std::ranges::input_range auto const &range)
 		{
 			write('{');
-			write_sequence(first, last);
+			write_sequence(std::begin(range), std::end(range));
 			write('}');
 		}
 
 		template <std::size_t Size>
-		void write(auto const (&xs)[Size]) { write_list(xs, xs + Size); }
+		void write(auto const (&xs)[Size]) { write_list(xs); }
 
 		template <class T, std::size_t Size>
-		void write(std::array<T, Size> const &xs)
-		{
-			write_list(begin(xs), end(xs));
-		}
+		void write(std::array<T, Size> const &xs) { write_list(xs); }
 
 		template <class T>
-		void write(std::vector<T> const &xs)
-		{
-			write_list(begin(xs), end(xs));
-		}
+		void write(std::vector<T> const &xs) { write_list(xs); }
 
 		template <class T>
-		void write(std::deque<T> const &xs)
-		{
-			write_list(begin(xs), end(xs));
-		}
+		void write(std::deque<T> const &xs) { write_list(xs); }
 
 		template <class T>
-		void write(std::forward_list<T> const &xs)
-		{
-			write_list(begin(xs), end(xs));
-		}
+		void write(std::forward_list<T> const &xs) { write_list(xs); }
 
 		template <class T>
-		void write(std::list<T> const &xs)
-		{
-			write_list(begin(xs), end(xs));
-		}
+		void write(std::list<T> const &xs) { write_list(xs); }
 
 		template <class T>
-		void write(std::set<T> const &xs) { write_set(begin(xs), end(xs)); }
+		void write(std::set<T> const &xs) { write_set(xs); }
 
 		template <class T>
-		void write(std::multiset<T> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::multiset<T> const &xs) { write_set(xs); }
 
 		template <class T>
-		void write(std::unordered_set<T> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::unordered_set<T> const &xs) { write_set(xs); }
 
 		template <class T>
-		void write(std::unordered_multiset<T> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::unordered_multiset<T> const &xs) { write_set(xs); }
 
 		template <class Key, class Value>
-		void write(std::map<Key, Value> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::map<Key, Value> const &xs) { write_set(xs); }
 
 		template <class Key, class Value>
-		void write(std::multimap<Key, Value> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::multimap<Key, Value> const &xs) { write_set(xs); }
 
 		template <class Key, class Value>
-		void write(std::unordered_map<Key, Value> const &xs)
-		{
-			write_set(begin(xs), end(xs));
-		}
+		void write(std::unordered_map<Key, Value> const &xs) { write_set(xs); }
 
 		template <class Key, class Value>
 		void write(std::unordered_multimap<Key, Value> const &xs)
 		{
-			write_set(begin(xs), end(xs));
+			write_set(xs);
 		}
 
-		void write(impl::IsClass auto const &);
+		void write(impl::Class auto const &);
 
 		void print() { write('\n'); }
 

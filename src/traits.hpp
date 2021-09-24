@@ -4,12 +4,15 @@
 #include <limits>      // std::numeric_limits
 #include <concepts>    // std::integral
 #include <algorithm>   // std::max
-#include <type_traits> // std::enable_if_t, std::is_class_v
+#include <type_traits> // std::enable_if_t, std::is_pointer_v, std::is_class_v
 
 namespace clear::impl
 {
 	template <class T>
-	concept IsClass = std::is_class_v<T>;
+	concept Pointer = std::is_pointer_v<T>;
+
+	template <class T>
+	concept Class = std::is_class_v<T>;
 
 	template <std::integral T>
 	constexpr auto log(char base, T x, T acc = 0) -> char

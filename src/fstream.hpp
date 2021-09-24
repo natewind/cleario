@@ -10,6 +10,7 @@
 #include <memory>        // std::unique_ptr, std::shared_ptr
 #include <cstdint>       // std::uintptr_t
 #include <utility>       // std::move, std::swap, std::pair
+#include <concepts>      // std::integral
 #include <iterator>      // std::next
 #include <optional>      // std::optional
 #include <charconv>      // std::to_chars
@@ -61,7 +62,7 @@ namespace clear
 		// TODO: Combine with write(string_view) without a linking error
 		void write(std::string const &str) { std::fputs(str.c_str(), stream); }
 
-		template <char Base, class T, impl::IsIntegral<T> = true>
+		template <char Base, std::integral T>
 		void write_base(T x)
 		{
 			auto buff = std::array<char, impl::maxlen<T>(Base)>();
@@ -72,8 +73,7 @@ namespace clear
 			std::fwrite(begin, size, 1, stream);
 		}
 
-		template <class T, impl::IsIntegral<T> = true>
-		void write(T x) { write_base<10>(x); }
+		void write(std::integral auto x) { write_base<10>(x); }
 
 		template <class T>
 		void write(T *ptr)

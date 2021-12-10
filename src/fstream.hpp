@@ -154,6 +154,8 @@ namespace clear
 		template <class T>
 		void write(std::list<T> const &xs) { write_list(xs); }
 
+		// void write(impl::Associative auto const &xs) { write_set(xs); }
+
 		template <class T>
 		void write(std::set<T> const &xs) { write_set(xs); }
 

@@ -15,6 +15,7 @@ namespace clear::impl
 	concept Class = std::is_class_v<T>;
 
 	// TODO: Fix compile error with Point
+	// BEGIN TODO: New names to includes & comments
 	template <class T, class... Ts>
 	concept Associative = std::same_as<T, std::set               <Ts...>>
 	                   || std::same_as<T, std::multiset          <Ts...>>
@@ -24,6 +25,7 @@ namespace clear::impl
 	                   || std::same_as<T, std::multimap          <Ts...>>
 	                   || std::same_as<T, std::unordered_map     <Ts...>>
 	                   || std::same_as<T, std::unordered_multimap<Ts...>>;
+	// END TODO
 
 	template <std::integral T>
 	constexpr auto log(char base, T x, T acc = 0) -> char

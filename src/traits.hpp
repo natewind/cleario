@@ -27,16 +27,14 @@ namespace clear::impl
 	                   || std::same_as<T, std::unordered_multimap<Ts...>>;
 	// END TODO
 
-	template <std::integral T>
-	constexpr auto log(char base, T x, T acc = 0) -> char
+	constexpr auto log(char base, std::integral auto x, char acc = 0) -> char
 	{
 		return (x == 0) ? acc : log(base, x / base, acc + 1);
 	}
 
-	template <std::integral T>
-	constexpr auto charlen(char base, T x) -> char
+	constexpr auto charlen(char base, std::integral auto x) -> char
 	{
-		auto const minus_sign = T(x < 0 ? 1 : 0);
+		auto const minus_sign = char(x < 0 ? 1 : 0);
 		return (x == 0) ? 1 : log(base, x, minus_sign);
 	}
 

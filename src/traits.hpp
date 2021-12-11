@@ -27,19 +27,19 @@ namespace clear::impl
 	                   || std::same_as<T, std::unordered_multimap<Ts...>>;
 	// END TODO
 
-	constexpr auto log(char base, std::integral auto x, char acc = 0) -> char
+	constexpr auto log(int base, std::integral auto x, int acc = 0) -> int
 	{
 		return (x == 0) ? acc : log(base, x / base, acc + 1);
 	}
 
-	constexpr auto charlen(char base, std::integral auto x) -> char
+	constexpr auto charlen(int base, std::integral auto x)
 	{
-		auto const minus_sign = char(x < 0 ? 1 : 0);
+		auto const minus_sign = int(x < 0);
 		return (x == 0) ? 1 : log(base, x, minus_sign);
 	}
 
 	template <std::integral T>
-	constexpr auto maxlen(char base)
+	constexpr auto maxlen(int base)
 	{
 		using limits = std::numeric_limits<T>;
 		return std::max(charlen(base, limits::min()),

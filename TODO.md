@@ -67,12 +67,12 @@
 * [ ] Output iterator
 * [ ] Optional `write()` (default?)
 * [ ] Optional `print()` (default?)
+* [ ] Safe file opening/closing (+MSVC `fopen` “deprecation”)
 * [ ] `safe_read() -> std::optional`
 * [ ] `safe_input() -> std::optional`
 * [ ] Binary writing/reading
 * [ ] Flush [?]
 * [ ] Modularize cleario to get rid of global namespace pollution (C++20)
-* [ ] Replace SFINAE with concepts (C++20)
 * [ ] Use `<format>` instead of custom serialization of basic types [?]
 * [ ] Add `noexcept` specifiers for performance (esp. on GCC) [?]
 * [ ] Make reading `const` [?]

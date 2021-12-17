@@ -154,6 +154,15 @@ namespace clear
 		template <class T>
 		void write(std::list<T> const &xs) { write_list(xs); }
 
+		// TODO: Repeat the next TODO for sequence containers
+		// TODO: Replace the separate overloads of associative containers
+		//       with impl::Associative when GCC fixes a concept bug:
+		//       impl::Associative apparently isn’t more specific
+		//       than impl::Class, and if the latter is replaced by auto,
+		//       it overlaps with std::integral (which has to be a bug);
+		//       MSVC compiles it fine
+
+		// void write(auto const &);
 		// void write(impl::Associative auto const &xs) { write_set(xs); }
 
 		template <class T>
@@ -183,7 +192,7 @@ namespace clear
 			write_set(xs);
 		}
 
-		void write(impl::Class auto const &);
+		void write(impl::Class auto const&);
 
 		void print() { write('\n'); }
 

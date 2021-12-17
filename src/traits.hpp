@@ -14,17 +14,25 @@ namespace clear::impl
 	template <class T>
 	concept Class = std::is_class_v<T>;
 
-	// TODO: Fix compile error with Point
 	// BEGIN TODO: New names to includes & comments
-	template <class T, class... Ts>
-	concept Associative = std::same_as<T, std::set               <Ts...>>
-	                   || std::same_as<T, std::multiset          <Ts...>>
-	                   || std::same_as<T, std::unordered_set     <Ts...>>
-	                   || std::same_as<T, std::unordered_multiset<Ts...>>
-	                   || std::same_as<T, std::map               <Ts...>>
-	                   || std::same_as<T, std::multimap          <Ts...>>
-	                   || std::same_as<T, std::unordered_map     <Ts...>>
-	                   || std::same_as<T, std::unordered_multimap<Ts...>>;
+	template <class, template <class...> class>
+	struct is_specialization : std::false_type {};
+
+	template <template<class...> class Generic, class... Ts>
+	struct is_specialization<Generic<Ts...>, Generic> : std::true_type {};
+
+	template <class Specific, template <class...> class Generic>
+	concept Specialization = is_specialization<Specific, Generic>::value;
+
+	template <class T>
+	concept Associative = Specialization<T, std::set>
+	                   || Specialization<T, std::multiset>
+	                   || Specialization<T, std::unordered_set>
+	                   || Specialization<T, std::unordered_multiset>
+	                   || Specialization<T, std::map>
+	                   || Specialization<T, std::multimap>
+	                   || Specialization<T, std::unordered_map>
+	                   || Specialization<T, std::unordered_multimap>;
 	// END TODO
 
 	constexpr auto log(int base, std::integral auto x, int acc = 0) -> int

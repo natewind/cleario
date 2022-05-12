@@ -22,6 +22,8 @@
 #include <unordered_map> // std::unordered_map, std::unordered_multimap
 #include <cstdio>        // Wrappee
 
+#include "../nameof/include/nameof.hpp"
+
 #include "traits.hpp"
 
 // TODO: Overloads + references!
@@ -78,7 +80,11 @@ namespace clear
 
 		void write(impl::Pointer auto ptr)
 		{
-			write("<object at 0x");
+			constexpr auto type = nameof::nameof_short_type<decltype(*ptr)>();
+
+			write('<');
+			write(type);
+			write(" object at 0x");
 			write_base<16>(reinterpret_cast<std::uintptr_t>(ptr));
 			write('>');
 		}

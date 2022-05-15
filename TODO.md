@@ -76,4 +76,5 @@
 * [ ] Use `<format>` instead of custom serialization of basic types [?]
 * [ ] Add `noexcept` specifiers for performance (esp. on GCC) [?]
 * [ ] Make reading `const` [?]
+* [ ] Return self on write? `open(...).print(x).print(y)`
 * [ ] Nice README with examples (test beforehand)

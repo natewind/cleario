@@ -4,13 +4,13 @@
 #include <utility> // std::forward
 #include <cstdio>  // Wrappee
 
-#include "src/fstream.hpp"
+#include "src/io.hpp"
 
 namespace clear
 {
 	class open
 	{
-		fstream file;
+		io file;
 
 	public:
 		explicit open(char const *name, char const *mode = "r+")
@@ -33,10 +33,10 @@ namespace clear
 	};
 
 	template <class T>
-	void write(T &&x) { fstream(stdout).write(std::forward<T>(x)); }
+	void write(T &&x) { io(stdout).write(std::forward<T>(x)); }
 
 	template <class... Ts>
-	void print(Ts &&... xs) { fstream(stdout).print(std::forward<Ts>(xs)...); }
+	void print(Ts &&... xs) { io(stdout).print(std::forward<Ts>(xs)...); }
 }
 
 #endif

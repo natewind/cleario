@@ -1,5 +1,5 @@
-#ifndef CLEARIO_FSTREAM_HPP
-#define CLEARIO_FSTREAM_HPP
+#ifndef CLEARIO_IO_HPP
+#define CLEARIO_IO_HPP
 
 #include <algorithm>   // std::for_each
 #include <array>       // std::array
@@ -24,38 +24,38 @@
 
 namespace clear
 {
-	class fstream
+	class io
 	{
-		std::FILE *stream = nullptr;
+		std::FILE *handle = nullptr;
 
 	public:
-		explicit constexpr fstream(std::FILE *f) : stream(f) {}
-		constexpr auto unsafe() { return stream; }
+		explicit constexpr io(std::FILE *f) : handle(f) {}
+		constexpr auto unsafe() { return handle; }
 
-		fstream(fstream const&) = delete;
-		auto operator=(fstream const&) = delete;
+		io(io const&) = delete;
+		auto operator=(io const&) = delete;
 
-		fstream(fstream &&other) { (*this) = std::move(other); }
+		io(io &&other) { (*this) = std::move(other); }
 
-		auto operator=(fstream &&other) -> fstream&
+		auto operator=(io &&other) -> io&
 		{
-			std::swap(stream, other.stream);
+			std::swap(handle, other.handle);
 			return *this;
 		}
 
 		// TODO: Add quotation marks to strings inside containers?
 
-		void write(bool b)        { std::fputs(b ? "True" : "False", stream); }
-		void write(char c)        { std::fputc(c, stream); }
-		void write(char const *s) { std::fputs(s, stream); }
+		void write(bool b)        { std::fputs(b ? "True" : "False", handle); }
+		void write(char c)        { std::fputc(c, handle); }
+		void write(char const *s) { std::fputs(s, handle); }
 
 		void write(std::string_view str)
 		{
-			std::fwrite(str.data(), str.size(), 1, stream);
+			std::fwrite(str.data(), str.size(), 1, handle);
 		}
 
 		// TODO: Combine with write(string_view) without a linking error
-		void write(std::string const &str) { std::fputs(str.c_str(), stream); }
+		void write(std::string const &str) { std::fputs(str.c_str(), handle); }
 
 		template <int Base, std::integral T>
 		void write_base(T x)
@@ -65,7 +65,7 @@ namespace clear
 			auto const end = begin + buff.size();
 
 			auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
-			std::fwrite(begin, size, 1, stream);
+			std::fwrite(begin, size, 1, handle);
 		}
 
 		void write(std::integral auto x) { write_base<10>(x); }

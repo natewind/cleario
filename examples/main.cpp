@@ -7,7 +7,7 @@
 struct Point { int x, y; };
 
 template <>
-inline void clear::fstream::write(Point const &point)
+inline void clear::io::write(Point const &point)
 {
 	write('(');
 	write(point.x);

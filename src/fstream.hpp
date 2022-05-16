@@ -1,19 +1,17 @@
 #ifndef CLEARIO_FSTREAM_HPP
 #define CLEARIO_FSTREAM_HPP
 
-// TODO: Includes in alphabetical order? (In other files too)
-
-#include <array>       // std::array
-#include <ranges>      // std::ranges::input_range
-#include <memory>      // std::unique_ptr, std::shared_ptr
-#include <cstdint>     // std::uintptr_t
-#include <utility>     // std::move, std::swap, std::pair
-#include <concepts>    // std::integral
-#include <iterator>    // std::next
-#include <optional>    // std::optional
-#include <charconv>    // std::to_chars
 #include <algorithm>   // std::for_each
+#include <array>       // std::array
+#include <charconv>    // std::to_chars
+#include <concepts>    // std::integral
+#include <cstdint>     // std::uintptr_t
+#include <iterator>    // std::next
+#include <memory>      // std::unique_ptr, std::shared_ptr
+#include <optional>    // std::optional
+#include <ranges>      // std::ranges::input_range
 #include <string_view> // std::string_view
+#include <utility>     // std::move, std::swap, std::pair
 #include <cstdio>      // Wrappee
 
 #include "../nameof/include/nameof.hpp"

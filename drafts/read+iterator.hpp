@@ -1,13 +1,13 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include <tuple>    // std::tuple, std::tuple_cat
 #include <cctype>   // std::isspace
-#include <istream>  // std::istream
-#include <fstream>  // std::fstream
 #include <cstddef>  // std::ptrdiff_t, std::nullptr_t
-#include <utility>  // std::move
+#include <fstream>  // std::fstream
+#include <istream>  // std::istream
 #include <iterator> // std::input_iterator_tag
+#include <tuple>    // std::tuple, std::tuple_cat
+#include <utility>  // std::move
 
 template <class T>
 constexpr auto read_one(std::istream &src)

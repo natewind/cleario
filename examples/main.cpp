@@ -1,6 +1,7 @@
 #include <set>
-#include <vector>
 #include <unordered_map>
+#include <vector>
+
 #include "../main.hpp"
 
 struct Point { int x, y; };

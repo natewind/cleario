@@ -1,19 +1,18 @@
 #ifndef CLEARIO_TRAITS_HPP
 #define CLEARIO_TRAITS_HPP
 
-#include <limits>        // std::numeric_limits
-#include <concepts>      // std::integral
 #include <algorithm>     // std::max
-#include <type_traits>   // std::enable_if_t, std::is_pointer_v
-                         // std::is_class_v, std::true_type, std::false_type
-#include <set>           // std::set, std::multiset
-#include <map>           // std::map, std::multimap
-#include <list>          // std::list
+#include <concepts>      // std::integral
 #include <deque>         // std::deque
-#include <vector>        // std::vector
 #include <forward_list>  // std::forward_list
-#include <unordered_set> // std::unordered_set, std::unordered_multiset
+#include <limits>        // std::numeric_limits
+#include <list>          // std::list
+#include <map>           // std::map, std::multimap
+#include <set>           // std::set, std::multiset
 #include <unordered_map> // std::unordered_map, std::unordered_multimap
+#include <unordered_set> // std::unordered_set, std::unordered_multiset
+#include <vector>        // std::vector
+#include <type_traits>   // Wrappee
 
 namespace clear::impl
 {

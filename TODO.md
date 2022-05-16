@@ -78,4 +78,5 @@
 * [ ] Make reading `const` [?]
 * [ ] Return self on write? `open(...).print(x).print(y)`
 * [ ] Read/write `bin<Int>`, `oct<Int>`, `hex<Int>`
+* [ ] `void*` -> <object at ...> (no type)
 * [ ] Nice README with examples (test beforehand)

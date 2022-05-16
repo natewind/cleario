@@ -38,4 +38,7 @@ auto main() -> int
 	clear::print(std::make_unique<int>(12));
 	clear::print(std::optional<int>(60));
 	clear::print(std::optional<int>());
+
+	void *ptr = &vec;
+	clear::print(ptr);
 }

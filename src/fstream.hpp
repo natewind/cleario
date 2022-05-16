@@ -72,13 +72,21 @@ namespace clear
 
 		void write(std::integral auto x) { write_base<10>(x); }
 
+		void write_type(void const*) {}
+
+		template <class T>
+		void write_type(T const*)
+		{
+			constexpr auto type = nameof::nameof_short_type<T>();
+			write(type);
+			write(' ');
+		}
+
 		void write(impl::Pointer auto ptr)
 		{
-			constexpr auto type = nameof::nameof_short_type<decltype(*ptr)>();
-
 			write('<');
-			write(type);
-			write(" object at 0x");
+			write_type(ptr);
+			write("object at 0x");
 			write_base<16>(reinterpret_cast<std::uintptr_t>(ptr));
 			write('>');
 		}

@@ -77,4 +77,5 @@
 * [ ] Add `noexcept` specifiers for performance (esp. on GCC) [?]
 * [ ] Make reading `const` [?]
 * [ ] Return self on write? `open(...).print(x).print(y)`
+* [ ] Read/write `bin<Int>`, `oct<Int>`, `hex<Int>`
 * [ ] Nice README with examples (test beforehand)

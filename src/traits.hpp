@@ -18,11 +18,17 @@ namespace clear::impl
 	template <class, template <class...> class>
 	struct is_specialization : std::false_type {};
 
-	template <template<class...> class Generic, class... Ts>
+	template <template <class...> class Generic, class... Ts>
 	struct is_specialization<Generic<Ts...>, Generic> : std::true_type {};
 
 	template <class Specific, template <class...> class Generic>
 	concept Specialization = is_specialization<Specific, Generic>::value;
+
+	template <class T>
+	concept Sequence = Specialization<T, std::vector>
+	                || Specialization<T, std::deque>
+	                || Specialization<T, std::forward_list>
+	                || Specialization<T, std::list>;
 
 	template <class T>
 	concept Associative = Specialization<T, std::set>

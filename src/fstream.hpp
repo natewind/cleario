@@ -142,63 +142,39 @@ namespace clear
 			write('}');
 		}
 
+		// TODO: Reorganize write() overloads when GCC fixes its bug
+		//
+		//       Currently: write(std::integral) collides with write(auto),
+		//                  so I added impl::Class instead of the latter,
+		//                  and that collides with e. g. impl::Sequence,
+		//                  so I moved them inside the impl::Class overload,
+		//                  and the array overload stays outside (not a class).
+		//
+		//       Desired: When GCC fixes the bug, and std::integral is more
+		//                specific than auto, move other concepts outside
+		//                of the impl::Class overload and replace impl::Class
+		//                with auto. Figure out how to add both array overloads
+		//                to impl::Sequence.
+
 		template <std::size_t Size>
 		void write(auto const (&xs)[Size]) { write_list(xs); }
 
-		template <class T, std::size_t Size>
-		void write(std::array<T, Size> const &xs) { write_list(xs); }
+		template <std::size_t Size>
+		void write(std::array<auto, Size> const &xs) { write_list(xs); }
 
-		template <class T>
-		void write(std::vector<T> const &xs) { write_list(xs); }
-
-		template <class T>
-		void write(std::deque<T> const &xs) { write_list(xs); }
-
-		template <class T>
-		void write(std::forward_list<T> const &xs) { write_list(xs); }
-
-		template <class T>
-		void write(std::list<T> const &xs) { write_list(xs); }
-
-		// TODO: Repeat the next TODO for sequence containers
-		// TODO: Replace the separate overloads of associative containers
-		//       with impl::Associative when GCC fixes a concept bug:
-		//       impl::Associative apparently isn’t more specific
-		//       than impl::Class, and if the latter is replaced by auto,
-		//       it overlaps with std::integral (which has to be a bug);
-		//       MSVC compiles it fine
-
-		// void write(auto const &);
-		// void write(impl::Associative auto const &xs) { write_set(xs); }
-
-		template <class T>
-		void write(std::set<T> const &xs) { write_set(xs); }
-
-		template <class T>
-		void write(std::multiset<T> const &xs) { write_set(xs); }
-
-		template <class T>
-		void write(std::unordered_set<T> const &xs) { write_set(xs); }
-
-		template <class T>
-		void write(std::unordered_multiset<T> const &xs) { write_set(xs); }
-
-		template <class Key, class Value>
-		void write(std::map<Key, Value> const &xs) { write_set(xs); }
-
-		template <class Key, class Value>
-		void write(std::multimap<Key, Value> const &xs) { write_set(xs); }
-
-		template <class Key, class Value>
-		void write(std::unordered_map<Key, Value> const &xs) { write_set(xs); }
-
-		template <class Key, class Value>
-		void write(std::unordered_multimap<Key, Value> const &xs)
+		template <impl::Class T>
+		void write(T const &xs)
 		{
-			write_set(xs);
-		}
+			if constexpr (impl::Sequence<T>)
+				write_list(xs);
 
-		void write(impl::Class auto const&);
+			else
+			{
+				static_assert(impl::Associative<T>,
+					          "write() is not implemented for this type");
+				write_set(xs);
+			}
+		}
 
 		void print() { write('\n'); }
 

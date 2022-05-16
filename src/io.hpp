@@ -171,7 +171,7 @@ namespace clear
 			else
 			{
 				static_assert(impl::Associative<T>,
-					          "write() is not implemented for this type");
+				              "write() is not implemented for this type");
 				write_set(xs);
 			}
 		}

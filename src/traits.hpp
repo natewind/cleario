@@ -1,10 +1,19 @@
 #ifndef CLEARIO_TRAITS_HPP
 #define CLEARIO_TRAITS_HPP
 
-#include <limits>      // std::numeric_limits
-#include <concepts>    // std::integral
-#include <algorithm>   // std::max
-#include <type_traits> // std::enable_if_t, std::is_pointer_v, std::is_class_v
+#include <limits>        // std::numeric_limits
+#include <concepts>      // std::integral
+#include <algorithm>     // std::max
+#include <type_traits>   // std::enable_if_t, std::is_pointer_v
+                         // std::is_class_v, std::true_type, std::false_type
+#include <set>           // std::set, std::multiset
+#include <map>           // std::map, std::multimap
+#include <list>          // std::list
+#include <deque>         // std::deque
+#include <vector>        // std::vector
+#include <forward_list>  // std::forward_list
+#include <unordered_set> // std::unordered_set, std::unordered_multiset
+#include <unordered_map> // std::unordered_map, std::unordered_multimap
 
 namespace clear::impl
 {
@@ -14,7 +23,6 @@ namespace clear::impl
 	template <class T>
 	concept Class = std::is_class_v<T>;
 
-	// BEGIN TODO: New names to includes & comments
 	template <class, template <class...> class>
 	struct is_specialization : std::false_type {};
 
@@ -39,7 +47,6 @@ namespace clear::impl
 	                   || Specialization<T, std::multimap>
 	                   || Specialization<T, std::unordered_map>
 	                   || Specialization<T, std::unordered_multimap>;
-	// END TODO
 
 	constexpr auto log(int base, std::integral auto x, int acc = 0) -> int
 	{

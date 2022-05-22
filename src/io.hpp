@@ -30,6 +30,21 @@ namespace clear
 		template <class T>
 		void write(T const &x) { impl::write(handle, x); }
 
+		// TODO: input_range includes
+		void write_list(std::ranges::input_range auto const &xs)
+		{
+			write('[');
+			impl::write_sequence(handle, xs);
+			write(']');
+		}
+
+		void write_set(std::ranges::input_range auto const &xs)
+		{
+			write('{');
+			impl::write_sequence(handle, xs);
+			write('}');
+		}
+
 		void print() { write('\n'); }
 
 		void print(auto const &x, auto const&... xs)

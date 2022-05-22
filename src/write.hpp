@@ -117,19 +117,19 @@ namespace clear::impl
 		});
 	}
 
-	// void write_list(file dest, std::ranges::input_range auto const &xs)
-	// {
-	// 	write(dest, '[');
-	// 	write_sequence(dest, xs);
-	// 	write(dest, ']');
-	// }
+	void write_list(file dest, std::ranges::input_range auto const &xs)
+	{
+		write(dest, '[');
+		write_sequence(dest, xs);
+		write(dest, ']');
+	}
 
-	// void write_set(file dest, std::ranges::input_range auto const &xs)
-	// {
-	// 	write(dest, '{');
-	// 	write_sequence(dest, xs);
-	// 	write(dest, '}');
-	// }
+	void write_set(file dest, std::ranges::input_range auto const &xs)
+	{
+		write(dest, '{');
+		write_sequence(dest, xs);
+		write(dest, '}');
+	}
 
 	void write(file dest, Sequence    auto const &xs) { write_list(dest, xs); }
 	void write(file dest, Associative auto const &xs) { write_set (dest, xs); }

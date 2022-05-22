@@ -21,7 +21,7 @@ auto main() -> int
 	auto file = clear::open("file.txt", "w");
 	file.print(Point {3, 4});
 
-	auto vec = std::vector{1, 2, 3, 4, 5};
+	auto const vec = std::vector{1, 2, 3, 4, 5};
 	clear::print(vec);
 	clear::print(&vec);
 
@@ -40,6 +40,6 @@ auto main() -> int
 	clear::print(std::optional<int>(60));
 	clear::print(std::optional<int>());
 
-	void *ptr = &vec;
+	void const *ptr = &vec;
 	clear::print(ptr);
 }

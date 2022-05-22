@@ -14,13 +14,12 @@
 #include <string_view> // string_view
 #include <utility>     // pair
 
+// TODO: Replace with the definition of the only function I need?
 #include "../nameof/include/nameof.hpp"
 
 #include "traits.hpp"
 
 // TODO: Overloads + references!
-// TODO: IsClass -> IsNotFundamental? (IsCustom?)
-//       (To allow for user-defined enums and unions)
 
 // TODO: Move some of the write_* functions to the interface?
 
@@ -30,21 +29,21 @@ namespace clear::impl
 
 	// TODO: Add quotation marks to strings inside containers?
 
-	void write(file dest, bool b)
+	inline void write(file dest, bool b)
 	{
 		std::fputs(b ? "True" : "False", dest);
 	}
 
-	void write(file dest, char c)        { std::fputc(c, dest); }
-	void write(file dest, char const *s) { std::fputs(s, dest); }
+	inline void write(file dest, char c)        { std::fputc(c, dest); }
+	inline void write(file dest, char const *s) { std::fputs(s, dest); }
 
-	void write(file dest, std::string_view str)
+	inline void write(file dest, std::string_view str)
 	{
 		std::fwrite(str.data(), str.size(), 1, dest);
 	}
 
 	// TODO: Combine with write(string_view) without a linking error
-	void write(file dest, std::string const &str)
+	inline void write(file dest, std::string const &str)
 	{
 		std::fputs(str.c_str(), dest);
 	}

@@ -2,7 +2,7 @@
 #define CLEARIO_IO_HPP
 
 #include <cstdio>  // fclose, fopen, stdout
-#include <utility> // forward, move, swap
+#include <utility> // move, swap
 
 #include "write.hpp"
 
@@ -28,7 +28,7 @@ namespace clear
 		}
 
 		template <class T>
-		void write(T &&x) { impl::write(handle, std::forward<T>(x)); }
+		void write(T const &x) { impl::write(handle, x); }
 
 		void print() { write('\n'); }
 
@@ -60,18 +60,12 @@ namespace clear
 				std::fclose(file.unsafe());
 		}
 
-		template <class T>
-		void write(T &&x) { file.write(std::forward<T>(x)); }
-
-		template <class... Ts>
-		void print(Ts &&... xs) { file.print(std::forward<Ts>(xs)...); }
+		void write(auto const &x) { file.write(x); }
+		void print(auto const&... xs) { file.print(xs...); }
 	};
 
-	template <class T>
-	void write(T &&x) { io(stdout).write(std::forward<T>(x)); }
-
-	template <class... Ts>
-	void print(Ts &&... xs) { io(stdout).print(std::forward<Ts>(xs)...); }
+	void write(auto const &x) { io(stdout).write(x); }
+	void print(auto const&... xs) { io(stdout).print(xs...); }
 }
 
 #endif

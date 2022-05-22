@@ -19,8 +19,6 @@
 
 #include "traits.hpp"
 
-// TODO: Overloads + references!
-
 // TODO: Move some of the write_* functions to the interface?
 
 namespace clear::impl

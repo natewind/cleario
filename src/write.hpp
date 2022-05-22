@@ -130,7 +130,7 @@ namespace clear::impl
 		write(dest, '}');
 	}
 
-	// TODO: Move both array overloads to Associative
+	// TODO: Move both array overloads to Sequence
 	template <std::size_t Size>
 	void write(file dest, auto const (&xs)[Size]) { write_list(dest, xs); }
 

@@ -1,8 +1,8 @@
 #ifndef CLEARIO_HPP
 #define CLEARIO_HPP
 
-#include <cstdio>  // std::fclose, std::fopen, stdout
-#include <utility> // std::forward
+#include <cstdio>  // fclose, fopen, stdout
+#include <utility> // forward
 
 #include "src/io.hpp"
 

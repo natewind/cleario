@@ -131,14 +131,14 @@ namespace clear::impl
 	}
 
 	// TODO: Move both array overloads to Sequence
-	template <std::size_t Size>
-	void write(file dest, auto const (&xs)[Size]) { write_list(dest, xs); }
+	// template <std::size_t Size>
+	// void write(file dest, auto const (&xs)[Size]) { write_list(dest, xs); }
 
-	template <std::size_t Size>
-	void write(file dest, std::array<auto, Size> const &xs)
-	{
-		write_list(dest, xs);
-	}
+	// template <std::size_t Size>
+	// void write(file dest, std::array<auto, Size> const &xs)
+	// {
+	// 	write_list(dest, xs);
+	// }
 
 	void write(file dest, Sequence    auto const &xs) { write_list(dest, xs); }
 	void write(file dest, Associative auto const &xs) { write_set (dest, xs); }

@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../main.hpp"
+#include "../include.hpp"
 
 struct Point { int x, y; };
 

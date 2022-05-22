@@ -11,7 +11,7 @@ git submodule add git@github.com:natewind/cleario.git
 ***TODO:** Something, something, examples*
 
 ```cpp
-#include "cleario/main.hpp"
+#include "cleario/include.hpp"
 
 auto main() -> int
 {

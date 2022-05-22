@@ -62,7 +62,7 @@ namespace clear::impl
 		write_base<10>(dest, x);
 	}
 
-	void write_type(std::FILE*, void const*) {}
+	void write_type(file, void const*) {}
 
 	template <class T>
 	void write_type(file dest, T const*)
@@ -72,7 +72,7 @@ namespace clear::impl
 		write(dest, ' ');
 	}
 
-	void write(file dest, Pointer auto ptr)
+	void write(file dest, Pointer auto const &ptr)
 	{
 		write(dest, '<');
 		write_type(dest, ptr);
@@ -129,16 +129,6 @@ namespace clear::impl
 		write_sequence(dest, xs);
 		write(dest, '}');
 	}
-
-	// TODO: Move both array overloads to Sequence
-	// template <std::size_t Size>
-	// void write(file dest, auto const (&xs)[Size]) { write_list(dest, xs); }
-
-	// template <std::size_t Size>
-	// void write(file dest, std::array<auto, Size> const &xs)
-	// {
-	// 	write_list(dest, xs);
-	// }
 
 	void write(file dest, Sequence    auto const &xs) { write_list(dest, xs); }
 	void write(file dest, Associative auto const &xs) { write_set (dest, xs); }

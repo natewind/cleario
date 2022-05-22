@@ -2,7 +2,9 @@
 #define CLEARIO_TRAITS_HPP
 
 #include <algorithm>     // max
+#include <array>         // array
 #include <concepts>      // integral
+#include <cstddef>       // size_t
 #include <deque>         // deque
 #include <forward_list>  // forward_list
 #include <limits>        // numeric_limits
@@ -31,12 +33,25 @@ namespace clear::impl
 	template <class Specific, template <class...> class Generic>
 	concept Specialization = is_specialization<Specific, Generic>::value;
 
+	template <class>
+	struct is_array : std::false_type {};
+
+	template <class T, std::size_t Size>
+	struct is_array<std::array<T, Size>> : std::true_type {};
+
+	template <class T, std::size_t Size>
+	struct is_array<T[Size]> : std::true_type {};
+
+	template <class T>
+	concept Array = is_array<T>::value;
+
 	template <class T>
 	concept SmartPtr = Specialization<T, std::unique_ptr>
 	                || Specialization<T, std::shared_ptr>;
 
 	template <class T>
-	concept Sequence = Specialization<T, std::vector>
+	concept Sequence = Array<T>
+	                || Specialization<T, std::vector>
 	                || Specialization<T, std::deque>
 	                || Specialization<T, std::forward_list>
 	                || Specialization<T, std::list>;

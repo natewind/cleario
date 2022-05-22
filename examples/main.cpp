@@ -33,8 +33,11 @@ auto main() -> int
 	clear::print(std::forward_list{6, 7, 8, 9, 10});
 	clear::print(std::list{11, 12, 13, 14, 15});
 
-	int array[] = {16, 17, 18, 19, 20};
-	clear::print(array);
+	int array1[] = {16, 17, 18, 19, 20};
+	clear::print(array1);
+
+	auto array2 = std::array{16, 17, 18, 19, 20};
+	clear::print(array2);
 
 	clear::print(std::make_unique<int>(12));
 	clear::print(std::optional<int>(60));

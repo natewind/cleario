@@ -143,15 +143,8 @@ namespace clear::impl
 		write_list(dest, xs);
 	}
 
-	void write(file dest, Sequence auto const &xs)
-	{
-		write_list(dest, xs);
-	}
-
-	void write(file dest, Associative auto const &xs)
-	{
-		write_set(dest, xs);
-	}
+	void write(file dest, Sequence    auto const &xs) { write_list(dest, xs); }
+	void write(file dest, Associative auto const &xs) { write_set (dest, xs); }
 }
 
 #endif

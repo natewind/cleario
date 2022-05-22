@@ -30,7 +30,7 @@ namespace clear::impl
 
 	// TODO: Add quotation marks to strings inside containers?
 
-	void write(std::FILE *dest, bool b)
+	void write(file dest, bool b)
 	{
 		std::fputs(b ? "True" : "False", dest);
 	}

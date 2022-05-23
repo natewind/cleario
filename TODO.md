@@ -79,4 +79,5 @@
 * [ ] Return self on write? `open(...).print(x).print(y)`
 * [ ] Read/write `bin<Int>`, `oct<Int>`, `hex<Int>`
 * [x] `void*` -> <object at ...> (no type)
+* [ ] Add quotation marks to strings inside containers?
 * [ ] Nice README with examples (test beforehand)

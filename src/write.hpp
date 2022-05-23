@@ -14,18 +14,12 @@
 #include <string_view> // string_view
 #include <utility>     // pair
 
-// TODO: Replace with the definition of the only function I need?
 #include "../nameof/include/nameof.hpp"
-
 #include "traits.hpp"
-
-// TODO: Move write_base to the interface?
 
 namespace clear::impl
 {
 	using file = std::FILE*;
-
-	// TODO: Add quotation marks to strings inside containers?
 
 	inline void write(file dest, bool b)
 	{

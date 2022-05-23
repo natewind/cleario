@@ -86,8 +86,51 @@ clear::print(1, -2, 3); // 1 -2 3
 auto const x = 5;
 auto const ptr = static_cast<void*>(&x);
 
-clear::print(&x);  // <int object at 0x7ffcb52c6c54>
+clear::print(&x); // <int object at 0x7ffcb52c6c54>
 clear::print(ptr); // <object at 0x7ffcb52c6c54>
+```
+
+### Optionals
+
+```cpp
+clear::print(std::optional<int> {}); // None
+clear::print(std::optional {12}); // Some(12)
+```
+
+### Sequence containers
+
+* `T[]`
+* `std::array`
+* `std::vector`
+* `std::deque`
+* `std::forward_list`
+* `std::list`
+
+```cpp
+auto const vec = std::vector {1, 2, 3, 4, 5};
+clear::print(vec); // [1, 2, 3, 4, 5]
+```
+
+### Associative containers
+
+* `std::set`
+* `std::multiset`
+* `std::unordered_set`
+* `std::unordered_multiset`
+
+```cpp
+auto const set = std::set {1, 2, 3, 4, 5};
+clear::print(set); // {1, 2, 3, 4, 5}
+```
+
+* `std::map`
+* `std::multimap`
+* `std::unordered_map`
+* `std::unordered_multimap`
+
+```cpp
+auto const map = std::unordered_map {{"a", 1}, {"b", 2}, {"c", 3}};
+clear::print(map); // {c: 3, b: 2, a: 1}
 ```
 
 ### User-defined types
@@ -115,7 +158,7 @@ inline void clear::io::write(Point const &point)
 Try it out:
 
 ```cpp
-print(Point {3, 4}); // (3, 4)
+clear::print(Point {3, 4}); // (3, 4)
 ```
 
 ## Files

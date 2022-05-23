@@ -68,9 +68,9 @@ auto main() -> int
 	print("print<std::forward_list<int>>  =>", fls);
 	print("print<std::list<int>>          =>", lst, '\n');
 
-	auto const set   = std::set {1, 2, 3, 4, 5};
-	auto const mset  = std::multiset {1, 2, 3, 4, 5};
-	auto const uset  = std::unordered_set {1, 2, 3, 4, 5};
+	auto const set   = std::set                {1, 2, 3, 4, 5};
+	auto const mset  = std::multiset           {1, 2, 3, 4, 5};
+	auto const uset  = std::unordered_set      {1, 2, 3, 4, 5};
 	auto const umset = std::unordered_multiset {1, 2, 3, 4, 5};
 
 	print("print<std::set<int>>                =>", set);

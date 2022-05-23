@@ -36,13 +36,13 @@ Include the interface:
 To print a value without any additional characters:
 
 ```cpp
-write("Hello, World!\n"); // Hello, World!
+clear::write("Hello, World!\n"); // Hello, World!
 ```
 
 To print one or more values delimited by spaces and ending in a newline:
 
 ```cpp
-print("Helo, World!", 42, true); // Hello, World! 42 True
+clear::print("Helo, World!", 42, true); // Hello, World! 42 True
 ```
 
 ### Chars

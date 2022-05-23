@@ -8,16 +8,16 @@ print<const char*>      => Hello, World!
 print<std::string_view> => Hello, World!
 print<std::string>      => Hello, World! 
 
-print<void*>        => <object at 0x7ffcb52c6c54>
-print<int*>         => <int object at 0x7ffcb52c6c54>
-print<std::vector*> => <vector object at 0x7ffcb52c6da0> 
+print<void*>        => <object at 0x7fff93333244>
+print<int*>         => <int object at 0x7fff93333244>
+print<std::vector*> => <vector object at 0x7fff93333390> 
 
 print<std::unique_ptr<int>> => <int object at 0x0>
-print<std::unique_ptr<int>> => <int object at 0x5592a718a2e0>
+print<std::unique_ptr<int>> => <int object at 0x55e67cff62e0>
 print<std::shared_ptr<int>> => <int object at 0x0>
-print<std::shared_ptr<int>> => <int object at 0x5592a718a310> 
+print<std::shared_ptr<int>> => <int object at 0x55e67cff6310> 
 
-print<std::optional<int>> => 12
+print<std::optional<int>> => Some(12)
 print<std::optional<int>> => None 
 
 print<int[]>                   => [1, 2, 3, 4, 5]

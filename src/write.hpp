@@ -71,7 +71,14 @@ namespace clear::impl
 	template <class T>
 	void write(file dest, std::optional<T> const &x)
 	{
-		x ? write(dest, *x) : write(dest, "None");
+		if (x)
+		{
+			write(dest, "Some(");
+			write(dest, *x);
+			write(dest, ')');
+		}
+
+		else write(dest, "None");
 	}
 
 	void write_item(file dest, auto const &x) { write(dest, x); }

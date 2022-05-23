@@ -1,20 +1,135 @@
 # ClearIO
 
-*(README draft)*
+A header-only IO library implemented in C++20, internally a wrapper over `stdio`.
 
-***TODO:** Something, something, importing*
+The library is under development and subject to change. Contributions are welcome (but keep in mind that I’m very opinionated). You can also [log an issue](https://github.com/natewind/cleario/issues) if you spot a bug or if you want a particular feature not already listed in [TODO](https://github.com/natewind/cleario/blob/master/TODO.md).
+
+## Advantages
+
+* Clean and consistent interface
+* Pretty-printing STL containers and pointers
+* No `sync_with_stdio`, so should be faster than `iostream`
+* No runtime format strings, so might be faster than `stdio`
+
+## Installation
+
+Add it to your Git project as a submodule:
 
 ```bash
 git submodule add git@github.com:natewind/cleario.git
 ```
 
-***TODO:** Something, something, examples*
+Or simply clone:
+
+```bash
+git clone git@github.com:natewind/cleario.git
+```
+
+Include the interface:
 
 ```cpp
 #include "cleario/include.hpp"
+```
 
-auto main() -> int
+## Output
+
+To print a value without any additional characters:
+
+```cpp
+write("Hello, World!\n"); // Hello, World!
+```
+
+To print one or more values delimited by spaces and ending in a newline:
+
+```cpp
+print("Helo, World!", 42, true); // Hello, World! 42 True
+```
+
+### Chars
+
+```cpp
+clear::print('a', 'b', 'c'); // a b c
+```
+
+### Strings
+
+* `char const*`
+* `std::string`
+* `std::string_view`
+
+```cpp
+auto const str = std::string("Qwerty");
+clear::print(str); // Qwerty
+```
+
+### Booleans
+
+```cpp
+clear::print(true, false);   // True False
+```
+
+### Integers
+
+Integral types, except for `char`:
+
+```cpp
+clear::print(1, -2, 3); // 1 -2 3
+```
+
+### Pointers
+
+* `T*`
+* `std::unique_ptr`
+* `std::shared_ptr`
+
+```cpp
+auto const x = 5;
+auto const ptr = static_cast<void*>(&x);
+
+clear::print(&x);  // <int object at 0x7ffcb52c6c54>
+clear::print(ptr); // <object at 0x7ffcb52c6c54>
+```
+
+### User-defined types
+
+Consider a type:
+
+```cpp
+struct Point { int x, y; };
+```
+
+To make it printable, implement `write` for it, reducing it to a sequence of `write` or `print` calls on already printable types:
+
+```cpp
+template <>
+inline void clear::io::write(Point const &point)
 {
-	clear::print("Hello, World!");
+	write('(');
+	write(point.x);
+	write(", ");
+	write(point.y);
+	write(')');
 }
+```
+
+Try it out:
+
+```cpp
+print(Point {3, 4}); // (3, 4)
+```
+
+## Files
+
+To open a file:
+
+```cpp
+auto file = clear::open("file.txt", "w");
+```
+
+The access modes are the same ones used with [`std::fopen`](https://en.cppreference.com/w/cpp/io/c/fopen) (the default is `"r+"`). Files are movable (but not copyable) and close automatically when leaving the scope.
+
+To write to a file, simply use `write` or `print` as a member function:
+
+```cpp
+file.print("Helo, World!", 42, true);
 ```

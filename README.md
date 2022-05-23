@@ -129,8 +129,8 @@ clear::print(set); // {1, 2, 3, 4, 5}
 * `std::unordered_multimap`
 
 ```cpp
-auto const map = std::unordered_map {{"a", 1}, {"b", 2}, {"c", 3}};
-clear::print(map); // {c: 3, b: 2, a: 1}
+auto const map = std::unordered_map {{"a", 1}, {"b", 2}, {"c", 3}, {"d", 4}, {"e", 5}};
+clear::print(map); // {e: 5, c: 3, b: 2, d: 4, a: 1}
 ```
 
 ### User-defined types

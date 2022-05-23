@@ -10,8 +10,9 @@
 #include <limits>        // numeric_limits
 #include <list>          // list
 #include <map>           // map, multimap
+#include <memory>        // shared_ptr, unique_ptr
 #include <set>           // multiset, set
-#include <type_traits>   // false_type, is_class_v, is_pointer_v, true_type
+#include <type_traits>   // false_type, is_pointer_v, true_type
 #include <unordered_map> // unordered_map, unordered_multimap
 #include <unordered_set> // unordered_multiset, unordered_set
 #include <vector>        // vector
@@ -20,9 +21,6 @@ namespace clear::impl
 {
 	template <class T>
 	concept Pointer = std::is_pointer_v<T>;
-
-	template <class T>
-	concept Class = std::is_class_v<T>;
 
 	template <class, template <class...> class>
 	struct is_specialization : std::false_type {};

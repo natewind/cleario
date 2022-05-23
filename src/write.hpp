@@ -7,8 +7,8 @@
 #include <concepts>    // integral
 #include <cstdint>     // uintptr_t
 #include <cstdio>      // FILE, fputc, fputs, fwrite
+#include <iterator>    // begin, end
 #include <iterator>    // next
-#include <memory>      // shared_ptr, unique_ptr
 #include <optional>    // optional
 #include <ranges>      // ranges::input_range
 #include <string_view> // string_view
@@ -19,8 +19,7 @@
 
 #include "traits.hpp"
 
-// TODO: Move some of the write_* functions to the interface?
-//       write_base, write_list?, write_set?
+// TODO: Move write_base to the interface?
 
 namespace clear::impl
 {
@@ -41,12 +40,6 @@ namespace clear::impl
 		std::fwrite(str.data(), str.size(), 1, dest);
 	}
 
-	// TODO: Combine with write(string_view) without a linking error
-	inline void write(file dest, std::string const &str)
-	{
-		std::fputs(str.c_str(), dest);
-	}
-
 	template <int Base, std::integral T>
 	void write_base(file dest, T x)
 	{
@@ -58,10 +51,7 @@ namespace clear::impl
 		std::fwrite(begin, size, 1, dest);
 	}
 
-	void write(file dest, std::integral auto x)
-	{
-		write_base<10>(dest, x);
-	}
+	void write(file dest, std::integral auto x) { write_base<10>(dest, x); }
 
 	void write_type(file, void const*) {}
 
@@ -117,22 +107,19 @@ namespace clear::impl
 		});
 	}
 
-	void write_list(file dest, std::ranges::input_range auto const &xs)
+	void write(file dest, Sequence auto const &xs)
 	{
 		write(dest, '[');
 		write_sequence(dest, xs);
 		write(dest, ']');
 	}
 
-	void write_set(file dest, std::ranges::input_range auto const &xs)
+	void write(file dest, Associative auto const &xs)
 	{
 		write(dest, '{');
 		write_sequence(dest, xs);
 		write(dest, '}');
 	}
-
-	void write(file dest, Sequence    auto const &xs) { write_list(dest, xs); }
-	void write(file dest, Associative auto const &xs) { write_set (dest, xs); }
 }
 
 #endif

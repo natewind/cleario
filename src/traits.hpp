@@ -1,18 +1,20 @@
 #ifndef CLEARIO_TRAITS_HPP
 #define CLEARIO_TRAITS_HPP
 
-#include <algorithm>     // std::max
-#include <concepts>      // std::integral
-#include <deque>         // std::deque
-#include <forward_list>  // std::forward_list
-#include <limits>        // std::numeric_limits
-#include <list>          // std::list
-#include <map>           // std::map, std::multimap
-#include <set>           // std::set, std::multiset
-#include <unordered_map> // std::unordered_map, std::unordered_multimap
-#include <unordered_set> // std::unordered_set, std::unordered_multiset
-#include <vector>        // std::vector
-#include <type_traits>   // Wrappee
+#include <algorithm>     // max
+#include <array>         // array
+#include <concepts>      // integral
+#include <cstddef>       // size_t
+#include <deque>         // deque
+#include <forward_list>  // forward_list
+#include <limits>        // numeric_limits
+#include <list>          // list
+#include <map>           // map, multimap
+#include <set>           // multiset, set
+#include <type_traits>   // false_type, is_class_v, is_pointer_v, true_type
+#include <unordered_map> // unordered_map, unordered_multimap
+#include <unordered_set> // unordered_multiset, unordered_set
+#include <vector>        // vector
 
 namespace clear::impl
 {
@@ -31,8 +33,25 @@ namespace clear::impl
 	template <class Specific, template <class...> class Generic>
 	concept Specialization = is_specialization<Specific, Generic>::value;
 
+	template <class>
+	struct is_array : std::false_type {};
+
+	template <class T, std::size_t Size>
+	struct is_array<std::array<T, Size>> : std::true_type {};
+
+	template <class T, std::size_t Size>
+	struct is_array<T[Size]> : std::true_type {};
+
 	template <class T>
-	concept Sequence = Specialization<T, std::vector>
+	concept Array = is_array<T>::value;
+
+	template <class T>
+	concept SmartPtr = Specialization<T, std::unique_ptr>
+	                || Specialization<T, std::shared_ptr>;
+
+	template <class T>
+	concept Sequence = Array<T>
+	                || Specialization<T, std::vector>
 	                || Specialization<T, std::deque>
 	                || Specialization<T, std::forward_list>
 	                || Specialization<T, std::list>;

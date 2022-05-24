@@ -65,7 +65,7 @@ clear::print(str); // Qwerty
 ### Booleans
 
 ```cpp
-clear::print(true, false);   // True False
+clear::print(true, false); // True False
 ```
 
 ### Integers

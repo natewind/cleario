@@ -81,16 +81,20 @@ namespace clear::impl
 		else write(dest, "None");
 	}
 
-	void write_item(file dest, auto const &x) { write(dest, x); }
-
-	template <class Key, class Value>
-	void write_item(file dest, std::pair<Key, Value> const &kv)
+	template <bool IsMapEntry>
+	void write_item(file dest, auto const &x)
 	{
-		write(dest, kv.first);
-		write(dest, ": ");
-		write(dest, kv.second);
+		if constexpr (IsMapEntry)
+		{
+			write(dest, x.first);
+			write(dest, ": ");
+			write(dest, x.second);
+		}
+
+		else write(dest, x);
 	}
 
+	template <bool IsMap = false>
 	void write_sequence(file dest, std::ranges::input_range auto const &xs)
 	{
 		auto const first = std::begin(xs);
@@ -99,12 +103,12 @@ namespace clear::impl
 		if (first == last)
 			return;
 
-		write_item(dest, *first);
+		write_item<IsMap>(dest, *first);
 
 		std::for_each(std::next(first), last, [dest](auto const &x)
 		{
 			write(dest, ", ");
-			write_item(dest, x);
+			write_item<IsMap>(dest, x);
 		});
 	}
 
@@ -115,10 +119,11 @@ namespace clear::impl
 		write(dest, ']');
 	}
 
-	void write(file dest, Associative auto const &xs)
+	template <Associative T>
+	void write(file dest, T const &xs)
 	{
 		write(dest, '{');
-		write_sequence(dest, xs);
+		write_sequence<Map<T>>(dest, xs);
 		write(dest, '}');
 	}
 }

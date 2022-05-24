@@ -38,7 +38,7 @@
 		* [x] `std::string`
 		* [x] `std::string_view`
 	* [ ] Other
-		* [ ] `std::tuple` -> (a0, a1) (AMBIGUITY! `[(,)]` (`write_item`))
+		* [ ] `std::tuple` -> (a0, a1)
 		* [x] `std::optional` -> None/Refl
 		* [ ] `std::nullptr_t` -> None
 		* [ ] `std::byte` -> 0x00

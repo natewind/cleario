@@ -55,14 +55,19 @@ namespace clear::impl
 	                || Specialization<T, std::list>;
 
 	template <class T>
-	concept Associative = Specialization<T, std::set>
-	                   || Specialization<T, std::multiset>
-	                   || Specialization<T, std::unordered_set>
-	                   || Specialization<T, std::unordered_multiset>
-	                   || Specialization<T, std::map>
-	                   || Specialization<T, std::multimap>
-	                   || Specialization<T, std::unordered_map>
-	                   || Specialization<T, std::unordered_multimap>;
+	concept Set = Specialization<T, std::set>
+	           || Specialization<T, std::multiset>
+	           || Specialization<T, std::unordered_set>
+	           || Specialization<T, std::unordered_multiset>;
+
+	template <class T>
+	concept Map = Specialization<T, std::map>
+	           || Specialization<T, std::multimap>
+	           || Specialization<T, std::unordered_map>
+	           || Specialization<T, std::unordered_multimap>;
+
+	template <class T>
+	concept Associative = Set<T> || Map<T>;
 
 	constexpr auto log(int base, std::integral auto x, int acc = 0) -> int
 	{

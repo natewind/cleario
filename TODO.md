@@ -7,8 +7,7 @@
 	* [ ] Floating types
 	* [x] Pointers -> <object at 0x00...>
 	* [x] Arrays -> [a0, a1]
-	* [ ] `void` (`write()`) -> () [?]
-* [ ] Do something about `char` vs `int8_t` (wrapper type?) [?]
+* [ ] Add an integer wrapper type for `char`
 * [ ] Printing integers in other bases
 * [ ] Reading integers in other bases
 * [ ] Concepts
@@ -79,5 +78,5 @@
 * [ ] Return self on write? `open(...).print(x).print(y)`
 * [ ] Read/write `bin<Int>`, `oct<Int>`, `hex<Int>`
 * [x] `void*` -> <object at ...> (no type)
-* [ ] Add quotation marks to strings inside containers?
+* [ ] Add quotation marks to strings inside containers
 * [ ] Nice README with examples (test beforehand)

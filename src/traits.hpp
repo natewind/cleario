@@ -3,7 +3,7 @@
 
 #include <algorithm>     // max
 #include <array>         // array
-#include <concepts>      // integral
+#include <concepts>      // convertible_to, integral
 #include <cstddef>       // size_t
 #include <deque>         // deque
 #include <forward_list>  // forward_list
@@ -16,9 +16,6 @@
 #include <unordered_map> // unordered_map, unordered_multimap
 #include <unordered_set> // unordered_multiset, unordered_set
 #include <vector>        // vector
-
-// std::convertible_to
-// std::same_as
 
 namespace clear::impl
 {

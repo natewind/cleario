@@ -17,10 +17,16 @@
 #include <unordered_set> // unordered_multiset, unordered_set
 #include <vector>        // vector
 
+// std::convertible_to
+// std::same_as
+
 namespace clear::impl
 {
 	template <class T>
-	concept Pointer = std::is_pointer_v<T>;
+	concept String = std::convertible_to<T, std::string_view>;
+
+	template <class T>
+	concept Pointer = std::is_pointer_v<T> && !String<T>;
 
 	template <class, template <class...> class>
 	struct is_specialization : std::false_type {};
@@ -41,7 +47,7 @@ namespace clear::impl
 	struct is_array<T[Size]> : std::true_type {};
 
 	template <class T>
-	concept Array = is_array<T>::value;
+	concept Array = is_array<T>::value && !String<T>;
 
 	template <class T>
 	concept SmartPtr = Specialization<T, std::unique_ptr>

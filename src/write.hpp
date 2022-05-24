@@ -26,12 +26,12 @@ namespace clear::impl
 		std::fputs(b ? "True" : "False", dest);
 	}
 
-	inline void write(file dest, char c)        { std::fputc(c, dest); }
-	inline void write(file dest, char const *s) { std::fputs(s, dest); }
+	inline void write(file dest, char c) { std::fputc(c, dest); }
 
-	inline void write(file dest, std::string_view str)
+	inline void write(file dest, String auto const &str)
 	{
-		std::fwrite(str.data(), str.size(), 1, dest);
+		auto const view = std::string_view(str);
+		std::fwrite(view.data(), view.size(), 1, dest);
 	}
 
 	template <int Base, std::integral T>

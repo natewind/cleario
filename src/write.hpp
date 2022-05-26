@@ -6,7 +6,7 @@
 #include <charconv>    // to_chars
 #include <concepts>    // integral
 #include <cstdint>     // uintptr_t
-#include <cstdio>      // FILE, fputc, fputs, fwrite
+#include <cstdio>      // EOF, FILE, fputc, fputs, fwrite
 #include <iterator>    // begin, end
 #include <iterator>    // next
 #include <optional>    // optional
@@ -20,111 +20,114 @@
 namespace clear::impl
 {
 	using file = std::FILE*;
+	using std::ranges::input_range;
 
-	inline void write(file dest, bool b)
+	inline auto write(file dest, bool b) -> bool
 	{
-		std::fputs(b ? "True" : "False", dest);
+		return std::fputs(b ? "True" : "False", dest) != EOF;
 	}
 
-	inline void write(file dest, char c) { std::fputc(c, dest); }
+	inline auto write(file dest, char c) -> bool
+	{
+		return std::fputc(c, dest) == c;
+	}
 
-	inline void write(file dest, String auto const &str)
+	inline auto write(file dest, String auto const &str) -> bool
 	{
 		auto const view = std::string_view(str);
-		std::fwrite(view.data(), view.size(), 1, dest);
+		return std::fwrite(view.data(), view.size(), 1, dest) != 0;
 	}
 
 	template <int Base, std::integral T>
-	void write_base(file dest, T x)
+	auto write_base(file dest, T x) -> bool
 	{
 		auto buff = std::array<char, maxlen<T>(Base)>();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 
 		auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
-		std::fwrite(begin, size, 1, dest);
+		return std::fwrite(begin, size, 1, dest) != 0;
 	}
 
-	void write(file dest, std::integral auto x) { write_base<10>(dest, x); }
+	auto write(file dest, std::integral auto x) -> bool
+	{
+		return write_base<10>(dest, x);
+	}
 
-	void write_type(file, void const*) {}
+	auto write_type(file, void const*) -> bool { return true; }
 
 	template <class T>
-	void write_type(file dest, T const*)
+	auto write_type(file dest, T const*) -> bool
 	{
 		constexpr auto type = nameof::nameof_short_type<T>();
-		write(dest, type);
-		write(dest, ' ');
+		return write(dest, type)
+		    && write(dest, ' ');
 	}
 
-	void write(file dest, Pointer auto const &ptr)
+	auto write(file dest, Pointer auto const &ptr) -> bool
 	{
-		write(dest, '<');
-		write_type(dest, ptr);
-		write(dest, "object at 0x");
-		write_base<16>(dest, reinterpret_cast<std::uintptr_t>(ptr));
-		write(dest, '>');
+		return write(dest, '<')
+		    && write_type(dest, ptr)
+		    && write(dest, "object at 0x")
+		    && write_base<16>(dest, reinterpret_cast<std::uintptr_t>(ptr))
+		    && write(dest, '>');
 	}
 
-	void write(file dest, SmartPtr auto const &ptr) { write(dest, ptr.get()); }
-
-	template <class T>
-	void write(file dest, std::optional<T> const &x)
+	auto write(file dest, SmartPtr auto const &ptr) -> bool
 	{
-		if (x)
-		{
-			write(dest, "Some(");
-			write(dest, *x);
-			write(dest, ')');
-		}
+		return write(dest, ptr.get());
+	}
 
-		else write(dest, "None");
+	auto write(file dest, std::optional<auto> const &x) -> bool
+	{
+		return x
+		     ? write(dest, "Some(") && write(dest, *x) && write(dest, ')')
+		     : write(dest, "None");
 	}
 
 	template <bool IsMapEntry>
-	void write_item(file dest, auto const &x)
+	auto write_item(file dest, auto const &x) -> bool
 	{
 		if constexpr (IsMapEntry)
-		{
-			write(dest, x.first);
-			write(dest, ": ");
-			write(dest, x.second);
-		}
+			return write(dest, x.first)
+			    && write(dest, ": ")
+			    && write(dest, x.second);
 
-		else write(dest, x);
+		else return write(dest, x);
 	}
 
 	template <bool IsMap = false>
-	void write_sequence(file dest, std::ranges::input_range auto const &xs)
+	auto write_sequence(file dest, input_range auto const &xs) -> bool
 	{
 		auto const first = std::begin(xs);
 		auto const last = std::end(xs);
 
-		if (first == last)
-			return;
-
-		write_item<IsMap>(dest, *first);
-
-		std::for_each(std::next(first), last, [dest](auto const &x)
+		auto const write_next = [dest](auto const &x)
 		{
-			write(dest, ", ");
-			write_item<IsMap>(dest, x);
-		});
+			return write(dest, ", ")
+			    && write_item<IsMap>(dest, x);
+		};
+
+		return first == last ||
+		(
+			write_item<IsMap>(dest, *first) &&
+			std::all_of(std::next(first), last, write_next)
+		);
 	}
 
-	void write(file dest, Sequence auto const &xs)
+	auto write(file dest, Sequence auto const &xs) -> bool
 	{
-		write(dest, '[');
-		write_sequence(dest, xs);
-		write(dest, ']');
+		return write(dest, '[')
+		    && write_sequence(dest, xs)
+		    && write(dest, ']');
 	}
 
 	template <Associative T>
-	void write(file dest, T const &xs)
+	auto write(file dest, T const &xs) -> bool
 	{
-		write(dest, '{');
-		write_sequence<Map<T>>(dest, xs);
-		write(dest, '}');
+		return write(dest, '{')
+		    && write_sequence<Map<T>>(dest, xs)
+		    && write(dest, '}');
 	}
 }
 

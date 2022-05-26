@@ -27,19 +27,17 @@ namespace clear
 			return *this;
 		}
 
-		template <class T>
-		void write(T const &x) { impl::write(handle, x); }
+		auto write(auto const &x) -> bool { return impl::write(handle, x); }
 
-		void print() { write('\n'); }
+		auto print() -> bool { return write('\n'); }
 
-		void print(auto const &x, auto const&... xs)
+		auto print(auto const &x) -> bool { return write(x) && print(); }
+
+		auto print(auto const &x, auto const&... xs) -> bool
 		{
-			write(x);
-
-			if constexpr (sizeof...(xs) > 0)
-				write(' ');
-
-			print(xs...);
+			return write(x)
+			    && write(' ')
+			    && print(xs...);
 		}
 	};
 
@@ -60,12 +58,12 @@ namespace clear
 				std::fclose(file.unsafe());
 		}
 
-		void write(auto const &x) { file.write(x); }
-		void print(auto const&... xs) { file.print(xs...); }
+		auto write(auto const &x) -> bool { return file.write(x); }
+		auto print(auto const&... xs) -> bool { return file.print(xs...); }
 	};
 
-	void write(auto const &x) { io(stdout).write(x); }
-	void print(auto const&... xs) { io(stdout).print(xs...); }
+	auto write(auto const &x) -> bool { return io(stdout).write(x); }
+	auto print(auto const&... xs) -> bool { return io(stdout).print(xs...); }
 }
 
 #endif

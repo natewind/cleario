@@ -3,13 +3,13 @@
 struct Point { int x, y; };
 
 template <>
-inline void clear::io::write(Point const &point)
+inline auto clear::io::write(Point const &point) -> bool
 {
-	write('(');
-	write(point.x);
-	write(", ");
-	write(point.y);
-	write(')');
+	return write('(')
+	    && write(point.x)
+	    && write(", ")
+	    && write(point.y)
+	    && write(')');
 }
 
 auto main() -> int

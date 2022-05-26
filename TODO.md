@@ -64,8 +64,7 @@
 * [ ] Reading an entire line
 * [ ] Input iterator
 * [ ] Output iterator
-* [ ] Optional `write()` (default?)
-* [ ] Optional `print()` (default?)
+* [x] Return success/failure from `write()`/ `print()`
 * [ ] Safe file opening/closing (+MSVC `fopen` “deprecation”)
 * [ ] `safe_read() -> std::optional`
 * [ ] `safe_input() -> std::optional`

@@ -45,6 +45,8 @@ To print one or more values delimited by spaces and ending in a newline:
 clear::print("Helo, World!", 42, true); // Hello, World! 42 True
 ```
 
+Both functions return `true` on success and `false` on failure. `print` aborts after the first unsuccessful write.
+
 ### Chars
 
 ```cpp
@@ -141,17 +143,17 @@ Consider a type:
 struct Point { int x, y; };
 ```
 
-To make it printable, implement `write` for it, reducing it to a sequence of `write` or `print` calls on already printable types:
+To make it printable, implement `write` for it, reducing it to a chain of `write` or `print` calls on already printable types:
 
 ```cpp
 template <>
-inline void clear::io::write(Point const &point)
+inline auto clear::io::write(Point const &point) -> bool
 {
-	write('(');
-	write(point.x);
-	write(", ");
-	write(point.y);
-	write(')');
+	return write('(')
+	    && write(point.x)
+	    && write(", ")
+	    && write(point.y)
+	    && write(')');
 }
 ```
 

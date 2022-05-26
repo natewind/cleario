@@ -1,7 +1,7 @@
 #ifndef CLEARIO_WRITE_HPP
 #define CLEARIO_WRITE_HPP
 
-#include <algorithm>   // for_each
+#include <algorithm>   // all_of
 #include <array>       // array
 #include <charconv>    // to_chars
 #include <concepts>    // integral

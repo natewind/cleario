@@ -147,7 +147,7 @@ To make it printable, implement `write` for it, reducing it to a chain of `write
 
 ```cpp
 template <>
-inline auto clear::io::write(Point const &point) -> bool
+auto clear::io::write(Point const &point) -> bool
 {
 	return write('(')
 	    && write(point.x)

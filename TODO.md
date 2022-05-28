@@ -2,13 +2,14 @@
 
 * [ ] Public interface
 	* [x] Open a file, close in the destructor
-	* [x] `io::write`
-	* [x] Variadic `io::print`
-	* [x] `open::write` and `open::print`
-	* [x] `::write` and `::print`
-	* [x] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
-	* [ ] Custom `sep` and `end` for `print`
-	* [ ] [?] `write_base` to the interface
+	* [ ] Output
+		* [x] `io::write`
+		* [x] Variadic `io::print`
+		* [x] `open::write` and `open::print`
+		* [x] `::write` and `::print`
+		* [x] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
+		* [ ] Custom `sep` and `end` for `print`
+		* [ ] [?] `write_base` to the interface
 	* [ ] Concepts
 		* [ ] `Writable`
 		* [ ] `Readable`

@@ -89,5 +89,5 @@
 * [ ] Binary writing/reading
 * [ ] Make reading `const` [?]
 * [ ] README warning about echoless bad state with multithreading
-* [ ] Take simple types by value (concept conflicts?)
+* [ ] `print`/`write` to take simple types by value (concept conflicts?)
 * [ ] `verify_read(char)` or something (auxiliary, to verify input format)

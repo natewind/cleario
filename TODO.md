@@ -89,3 +89,4 @@
 * [ ] Add quotation marks to strings inside containers
 * [ ] README warning about echoless bad state with multithreading
 * [ ] Take simple types by value (concept conflicts?)
+* [ ] `verify_read(char)` or something (auxiliary, to verify input format)

@@ -25,7 +25,7 @@ Or simply clone:
 git clone git@github.com:natewind/cleario.git
 ```
 
-Include the interface:
+Include the public interface:
 
 ```cpp
 #include "cleario/include.hpp"

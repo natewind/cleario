@@ -64,16 +64,18 @@
 	* [x] User-defined types
 * [ ] Design improvements
 	* [ ] Modularize cleario when GCC gets module support
+	* [ ] Add quotation marks to strings inside containers
 	* [ ] [Add](https://stackoverflow.com/questions/42832657/what-can-and-what-cant-throw-an-exception-in-c/42835627#42835627) `noexcept` specifiers for performance
 	* [ ] [?] Use [{fmt}](https://github.com/fmtlib/fmt) for printing (compile-time format strings > variadic `print`)
 
 # Unsorted
 
-* [ ] Variadic `read` (one/tuple)
-* [ ] Reading integers in other bases
-* [ ] `read` for basic types
-* [ ] `read` for STL types [?]
-* [ ] `read` for user-class specializations
+* [ ]`read`
+	* [ ] Variadic `read` (one/tuple)
+	* [ ] Reading integers in other bases
+	* [ ] `read` for basic types
+	* [ ] `read` for STL types [?]
+	* [ ] `read` for user-class specializations
 * [ ] `input<T = std::string>(prompt = "")`
 * [ ] `::read` and `::input` from `stdin`
 * [ ] Error printing / logging to `stderr` [?]
@@ -86,7 +88,6 @@
 * [ ] `safe_input -> std::optional`
 * [ ] Binary writing/reading
 * [ ] Make reading `const` [?]
-* [ ] Add quotation marks to strings inside containers
 * [ ] README warning about echoless bad state with multithreading
 * [ ] Take simple types by value (concept conflicts?)
 * [ ] `verify_read(char)` or something (auxiliary, to verify input format)

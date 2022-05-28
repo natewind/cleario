@@ -8,6 +8,7 @@
 	* [x] `::write` and `::print`
 	* [x] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
 	* [ ] Custom `sep` and `end` for `print`
+	* [ ] [?] `write_base` to the interface
 	* [ ] Concepts
 		* [ ] `Writable`
 		* [ ] `Readable`
@@ -25,7 +26,6 @@
 		* [ ] `bin` wrapper -> 0b00...
 		* [ ] `oct` wrapper -> 0o00...
 		* [ ] `hex` wrapper -> 0x00...
-		* [ ] [?] `write_base` to the interface
 	* [ ] Floating types
 		* [ ] Default format
 		* [ ] Set precision
@@ -69,8 +69,8 @@
 
 # Unsorted
 
-* [ ] Reading integers in other bases
 * [ ] Variadic `read` (one/tuple)
+* [ ] Reading integers in other bases
 * [ ] `read` for basic types
 * [ ] `read` for STL types [?]
 * [ ] `read` for user-class specializations

@@ -7,7 +7,7 @@
 		* [x] Variadic `io::print`
 		* [x] `open::write` and `open::print`
 		* [x] `::write` and `::print`
-		* [x] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
+		* [ ] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
 		* [ ] Custom `sep` and `end` for `print`
 		* [ ] [?] `write_base` to the interface
 	* [ ] Concepts
@@ -22,7 +22,7 @@
 		* [x] `std::string`
 		* [x] `std::string_view`
 	* [ ] Integral types
-		* [x] Default format (decimal)
+		* [x] `std::integral`
 		* [ ] `dec` wrapper (for `char`)
 		* [ ] `bin` wrapper -> 0b00...
 		* [ ] `oct` wrapper -> 0o00...
@@ -33,6 +33,7 @@
 		* [ ] Decimal places before the point
 		* [ ] Decimal places after the point
 		* [ ] Fillers (`'0'`, `' '` etc.)
+		* [ ] Scientific notation
 	* [ ] Pointers
 		* [x] `T*`
 		* [x] `std::unique_ptr`

@@ -30,6 +30,8 @@ auto main() -> int
 	print("print<int>  =>", 42);
 	print("print<int>  =>", -12, '\n');
 
+	flush();
+
 	auto const cstr = "Hello, World!";
 	auto const strv = std::string_view(cstr);
 	auto const str = std::string("Hello, World!");
@@ -109,6 +111,8 @@ auto main() -> int
 	file.print("print<bool> =>", false);
 	file.print("print<int>  =>", 42);
 	file.print("print<int>  =>", -12, '\n');
+
+	file.flush();
 
 	file.print("print<char...>          =>", 'a', 'b', 'c');
 	file.print("print<const char*>      =>", cstr);

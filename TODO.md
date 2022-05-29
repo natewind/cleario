@@ -7,7 +7,7 @@
 		* [x] Variadic `io::print`
 		* [x] `open::write` and `open::print`
 		* [x] `::write` and `::print`
-		* [ ] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
+		* [x] `open::flush` and `::flush`
 		* [ ] Custom `sep` and `end` for `print`
 		* [ ] [?] `write_base` to the interface
 		* [ ] [?] Binary writing

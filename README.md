@@ -45,7 +45,13 @@ To print one or more values delimited by spaces and ending in a newline:
 clear::print("Helo, World!", 42, true); // Hello, World! 42 True
 ```
 
-Both functions return `true` on success and `false` on failure. `print` aborts after the first unsuccessful write.
+To flush `stdout`:
+
+```cpp
+clear::flush();
+```
+
+All three functions return `true` on success and `false` on failure. `print` aborts after the first unsuccessful write.
 
 ### Chars
 
@@ -173,7 +179,7 @@ auto file = clear::open("file.txt", "w");
 
 The access modes are the same ones used with [`std::fopen`](https://en.cppreference.com/w/cpp/io/c/fopen) (the default is `"r+"`). Files are movable (but not copyable) and close automatically when leaving the scope.
 
-To write to a file, simply use `write` or `print` as a member function:
+To write to a file, simply use `write`, `print` and `flush` as member functions:
 
 ```cpp
 file.print("Helo, World!", 42, true);

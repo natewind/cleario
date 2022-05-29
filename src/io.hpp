@@ -1,7 +1,7 @@
 #ifndef CLEARIO_IO_HPP
 #define CLEARIO_IO_HPP
 
-#include <cstdio>  // fclose, fopen, stdout
+#include <cstdio>  // fclose, fflush, fopen, stdout
 #include <utility> // move, swap
 
 #include "write.hpp"
@@ -39,6 +39,8 @@ namespace clear
 			    && write(' ')
 			    && print(xs...);
 		}
+
+		auto flush() -> bool { return std::fflush(handle) == 0; }
 	};
 
 	class open
@@ -60,10 +62,12 @@ namespace clear
 
 		auto write(auto const &x) -> bool { return file.write(x); }
 		auto print(auto const&... xs) -> bool { return file.print(xs...); }
+		auto flush() -> bool { return file.flush(); }
 	};
 
 	auto write(auto const &x) -> bool { return io(stdout).write(x); }
 	auto print(auto const&... xs) -> bool { return io(stdout).print(xs...); }
+	auto flush() -> bool { return io(stdout).flush(); }
 }
 
 #endif

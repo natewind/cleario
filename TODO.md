@@ -38,7 +38,6 @@
 		* [x] `T*`
 		* [x] `std::unique_ptr`
 		* [x] `std::shared_ptr`
-		* [ ] `std::nullptr_t`
 	* [x] `std::optional`
 	* [ ] Sequence containers
 		* [x] `T[]`
@@ -47,7 +46,6 @@
 		* [x] `std::deque`
 		* [x] `std::forward_list`
 		* [x] `std::list`
-		* [ ] `std::span`
 	* [x] Sets
 		* [x] `std::set`
 		* [x] `std::multiset`

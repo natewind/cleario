@@ -2,6 +2,7 @@
 
 * [ ] Public interface
 	* [x] Open a file, close in the destructor
+	* [ ] `safe_open -> std::optional`
 	* [ ] Output
 		* [x] `io::write`
 		* [x] Variadic `io::print`
@@ -12,11 +13,18 @@
 		* [ ] [?] `write_base` to the interface
 		* [ ] [?] Binary writing
 	* [ ] Input
-		* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
-		* [ ] Variadic `io::read<Ts...>() -> std::optional<std::tuple<Ts...>>`
-		* [ ] `io::read<T> -> std::optional<T>`
-		* [ ] `open::read<Ts...>`
-		* [ ] `::read<Ts...>`
+		* [ ] Unsafe
+			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
+			* [ ] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
+			* [ ] `io::read<T> -> T`
+			* [ ] `open::read<Ts...>`
+			* [ ] `::read<Ts...>`
+		* [ ] Safe
+			* [ ] `io::safe_input`
+			* [ ] `io::safe_read<Ts...>() -> std::optional<std::tuple<Ts...>>`
+			* [ ] `io::safe_read<T> -> std::optional<T>`
+			* [ ] `open::safe_read<Ts...>`
+			* [ ] `::safe_read<Ts...>`
 		* [ ] Echoless read from `stdin`
 		* [ ] [?] Public `read_base`
 		* [ ] [?] Public `skip_ws` (for user-defined types)
@@ -125,5 +133,4 @@
 	* [ ] `print`/`write` to take simple types by value (concept conflicts?)
 	* [ ] README warning about using echoless with multithreading (stream may stay echoless)
 	* [ ] Make `read` methods `const`
-	* [ ] `open -> std::optional`
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)

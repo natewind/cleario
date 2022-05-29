@@ -181,7 +181,9 @@ The access modes are the same ones used with [`std::fopen`](https://en.cpprefere
 
 To open a file safely (because it can fail):
 
+```cpp
 auto maybe_file = clear::safe_open("maybe_file.txt", "w"); // returns std::optional
+```
 
 To write to a file, simply use `write`, `print` and `flush` as member functions:
 

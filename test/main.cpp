@@ -12,6 +12,13 @@ inline auto clear::io::write(Point const &point) -> bool
 	    && write(')');
 }
 
+template <>
+inline auto clear::io::read<Point const &point>() -> std::optional<auto>
+{
+	auto const xy = read<int, int>('(', _, ", ", _, ')');
+	return xy ? Point {xy.first, xy.second} : {};
+}
+
 auto main() -> int
 {
 	using namespace clear;

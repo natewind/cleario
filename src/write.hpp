@@ -19,27 +19,27 @@
 
 namespace clear::impl
 {
-	using file = std::FILE*;
+	using cfile = std::FILE*;
 	using std::ranges::input_range;
 
-	inline auto write(file dest, bool b) -> bool
+	inline auto write(cfile dest, bool b) -> bool
 	{
 		return std::fputs(b ? "True" : "False", dest) != EOF;
 	}
 
-	inline auto write(file dest, char c) -> bool
+	inline auto write(cfile dest, char c) -> bool
 	{
 		return std::fputc(c, dest) == c;
 	}
 
-	inline auto write(file dest, String auto const &str) -> bool
+	inline auto write(cfile dest, String auto const &str) -> bool
 	{
 		auto const view = std::string_view(str);
 		return std::fwrite(view.data(), view.size(), 1, dest) != 0;
 	}
 
 	template <int Base, std::integral T>
-	auto write_base(file dest, T x) -> bool
+	auto write_base(cfile dest, T x) -> bool
 	{
 		auto buff = std::array<char, maxlen<T>(Base)>();
 		auto const begin = buff.data();
@@ -49,22 +49,22 @@ namespace clear::impl
 		return std::fwrite(begin, size, 1, dest) != 0;
 	}
 
-	auto write(file dest, std::integral auto x) -> bool
+	auto write(cfile dest, std::integral auto x) -> bool
 	{
 		return write_base<10>(dest, x);
 	}
 
-	auto write_type(file, void const*) -> bool { return true; }
+	auto write_type(cfile, void const*) -> bool { return true; }
 
 	template <class T>
-	auto write_type(file dest, T const*) -> bool
+	auto write_type(cfile dest, T const*) -> bool
 	{
 		constexpr auto type = nameof::nameof_short_type<T>();
 		return write(dest, type)
 		    && write(dest, ' ');
 	}
 
-	auto write(file dest, Pointer auto const &ptr) -> bool
+	auto write(cfile dest, Pointer auto const &ptr) -> bool
 	{
 		return write(dest, '<')
 		    && write_type(dest, ptr)
@@ -73,12 +73,12 @@ namespace clear::impl
 		    && write(dest, '>');
 	}
 
-	auto write(file dest, SmartPtr auto const &ptr) -> bool
+	auto write(cfile dest, SmartPtr auto const &ptr) -> bool
 	{
 		return write(dest, ptr.get());
 	}
 
-	auto write(file dest, std::optional<auto> const &x) -> bool
+	auto write(cfile dest, std::optional<auto> const &x) -> bool
 	{
 		return x
 		     ? write(dest, "Some(") && write(dest, *x) && write(dest, ')')
@@ -86,7 +86,7 @@ namespace clear::impl
 	}
 
 	template <bool IsMapEntry>
-	auto write_item(file dest, auto const &x) -> bool
+	auto write_item(cfile dest, auto const &x) -> bool
 	{
 		if constexpr (IsMapEntry)
 			return write(dest, x.first)
@@ -97,7 +97,7 @@ namespace clear::impl
 	}
 
 	template <bool IsMap = false>
-	auto write_sequence(file dest, input_range auto const &xs) -> bool
+	auto write_sequence(cfile dest, input_range auto const &xs) -> bool
 	{
 		auto const first = std::begin(xs);
 		auto const last = std::end(xs);
@@ -115,7 +115,7 @@ namespace clear::impl
 		);
 	}
 
-	auto write(file dest, Sequence auto const &xs) -> bool
+	auto write(cfile dest, Sequence auto const &xs) -> bool
 	{
 		return write(dest, '[')
 		    && write_sequence(dest, xs)
@@ -123,7 +123,7 @@ namespace clear::impl
 	}
 
 	template <Associative T>
-	auto write(file dest, T const &xs) -> bool
+	auto write(cfile dest, T const &xs) -> bool
 	{
 		return write(dest, '{')
 		    && write_sequence<Map<T>>(dest, xs)

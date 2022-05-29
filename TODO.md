@@ -2,7 +2,7 @@
 
 * [ ] Public interface
 	* [x] Open a file, close in the destructor
-	* [ ] `safe_open -> std::optional`
+	* [x] `safe_open -> std::optional`
 	* [ ] Output
 		* [x] `io::write`
 		* [x] Variadic `io::print`
@@ -32,6 +32,8 @@
 		* [ ] Differentiate between reading words and lines into `String`
 		* [ ] [?] Logging errors to `stderr`
 		* [ ] [?] Binary reading
+		* [ ] [?] `read_until(pred)`
+		* [ ] [?] `maybe_read(pred) -> std::optional`
 	* [ ] Iterators
 		* [ ] `write_iter` (working title)
 		* [ ] `read_iter` (working title)

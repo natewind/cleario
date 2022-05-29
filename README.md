@@ -174,13 +174,20 @@ clear::print(Point {3, 4}); // (3, 4)
 To open a file:
 
 ```cpp
-auto file = clear::open("file.txt", "w");
+auto file1 = clear::open("file1.txt", "w");
 ```
 
 The access modes are the same ones used with [`std::fopen`](https://en.cppreference.com/w/cpp/io/c/fopen) (the default is `"r+"`). Files are movable (but not copyable) and close automatically when leaving the scope.
 
+To open a file safely (because it can fail):
+
+auto file2 = clear::safe_open("file1.txt", "w"); // returns std::optional
+
 To write to a file, simply use `write`, `print` and `flush` as member functions:
 
 ```cpp
-file.print("Helo, World!", 42, true);
+file1.print("Helo, World!", 42, true);
+
+if (file2)
+	file2->print("Helo, World!", 42, true);
 ```

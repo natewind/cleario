@@ -10,6 +10,24 @@
 		* [ ] `open::flush` and `::flush` (use [`std::fflush`](https://en.cppreference.com/w/cpp/io/c/fflush))
 		* [ ] Custom `sep` and `end` for `print`
 		* [ ] [?] `write_base` to the interface
+		* [ ] [?] Binary writing
+	* [ ] Input
+		* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
+		* [ ] Variadic `io::read<Ts...>() -> std::optional<std::tuple<Ts...>>`
+		* [ ] `io::read<T> -> std::optional<T>`
+		* [ ] `open::read<Ts...>`
+		* [ ] `::read<Ts...>`
+		* [ ] Echoless read from `stdin`
+		* [ ] [?] Public `read_base`
+		* [ ] [?] Public `skip_ws` (for user-defined types)
+		* [ ] Verify `char`/string, `else nullopt` (for user-defined types)
+		* [ ] Differentiate between reading words and lines into `String`
+		* [ ] [?] Logging errors to `stderr`
+		* [ ] [?] Binary reading
+	* [ ] Iterators
+		* [ ] `write_iter` (working title)
+		* [ ] `read_iter` (working title)
+		* [ ] Verify with `std::ranges::{input_range, output_range}`
 	* [ ] Concepts
 		* [ ] `Writable`
 		* [ ] `Readable`
@@ -38,7 +56,6 @@
 		* [x] `T*`
 		* [x] `std::unique_ptr`
 		* [x] `std::shared_ptr`
-	* [x] `std::optional`
 	* [ ] Sequence containers
 		* [x] `T[]`
 		* [x] `std::array`
@@ -62,32 +79,51 @@
 		* [ ] `std::byte` -> 0x00...
 		* [ ] `std::complex` -> a + bi
 	* [x] User-defined types
-* [ ] Design improvements
+* [ ] `impl::read`
+	* [ ] Entire file
+	* [ ] `char`
+	* [ ] `char8_t`
+	* [ ] `bool`
+	* [ ] `std::string`
+	* [ ] Integral types
+		* [ ] `std::integral`
+		* [ ] `dec` wrapper (for `char`)
+		* [ ] `bin` wrapper -> 0b00...
+		* [ ] `oct` wrapper -> 0o00...
+		* [ ] `hex` wrapper -> 0x00...
+	* [ ] Floating types
+		* [ ] Default format
+		* [ ] Scientific notation
+	* [ ] Pointers (`T*`)
+	* [ ] Sequence containers
+		* [ ] `std::vector`
+		* [ ] `std::deque`
+		* [ ] `std::forward_list`
+		* [ ] `std::list`
+	* [ ] Sets
+		* [ ] `std::set`
+		* [ ] `std::multiset`
+		* [ ] `std::unordered_set`
+		* [ ] `std::unordered_multiset`
+	* [ ] Maps
+		* [ ] `std::map`
+		* [ ] `std::multimap`
+		* [ ] `std::unordered_map`
+		* [ ] `std::unordered_multimap`
+	* [ ] Other STL types
+		* [ ] `std::optional`
+		* [ ] `std::tuple`
+		* [ ] `std::byte`
+		* [ ] `std::complex`
+	* [ ] User-defined types
+* [ ] Improvements
 	* [ ] Modularize cleario when GCC gets module support
-	* [ ] Add quotation marks to strings inside containers
+	* [ ] Print quotation marks around strings inside containers
+	* [ ] Read quotation marks around strings inside containers
 	* [ ] [Add](https://stackoverflow.com/questions/42832657/what-can-and-what-cant-throw-an-exception-in-c/42835627#42835627) `noexcept` specifiers for performance
 	* [ ] [?] Use [{fmt}](https://github.com/fmtlib/fmt) for printing (compile-time format strings > variadic `print`)
-
-# Unsorted
-
-* [ ]`read`
-	* [ ] Variadic `read` (one/tuple)
-	* [ ] Reading integers in other bases
-	* [ ] `read` for basic types
-	* [ ] `read` for STL types [?]
-	* [ ] `read` for user-class specializations
-* [ ] `input<T = std::string>(prompt = "")`
-* [ ] `::read` and `::input` from `stdin`
-* [ ] Error printing / logging to `stderr` [?]
-* [ ] Echoless input from `stdin`
-* [ ] Reading an entire line
-* [ ] Input iterator
-* [ ] Output iterator
-* [ ] Safe file opening/closing (+MSVC `fopen` “deprecation”)
-* [ ] `safe_read -> std::optional`
-* [ ] `safe_input -> std::optional`
-* [ ] Binary writing/reading
-* [ ] Make reading `const` [?]
-* [ ] README warning about echoless bad state with multithreading
-* [ ] `print`/`write` to take simple types by value (concept conflicts?)
-* [ ] `verify_read(char)` or something (auxiliary, to verify input format)
+	* [ ] `print`/`write` to take simple types by value (concept conflicts?)
+	* [ ] README warning about using echoless with multithreading (stream may stay echoless)
+	* [ ] Make `read` methods `const`
+	* [ ] `open -> std::optional`
+	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)

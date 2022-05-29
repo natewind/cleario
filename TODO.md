@@ -52,7 +52,7 @@
 		* [ ] Decimal places after the point
 		* [ ] Fillers (`'0'`, `' '` etc.)
 		* [ ] Scientific notation
-	* [ ] Pointers
+	* [x] Pointers
 		* [x] `T*`
 		* [x] `std::unique_ptr`
 		* [x] `std::shared_ptr`

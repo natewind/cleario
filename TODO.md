@@ -56,7 +56,7 @@
 		* [x] `T*`
 		* [x] `std::unique_ptr`
 		* [x] `std::shared_ptr`
-	* [ ] Sequence containers
+	* [x] Sequence containers
 		* [x] `T[]`
 		* [x] `std::array`
 		* [x] `std::vector`

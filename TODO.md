@@ -43,7 +43,6 @@
 		* [ ] `Readable`
 * [ ] `impl::write`
 	* [x] `char`
-	* [ ] `char8_t`
 	* [x] `bool`
 	* [x] Strings
 		* [x] `char const*`
@@ -92,7 +91,6 @@
 * [ ] `impl::read`
 	* [ ] Entire file
 	* [ ] `char`
-	* [ ] `char8_t`
 	* [ ] `bool`
 	* [ ] `std::string`
 	* [ ] Integral types

@@ -76,9 +76,9 @@
 		* [x] `std::multimap`
 		* [x] `std::unordered_map`
 		* [x] `std::unordered_multimap`
-	* [ ] Other STL types
+	* [x] Other STL types
 		* [x] `std::optional`
-		* [ ] `std::tuple` -> (a0, a1)
+		* [x] `std::tuple` -> (a0, a1)
 	* [x] User-defined types
 * [ ] `impl::read`
 	* [ ] Entire file

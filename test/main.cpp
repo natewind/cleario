@@ -65,6 +65,10 @@ auto main() -> int
 	println("println<std::optional<int>> => ", opt1);
 	println("println<std::optional<int>> => ", opt2, '\n');
 
+	println("println<std::tuple> => ", std::tuple());
+	println("println<std::tuple> => ", std::tuple(5));
+	println("println<std::tuple> => ", std::tuple(5, false, "qwerty"), '\n');
+
 	 int const arr1[] =                   {1, 2, 3, 4, 5};
 	auto const arr2   = std::array        {1, 2, 3, 4, 5};
 	auto const deq    = std::deque        {1, 2, 3, 4, 5};
@@ -136,6 +140,11 @@ auto main() -> int
 
 	file.println("println<std::optional<int>> => ", opt1);
 	file.println("println<std::optional<int>> => ", opt2, '\n');
+
+	file.println("println<std::tuple> => ", std::tuple());
+	file.println("println<std::tuple> => ", std::tuple(5));
+	file.println("println<std::tuple> => ", std::tuple(5, false, "qwerty"));
+	file.println();
 
 	file.println("println<int[]>                   => ", arr1);
 	file.println("println<std::array<int>>         => ", arr2);

@@ -18,6 +18,8 @@ namespace clear
 		constexpr io() : handle(nullptr) {}
 		explicit constexpr io(impl::cfile h) : handle(h) {}
 
+		auto print() -> bool { return true; }
+
 		auto print(auto const &x) -> bool { return impl::write(handle, x); }
 		auto print(auto const &x, auto const&... xs) -> bool
 		{

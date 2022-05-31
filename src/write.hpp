@@ -12,6 +12,7 @@
 #include <optional>    // optional
 #include <ranges>      // ranges::input_range
 #include <string_view> // string_view
+#include <tuple>       // apply, tuple
 #include <utility>     // pair
 
 #include "../nameof/include/nameof.hpp"
@@ -35,7 +36,9 @@ namespace clear::impl
 	inline auto write(cfile dest, String auto const &str) -> bool
 	{
 		auto const view = std::string_view(str);
-		return std::fwrite(view.data(), view.size(), 1, dest) != 0;
+
+		return view.size() == 0
+		    || std::fwrite(view.data(), view.size(), 1, dest) != 0;
 	}
 
 	template <int Base, std::integral T>
@@ -117,7 +120,7 @@ namespace clear::impl
 	}
 
 	template <bool IsMap = false>
-	auto write_sequence(cfile dest, input_range auto const &xs) -> bool
+	auto write_list(cfile dest, input_range auto const &xs) -> bool
 	{
 		auto const first = std::begin(xs);
 		auto const last = std::end(xs);
@@ -138,7 +141,7 @@ namespace clear::impl
 	auto write(cfile dest, Sequence auto const &xs) -> bool
 	{
 		return write(dest, '[')
-		    && write_sequence(dest, xs)
+		    && write_list(dest, xs)
 		    && write(dest, ']');
 	}
 
@@ -146,8 +149,35 @@ namespace clear::impl
 	auto write(cfile dest, T const &xs) -> bool
 	{
 		return write(dest, '{')
-		    && write_sequence<Map<T>>(dest, xs)
+		    && write_list<Map<T>>(dest, xs)
 		    && write(dest, '}');
+	}
+
+	auto write_items(cfile) -> bool { return true; }
+
+	auto write_items(cfile dest, auto const &x) -> bool
+	{
+		return write(dest, x);
+	}
+
+	auto write_items(cfile dest, auto const &x, auto const&... xs) -> bool
+	{
+		return write(dest, x)
+		    && write(dest, ", ")
+		    && write_items(dest, xs...);
+	}
+
+	template <class... Ts>
+	auto write(cfile dest, std::tuple<Ts...> const &tup) -> bool
+	{
+		auto const writer = [dest](auto const &... xs)
+		{
+			return write_items(dest, xs...);
+		};
+
+		return write(dest, '(')
+		    && std::apply(writer, tup)
+		    && write(dest, ')');
 	}
 }
 

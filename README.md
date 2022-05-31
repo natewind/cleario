@@ -114,6 +114,12 @@ clear::println(std::optional<int> {}); // None
 clear::println(std::optional {12}); // Some(12)
 ```
 
+### Tuples
+
+```cpp
+clear::println(std::tuple(5, false, "qwerty")); // (5, False, qwerty)
+```
+
 ### Sequence containers
 
 * `T[]`

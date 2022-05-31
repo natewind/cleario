@@ -49,9 +49,29 @@ namespace clear::impl
 		return std::fwrite(begin, size, 1, dest) != 0;
 	}
 
+	auto write(cfile dest, bin<auto> x) -> bool
+	{
+		return write(dest, "0b") && write_base<2>(dest, x.value);
+	}
+
+	auto write(cfile dest, oct<auto> x) -> bool
+	{
+		return write(dest, "0o") && write_base<8>(dest, x.value);
+	}
+
+	auto write(cfile dest, dec<auto> x) -> bool
+	{
+		return write_base<10>(dest, x.value);
+	}
+
+	auto write(cfile dest, hex<auto> x) -> bool
+	{
+		return write(dest, "0x") && write_base<16>(dest, x.value);
+	}
+
 	auto write(cfile dest, std::integral auto x) -> bool
 	{
-		return write_base<10>(dest, x);
+		return write(dest, dec {x});
 	}
 
 	auto write_type(cfile, void const*) -> bool { return true; }
@@ -59,7 +79,7 @@ namespace clear::impl
 	template <class T>
 	auto write_type(cfile dest, T const*) -> bool
 	{
-		constexpr auto type = nameof::nameof_short_type<T>();
+		static constexpr auto type = nameof::nameof_short_type<T>();
 		return write(dest, type)
 		    && write(dest, ' ');
 	}
@@ -68,8 +88,8 @@ namespace clear::impl
 	{
 		return write(dest, '<')
 		    && write_type(dest, ptr)
-		    && write(dest, "object at 0x")
-		    && write_base<16>(dest, reinterpret_cast<std::uintptr_t>(ptr))
+		    && write(dest, "object at ")
+		    && write(dest, hex(reinterpret_cast<std::uintptr_t>(ptr)))
 		    && write(dest, '>');
 	}
 

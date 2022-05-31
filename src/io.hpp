@@ -49,7 +49,7 @@ namespace clear
 		io stream;
 
 	public:
-		explicit file(impl::cfile handle) : stream(handle) {}
+		explicit constexpr file(impl::cfile handle) : stream(handle) {}
 
 		file(file&&) = default;
 		auto operator=(file&&) -> file& = default;

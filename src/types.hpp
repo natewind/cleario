@@ -92,4 +92,19 @@ namespace clear::impl
 	}
 }
 
+namespace clear
+{
+	template <std::integral T>
+	struct bin { T value; };
+
+	template <std::integral T>
+	struct oct { T value; };
+
+	template <std::integral T>
+	struct dec { T value; };
+
+	template <std::integral T>
+	struct hex { T value; };
+}
+
 #endif

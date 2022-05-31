@@ -78,10 +78,19 @@ clear::print(true, false); // True False
 
 ### Integers
 
-Integral types, except for `char`:
+Integral types (except for char) in different bases:
 
 ```cpp
-clear::print(1, -2, 3); // 1 -2 3
+clear::print(150); // 150
+clear::print(bin {150}) // 0b10010110
+clear::print(oct {150}); // 0o226
+clear::print(hex {150}); // 0x96
+```
+
+Explicit decimal base to print `(u)int8_t` (whichever one is `char` on the current platform):
+
+```cpp
+clear::print(dec {'q'}); // 113
 ```
 
 ### Pointers

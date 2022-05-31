@@ -30,6 +30,11 @@ auto main() -> int
 	print("print<int>  =>", 42);
 	print("print<int>  =>", -12, '\n');
 
+	print("print<bin>       =>", bin {150});
+	print("print<oct>       =>", oct {150});
+	print("print<hex>       =>", hex {150});
+	print("print<dec<char>> =>", dec {'q'}, '\n');
+
 	flush();
 
 	auto const cstr = "Hello, World!";

@@ -33,16 +33,16 @@ Include the public interface:
 
 ## Output
 
-To print a value without any additional characters:
+To print one or more values without a newline:
 
 ```cpp
-clear::write("Hello, World!\n"); // Hello, World!
+clear::print("Helo, World! ", 42, ' ', true); // Hello, World! 42 True
 ```
 
-To print one or more values delimited by spaces and ending in a newline:
+With a newline:
 
 ```cpp
-clear::print("Helo, World!", 42, true); // Hello, World! 42 True
+clear::println("Helo, World! ", 42, ' ', true); // Hello, World! 42 True
 ```
 
 To flush `stdout`:
@@ -51,12 +51,12 @@ To flush `stdout`:
 clear::flush();
 ```
 
-All three functions return `true` on success and `false` on failure. `print` aborts after the first unsuccessful write.
+All three functions return `true` on success and `false` on failure. `print(ln)` aborts after the first unsuccessful write.
 
 ### Chars
 
 ```cpp
-clear::print('a', 'b', 'c'); // a b c
+clear::println('a', 'b', 'c'); // abc
 ```
 
 ### Strings
@@ -67,13 +67,13 @@ clear::print('a', 'b', 'c'); // a b c
 
 ```cpp
 auto const str = std::string("Qwerty");
-clear::print(str); // Qwerty
+clear::println(str); // Qwerty
 ```
 
 ### Booleans
 
 ```cpp
-clear::print(true, false); // True False
+clear::println(true, ' ', false); // True False
 ```
 
 ### Integers
@@ -81,16 +81,16 @@ clear::print(true, false); // True False
 Integral types (except for char) in different bases:
 
 ```cpp
-clear::print(150); // 150
-clear::print(bin {150}); // 0b10010110
-clear::print(oct {150}); // 0o226
-clear::print(hex {150}); // 0x96
+clear::println(150); // 150
+clear::println(bin {150}); // 0b10010110
+clear::println(oct {150}); // 0o226
+clear::println(hex {150}); // 0x96
 ```
 
 Explicit decimal base to print `char` as an integer:
 
 ```cpp
-clear::print(dec {'q'}); // 113
+clear::println(dec {'q'}); // 113
 ```
 
 ### Pointers
@@ -103,15 +103,15 @@ clear::print(dec {'q'}); // 113
 auto const x = 5;
 auto const ptr = static_cast<void*>(&x);
 
-clear::print(&x); // <int object at 0x7ffcb52c6c54>
-clear::print(ptr); // <object at 0x7ffcb52c6c54>
+clear::println(&x); // <int object at 0x7ffcb52c6c54>
+clear::println(ptr); // <object at 0x7ffcb52c6c54>
 ```
 
 ### Optionals
 
 ```cpp
-clear::print(std::optional<int> {}); // None
-clear::print(std::optional {12}); // Some(12)
+clear::println(std::optional<int> {}); // None
+clear::println(std::optional {12}); // Some(12)
 ```
 
 ### Sequence containers
@@ -125,7 +125,7 @@ clear::print(std::optional {12}); // Some(12)
 
 ```cpp
 auto const vec = std::vector {1, 2, 3, 4, 5};
-clear::print(vec); // [1, 2, 3, 4, 5]
+clear::println(vec); // [1, 2, 3, 4, 5]
 ```
 
 ### Associative containers
@@ -137,7 +137,7 @@ clear::print(vec); // [1, 2, 3, 4, 5]
 
 ```cpp
 auto const set = std::set {1, 2, 3, 4, 5};
-clear::print(set); // {1, 2, 3, 4, 5}
+clear::println(set); // {1, 2, 3, 4, 5}
 ```
 
 * `std::map`
@@ -147,7 +147,7 @@ clear::print(set); // {1, 2, 3, 4, 5}
 
 ```cpp
 auto const map = std::unordered_map {{"a", 1}, {"b", 2}, {"c", 3}, {"d", 4}, {"e", 5}};
-clear::print(map); // {e: 5, c: 3, b: 2, d: 4, a: 1}
+clear::println(map); // {e: 5, c: 3, b: 2, d: 4, a: 1}
 ```
 
 ### User-defined types
@@ -158,24 +158,20 @@ Consider a type:
 struct Point { int x, y; };
 ```
 
-To make it printable, implement `write` for it, reducing it to a chain of `write` or `print` calls on already printable types:
+To make it printable, implement `print` for it by calling `print` on already printable types:
 
 ```cpp
 template <>
-auto clear::io::write(Point const &point) -> bool
+auto clear::io::print(Point const &point) -> bool
 {
-	return write('(')
-	    && write(point.x)
-	    && write(", ")
-	    && write(point.y)
-	    && write(')');
+	return print('(', point.x, ", ", point.y, ')');
 }
 ```
 
 Try it out:
 
 ```cpp
-clear::print(Point {3, 4}); // (3, 4)
+clear::println(Point {3, 4}); // (3, 4)
 ```
 
 ## Files
@@ -194,11 +190,11 @@ To open a file safely (because it can fail):
 auto maybe_file = clear::safe_open("maybe_file.txt", "w"); // returns std::optional
 ```
 
-To write to a file, simply use `write`, `print` and `flush` as member functions:
+To write to a file, simply use `print(ln)` and `flush` as member functions:
 
 ```cpp
-file.print("Helo, World!", 42, true);
+file.println("Helo, World! ", 42, ' ', true);
 
 if (maybe_file)
-	maybe_file->print("Helo, World!", 42, true);
+	maybe_file->println("Helo, World! ", 42, ' ', true);
 ```

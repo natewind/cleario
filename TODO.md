@@ -4,11 +4,10 @@
 	* [x] Open a file, close in the destructor
 	* [x] `safe_open -> std::optional`
 	* [ ] Output
-		* [x] `io::write`
 		* [x] Variadic `io::print`
-		* [x] `::write` and `::print`
+		* [x] `io::println`
+		* [x] `::print` and `::println`
 		* [x] `io::flush` and `::flush`
-		* [ ] Custom `sep` and `end` for `print`
 		* [ ] [?] `write_base` to the interface
 		* [ ] [?] Binary writing
 	* [ ] Input
@@ -38,7 +37,7 @@
 	* [ ] Concepts
 		* [ ] `Writable`
 		* [ ] `Readable`
-* [ ] `impl::write`
+* [ ] `write`
 	* [x] `char`
 	* [x] `bool`
 	* [x] Strings

@@ -18,17 +18,15 @@ namespace clear
 		constexpr io() : handle(nullptr) {}
 		explicit constexpr io(impl::cfile h) : handle(h) {}
 
-		auto write(auto const &x) -> bool { return impl::write(handle, x); }
-
-		auto print() -> bool { return write('\n'); }
-
-		auto print(auto const &x) -> bool { return write(x) && print(); }
-
+		auto print(auto const &x) -> bool { return impl::write(handle, x); }
 		auto print(auto const &x, auto const&... xs) -> bool
 		{
-			return write(x)
-			    && write(' ')
-			    && print(xs...);
+			return print(x) && print(xs...);
+		}
+
+		auto println(auto const&... xs) -> bool
+		{
+			return print(xs...) && print('\n');
 		}
 
 		auto flush() -> bool { return std::fflush(handle) == 0; }
@@ -67,9 +65,9 @@ namespace clear
 		return *safe_open(name, mode);
 	}
 
-	auto write(auto const &x) -> bool { return io(stdout).write(x); }
-	auto print(auto const&... xs) -> bool { return io(stdout).print(xs...); }
-	inline auto flush() -> bool { return io(stdout).flush(); }
+	auto print  (auto const&... xs) { return io(stdout).print  (xs...); }
+	auto println(auto const&... xs) { return io(stdout).println(xs...); }
+	inline auto flush()             { return io(stdout).flush(); }
 }
 
 #endif

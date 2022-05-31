@@ -3,12 +3,11 @@
 * [ ] Public interface
 	* [x] Open a file, close in the destructor
 	* [x] `safe_open -> std::optional`
-	* [ ] Output
+	* [x] Output
 		* [x] Variadic `io::print`
 		* [x] `io::println`
 		* [x] `::print` and `::println`
 		* [x] `io::flush` and `::flush`
-		* [ ] [?] `write_base` to the interface
 	* [ ] Input
 		* [ ] Unsafe
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
@@ -21,7 +20,6 @@
 			* [ ] `io::safe_read<T> -> std::optional<T>`
 			* [ ] `::safe_read<Ts...>`
 		* [ ] Echoless read from `stdin`
-		* [ ] [?] Public `read_base`
 		* [ ] [?] Public `skip_ws` (for user-defined types)
 		* [ ] Verify `char`/string, `else nullopt` (for user-defined types)
 		* [ ] Differentiate between reading words and lines into `String`

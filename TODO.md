@@ -85,8 +85,6 @@
 	* [ ] Other STL types
 		* [x] `std::optional`
 		* [ ] `std::tuple` -> (a0, a1)
-		* [ ] `std::byte` -> 0x00...
-		* [ ] `std::complex` -> a + bi
 	* [x] User-defined types
 * [ ] `impl::read`
 	* [ ] Entire file
@@ -121,8 +119,6 @@
 	* [ ] Other STL types
 		* [ ] `std::optional`
 		* [ ] `std::tuple`
-		* [ ] `std::byte`
-		* [ ] `std::complex`
 	* [ ] User-defined types
 * [ ] Improvements
 	* [ ] Modularize cleario when GCC gets module support

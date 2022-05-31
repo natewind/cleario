@@ -82,7 +82,7 @@ Integral types (except for char) in different bases:
 
 ```cpp
 clear::print(150); // 150
-clear::print(bin {150}) // 0b10010110
+clear::print(bin {150}); // 0b10010110
 clear::print(oct {150}); // 0o226
 clear::print(hex {150}); // 0x96
 ```

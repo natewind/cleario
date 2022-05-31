@@ -30,12 +30,12 @@ auto main() -> int
 	print("print<int>  =>", 42);
 	print("print<int>  =>", -12, '\n');
 
+	flush();
+
 	print("print<bin>       =>", bin {150});
 	print("print<oct>       =>", oct {150});
 	print("print<hex>       =>", hex {150});
 	print("print<dec<char>> =>", dec {'q'}, '\n');
-
-	flush();
 
 	auto const cstr = "Hello, World!";
 	auto const strv = std::string_view(cstr);
@@ -118,6 +118,11 @@ auto main() -> int
 	file.print("print<int>  =>", -12, '\n');
 
 	file.flush();
+
+	file.print("print<bin>       =>", bin {150});
+	file.print("print<oct>       =>", oct {150});
+	file.print("print<hex>       =>", hex {150});
+	file.print("print<dec<char>> =>", dec {'q'}, '\n');
 
 	file.print("print<char...>          =>", 'a', 'b', 'c');
 	file.print("print<const char*>      =>", cstr);

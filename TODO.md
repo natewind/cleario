@@ -6,9 +6,8 @@
 	* [ ] Output
 		* [x] `io::write`
 		* [x] Variadic `io::print`
-		* [x] `open::write` and `open::print`
 		* [x] `::write` and `::print`
-		* [x] `open::flush` and `::flush`
+		* [x] `io::flush` and `::flush`
 		* [ ] Custom `sep` and `end` for `print`
 		* [ ] [?] `write_base` to the interface
 		* [ ] [?] Binary writing
@@ -17,13 +16,11 @@
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
 			* [ ] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
 			* [ ] `io::read<T> -> T`
-			* [ ] `open::read<Ts...>`
 			* [ ] `::read<Ts...>`
 		* [ ] Safe
 			* [ ] `io::safe_input`
 			* [ ] `io::safe_read<Ts...>() -> std::optional<std::tuple<Ts...>>`
 			* [ ] `io::safe_read<T> -> std::optional<T>`
-			* [ ] `open::safe_read<Ts...>`
 			* [ ] `::safe_read<Ts...>`
 		* [ ] Echoless read from `stdin`
 		* [ ] [?] Public `read_base`

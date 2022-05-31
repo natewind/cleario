@@ -11,22 +11,12 @@ namespace clear
 {
 	class io
 	{
-		impl::cfile handle = nullptr;
+	protected:
+		impl::cfile handle;
 
 	public:
+		constexpr io() : handle(nullptr) {}
 		explicit constexpr io(impl::cfile h) : handle(h) {}
-		constexpr auto unsafe() { return handle; }
-
-		io(io const&) = delete;
-		auto operator=(io const&) = delete;
-
-		io(io &&other) { (*this) = std::move(other); }
-
-		auto operator=(io &&other) -> io&
-		{
-			std::swap(handle, other.handle);
-			return *this;
-		}
 
 		auto write(auto const &x) -> bool { return impl::write(handle, x); }
 
@@ -44,25 +34,26 @@ namespace clear
 		auto flush() -> bool { return std::fflush(handle) == 0; }
 	};
 
-	class file
+	struct file final : public io
 	{
-		io stream;
+		explicit constexpr file(impl::cfile handle) : io(handle) {}
 
-	public:
-		explicit constexpr file(impl::cfile handle) : stream(handle) {}
+		file(file const&) = delete;
+		auto operator=(file const&) = delete;
 
-		file(file&&) = default;
-		auto operator=(file&&) -> file& = default;
+		file(file &&other) { (*this) = std::move(other); }
+
+		auto operator=(file &&other) -> file&
+		{
+			std::swap(handle, other.handle);
+			return *this;
+		}
 
 		~file()
 		{
-			if (stream.unsafe() != nullptr)
-				std::fclose(stream.unsafe());
+			if (handle != nullptr)
+				std::fclose(handle);
 		}
-
-		auto write(auto const &x) -> bool { return stream.write(x); }
-		auto print(auto const&... xs) -> bool { return stream.print(xs...); }
-		auto flush() -> bool { return stream.flush(); }
 	};
 
 	auto safe_open(char const *name, char const *mode = "r+")

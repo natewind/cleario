@@ -47,12 +47,6 @@
 		* [x] `oct` wrapper -> 0o00...
 		* [x] `hex` wrapper -> 0x00...
 	* [ ] Floating types
-		* [ ] Default format
-		* [ ] Set precision
-		* [ ] Decimal places before the point
-		* [ ] Decimal places after the point
-		* [ ] Fillers (`'0'`, `' '` etc.)
-		* [ ] Scientific notation
 	* [x] Pointers
 		* [x] `T*`
 		* [x] `std::unique_ptr`
@@ -90,8 +84,6 @@
 		* [ ] `oct` wrapper -> 0o00...
 		* [ ] `hex` wrapper -> 0x00...
 	* [ ] Floating types
-		* [ ] Default format
-		* [ ] Scientific notation
 	* [ ] Pointers (`T*`)
 	* [ ] Sequence containers
 		* [ ] `std::vector`

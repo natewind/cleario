@@ -9,7 +9,6 @@
 		* [x] `::print` and `::println`
 		* [x] `io::flush` and `::flush`
 		* [ ] [?] `write_base` to the interface
-		* [ ] [?] Binary writing
 	* [ ] Input
 		* [ ] Unsafe
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
@@ -27,7 +26,6 @@
 		* [ ] Verify `char`/string, `else nullopt` (for user-defined types)
 		* [ ] Differentiate between reading words and lines into `String`
 		* [ ] [?] Logging errors to `stderr`
-		* [ ] [?] Binary reading
 		* [ ] [?] `read_until(pred)`
 		* [ ] [?] `maybe_read(pred) -> std::optional`
 	* [ ] Iterators

@@ -87,7 +87,7 @@ clear::print(oct {150}); // 0o226
 clear::print(hex {150}); // 0x96
 ```
 
-Explicit decimal base to print `char` (`(u)int8_t`) as an integer:
+Explicit decimal base to print `char` as an integer:
 
 ```cpp
 clear::print(dec {'q'}); // 113

@@ -28,6 +28,10 @@ auto main() -> int
 
 	flush();
 
+	println("println<float>       => ", 3.14f);
+	println("println<double>      => ", -0.0000000005);
+	println("println<long double> => ", 100000000000000.0l, '\n');
+
 	println("println<bin>       => ", bin {150});
 	println("println<oct>       => ", oct {150});
 	println("println<hex>       => ", hex {150});
@@ -118,6 +122,10 @@ auto main() -> int
 	file.println("println<int>  => ", -12, '\n');
 
 	file.flush();
+
+	file.println("println<float>       => ", 3.14f);
+	file.println("println<double>      => ", -0.0000000005);
+	file.println("println<long double> => ", 100000000000000.0l, '\n');
 
 	file.println("println<bin>       => ", bin {150});
 	file.println("println<oct>       => ", oct {150});

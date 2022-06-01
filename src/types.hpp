@@ -17,6 +17,8 @@
 #include <unordered_set> // unordered_multiset, unordered_set
 #include <vector>        // vector
 
+#include <climits>
+
 namespace clear::impl
 {
 	template <class T>
@@ -89,6 +91,14 @@ namespace clear::impl
 		using limits = std::numeric_limits<T>;
 		return std::max(charlen(base, limits::min()),
 		                charlen(base, limits::max()));
+	}
+
+	template <std::floating_point T>
+	constexpr auto maxlen()
+	{
+		using limits = std::numeric_limits<T>;
+		return 4 + limits::max_digits10
+		     + std::max(2, log(10, limits::max_exponent10));
 	}
 }
 

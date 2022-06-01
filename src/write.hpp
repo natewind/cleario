@@ -77,6 +77,17 @@ namespace clear::impl
 		return write(dest, dec {x});
 	}
 
+	template <std::floating_point T>
+	auto write(cfile dest, T x) -> bool
+	{
+		auto buff = std::array<char, maxlen<T>()>();
+		auto const begin = buff.data();
+		auto const end = begin + buff.size();
+
+		auto const size = std::to_chars(begin, end, x).ptr - begin;
+		return std::fwrite(begin, size, 1, dest) != 0;
+	}
+
 	auto write_type(cfile, void const*) -> bool { return true; }
 
 	template <class T>

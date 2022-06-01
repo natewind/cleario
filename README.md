@@ -93,6 +93,19 @@ Explicit decimal base to print `char` as an integer:
 clear::println(dec {'q'}); // 113
 ```
 
+### Floats
+
+* `float`
+* `double`
+* `long double`
+
+Chooses the shortest notation between `std::chars_format::fixed` and `std::chars_format::scientific`:
+
+```cpp
+clear::println(3.14); // 3.14
+clear::println(-0.0000000005); // -5e-10
+```
+
 ### Pointers
 
 * `T*`

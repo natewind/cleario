@@ -33,7 +33,7 @@
 	* [ ] Concepts
 		* [ ] `Writable`
 		* [ ] `Readable`
-* [ ] `write`
+* [x] `write`
 	* [x] `char`
 	* [x] `bool`
 	* [x] Strings
@@ -46,7 +46,7 @@
 		* [x] `bin` wrapper -> 0b00...
 		* [x] `oct` wrapper -> 0o00...
 		* [x] `hex` wrapper -> 0x00...
-	* [ ] Floating types
+	* [x] Floating types
 	* [x] Pointers
 		* [x] `T*`
 		* [x] `std::unique_ptr`

@@ -65,7 +65,7 @@ To flush `stdout`:
 clear::flush();
 ```
 
-All three functions return `true` on success and `false` on failure. `print(ln)` aborts after the first unsuccessful write.
+All three functions return `true` on success and `false` on failure. `print` / `println` aborts after the first unsuccessful write.
 
 ### Chars
 

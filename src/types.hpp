@@ -21,6 +21,8 @@
 
 namespace clear::impl
 {
+	using cfile = std::FILE*;
+
 	template <class T>
 	concept String = std::convertible_to<T, std::string_view>;
 

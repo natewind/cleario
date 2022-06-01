@@ -12,9 +12,9 @@
 		* [ ] Unsafe
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
 			* [ ] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
-			* [ ] `io::read<T> -> T`
+			* [x] `io::read<T> -> T`
 			* [ ] `io::readln -> std::string`
-			* [ ] `::read<Ts...>`
+			* [x] `::read<Ts...>`
 			* [ ] `::readln`
 		* [ ] Safe
 			* [ ] `io::safe_input`
@@ -77,7 +77,7 @@
 	* [x] User-defined types
 * [ ] `impl::read`
 	* [ ] Entire file
-	* [ ] `char`
+	* [x] `char`
 	* [ ] `bool`
 	* [ ] `std::string`
 	* [ ] Integral types

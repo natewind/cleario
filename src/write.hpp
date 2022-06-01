@@ -20,7 +20,6 @@
 
 namespace clear::impl
 {
-	using cfile = std::FILE*;
 	using std::ranges::input_range;
 
 	inline auto write(cfile dest, bool b) -> bool

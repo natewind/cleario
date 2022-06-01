@@ -3,8 +3,10 @@
 
 #include <cstdio>   // fclose, fflush, fopen, stdout
 #include <optional> // make_optional, nullopt
+#include <tuple>    // tuple
 #include <utility>  // move, swap
 
+#include "read.hpp"
 #include "write.hpp"
 
 namespace clear
@@ -32,6 +34,24 @@ namespace clear
 		}
 
 		auto flush() -> bool { return std::fflush(handle) == 0; }
+
+		template <class T>
+		auto read() const -> T { return impl::read<T>(handle); }
+
+		// TODO: tuple_cat cannot use read that returns non-tuple!
+
+		// template <class T, class... Ts>
+		// auto read() const -> std::tuple<T, Ts...>
+		// {
+		// 	// Old code:
+		// 	auto x = std::tuple(read_one<T>());
+
+		// 	if constexpr (sizeof...(Ts) == 0)
+		// 		return x;
+		// 	else
+		// 		return std::tuple_cat(std::move(x), read_tuple<Ts...>(src));
+		// 	return TODO();
+		// }
 	};
 
 	struct file final : public io
@@ -70,6 +90,9 @@ namespace clear
 	auto print  (auto const&... xs) { return io(stdout).print  (xs...); }
 	auto println(auto const&... xs) { return io(stdout).println(xs...); }
 	inline auto flush()             { return io(stdout).flush(); }
+
+	template <class... Ts>
+	auto read() { return io(stdin).read<Ts...>(); }
 }
 
 #endif

@@ -31,6 +31,20 @@ Include the public interface:
 #include "cleario/include.hpp"
 ```
 
+## Input
+
+To read a value of type `T`:
+
+```cpp
+auto const x = clear::read<T>();
+```
+
+### Chars
+
+```cpp
+auto const c = clear::read<char>();
+```
+
 ## Output
 
 To print one or more values without a newline:

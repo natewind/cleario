@@ -1,3 +1,4 @@
+#include <cassert>
 #include "../include.hpp"
 
 struct Point { int x, y; };
@@ -11,7 +12,7 @@ inline auto clear::io::print(Point const &point) -> bool
 // template <>
 // inline auto clear::io::read<Point const &point>() -> std::optional<auto>
 // {
-// 	auto const xy = read<int, int>('(', _, ", ", _, ')');
+// 	auto const xy = scan<int, int>('(', _, ", ", _, ')');
 // 	return xy ? Point {xy.first, xy.second} : {};
 // }
 
@@ -114,62 +115,69 @@ auto main() -> int
 
 	// Print to a file: =======================================================
 
-	auto file = open("file.txt", "w");
+	auto out = open("out.txt", "w");
 
-	file.println("println<bool> => ", true);
-	file.println("println<bool> => ", false);
-	file.println("println<int>  => ", 42);
-	file.println("println<int>  => ", -12, '\n');
+	out.println("println<bool> => ", true);
+	out.println("println<bool> => ", false);
+	out.println("println<int>  => ", 42);
+	out.println("println<int>  => ", -12, '\n');
 
-	file.flush();
+	out.flush();
 
-	file.println("println<float>       => ", 3.14f);
-	file.println("println<double>      => ", -0.0000000005);
-	file.println("println<long double> => ", 100000000000000.0l, '\n');
+	out.println("println<float>       => ", 3.14f);
+	out.println("println<double>      => ", -0.0000000005);
+	out.println("println<long double> => ", 100000000000000.0l, '\n');
 
-	file.println("println<bin>       => ", bin {150});
-	file.println("println<oct>       => ", oct {150});
-	file.println("println<hex>       => ", hex {150});
-	file.println("println<dec<char>> => ", dec {'q'}, '\n');
+	out.println("println<bin>       => ", bin {150});
+	out.println("println<oct>       => ", oct {150});
+	out.println("println<hex>       => ", hex {150});
+	out.println("println<dec<char>> => ", dec {'q'}, '\n');
 
-	file.println("println<char...>          => ", 'a', 'b', 'c');
-	file.println("println<const char*>      => ", cstr);
-	file.println("println<std::string_view> => ", strv);
-	file.println("println<std::string>      => ", str, '\n');
+	out.println("println<char...>          => ", 'a', 'b', 'c');
+	out.println("println<const char*>      => ", cstr);
+	out.println("println<std::string_view> => ", strv);
+	out.println("println<std::string>      => ", str, '\n');
 
-	file.println("println<void*>        => ", (void const*)&x);
-	file.println("println<int*>         => ", &x);
-	file.println("println<std::vector*> => ", &vec, '\n');
+	out.println("println<void*>        => ", (void const*)&x);
+	out.println("println<int*>         => ", &x);
+	out.println("println<std::vector*> => ", &vec, '\n');
 
-	file.println("println<std::unique_ptr<int>> => ", uptr1);
-	file.println("println<std::unique_ptr<int>> => ", uptr2);
-	file.println("println<std::shared_ptr<int>> => ", sptr1);
-	file.println("println<std::shared_ptr<int>> => ", sptr2, '\n');
+	out.println("println<std::unique_ptr<int>> => ", uptr1);
+	out.println("println<std::unique_ptr<int>> => ", uptr2);
+	out.println("println<std::shared_ptr<int>> => ", sptr1);
+	out.println("println<std::shared_ptr<int>> => ", sptr2, '\n');
 
-	file.println("println<std::optional<int>> => ", opt1);
-	file.println("println<std::optional<int>> => ", opt2, '\n');
+	out.println("println<std::optional<int>> => ", opt1);
+	out.println("println<std::optional<int>> => ", opt2, '\n');
 
-	file.println("println<std::tuple> => ", std::tuple());
-	file.println("println<std::tuple> => ", std::tuple(5));
-	file.println("println<std::tuple> => ", std::tuple(5, false, "qwerty"));
-	file.println();
+	out.println("println<std::tuple> => ", std::tuple());
+	out.println("println<std::tuple> => ", std::tuple(5));
+	out.println("println<std::tuple> => ", std::tuple(5, false, "qwerty"));
+	out.println();
 
-	file.println("println<int[]>                   => ", arr1);
-	file.println("println<std::array<int>>         => ", arr2);
-	file.println("println<std::vector<int>>        => ", vec);
-	file.println("println<std::deque<int>>         => ", deq);
-	file.println("println<std::forward_list<int>>  => ", fls);
-	file.println("println<std::list<int>>          => ", lst, '\n');
+	out.println("println<int[]>                   => ", arr1);
+	out.println("println<std::array<int>>         => ", arr2);
+	out.println("println<std::vector<int>>        => ", vec);
+	out.println("println<std::deque<int>>         => ", deq);
+	out.println("println<std::forward_list<int>>  => ", fls);
+	out.println("println<std::list<int>>          => ", lst, '\n');
 
-	file.println("println<std::set<int>>                => ", set);
-	file.println("println<std::multiset<int>>           => ", mset);
-	file.println("println<std::unordered_set<int>>      => ", uset);
-	file.println("println<std::unordered_multiset<int>> => ", umset, '\n');
+	out.println("println<std::set<int>>                => ", set);
+	out.println("println<std::multiset<int>>           => ", mset);
+	out.println("println<std::unordered_set<int>>      => ", uset);
+	out.println("println<std::unordered_multiset<int>> => ", umset, '\n');
 
-	file.println("println<std::map<int>>                => ", map);
-	file.println("println<std::multimap<int>>           => ", mmap);
-	file.println("println<std::unordered_map<int>>      => ", umap);
-	file.println("println<std::unordered_multimap<int>> => ", ummap, '\n');
+	out.println("println<std::map<int>>                => ", map);
+	out.println("println<std::multimap<int>>           => ", mmap);
+	out.println("println<std::unordered_map<int>>      => ", umap);
+	out.println("println<std::unordered_multimap<int>> => ", ummap, '\n');
 
-	file.println("println<Point> => ", point);
+	out.println("println<Point> => ", point);
+
+	// Read from a file: ======================================================
+
+	auto const in = open("in.txt");
+
+	assert(in.read<char>() == 'q');
+	assert(in.read<char>() == '\n');
 }

@@ -82,15 +82,15 @@ Integral types (except for char) in different bases:
 
 ```cpp
 clear::println(150); // 150
-clear::println(bin {150}); // 0b10010110
-clear::println(oct {150}); // 0o226
-clear::println(hex {150}); // 0x96
+clear::println(clear::bin {150}); // 0b10010110
+clear::println(clear::oct {150}); // 0o226
+clear::println(clear::hex {150}); // 0x96
 ```
 
 Explicit decimal base to print `char` as an integer:
 
 ```cpp
-clear::println(dec {'q'}); // 113
+clear::println(clear::dec {'q'}); // 113
 ```
 
 ### Floats

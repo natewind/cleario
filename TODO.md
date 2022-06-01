@@ -13,16 +13,19 @@
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
 			* [ ] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
 			* [ ] `io::read<T> -> T`
+			* [ ] `io::readln -> std::string`
 			* [ ] `::read<Ts...>`
+			* [ ] `::readln`
 		* [ ] Safe
 			* [ ] `io::safe_input`
 			* [ ] `io::safe_read<Ts...>() -> std::optional<std::tuple<Ts...>>`
 			* [ ] `io::safe_read<T> -> std::optional<T>`
+			* [ ] `io::safe_readln -> std::optional<std::string>`
 			* [ ] `::safe_read<Ts...>`
+			* [ ] `::safe_readln`
 		* [ ] Echoless read from `stdin`
 		* [ ] [?] Public `skip_ws` (for user-defined types)
 		* [ ] Verify `char`/string, `else nullopt` (for user-defined types)
-		* [ ] Differentiate between reading words and lines into `String`
 		* [ ] [?] Logging errors to `stderr`
 		* [ ] [?] `read_until(pred)`
 		* [ ] [?] `maybe_read(pred) -> std::optional`

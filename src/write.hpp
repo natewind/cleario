@@ -4,7 +4,7 @@
 #include <algorithm>   // all_of
 #include <array>       // array
 #include <charconv>    // to_chars
-#include <concepts>    // integral
+#include <concepts>    // floating_point, integral
 #include <cstdint>     // uintptr_t
 #include <cstdio>      // EOF, FILE, fputc, fputs, fwrite
 #include <iterator>    // begin, end

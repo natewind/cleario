@@ -3,7 +3,7 @@
 
 #include <algorithm>     // max
 #include <array>         // array
-#include <concepts>      // convertible_to, integral
+#include <concepts>      // convertible_to, floating_point, integral
 #include <cstddef>       // size_t
 #include <deque>         // deque
 #include <forward_list>  // forward_list

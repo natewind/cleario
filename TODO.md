@@ -11,7 +11,7 @@
 	* [ ] Input
 		* [ ] Unsafe
 			* [ ] `io::input<T = std::string, Ts...>(String auto prompt = "")`
-			* [ ] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
+			* [x] Variadic `io::read<Ts...>() -> std::tuple<Ts...>`
 			* [x] `io::read<T> -> T`
 			* [ ] `io::readln -> std::string`
 			* [x] `::read<Ts...>`

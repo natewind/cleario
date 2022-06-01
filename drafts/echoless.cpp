@@ -6,7 +6,7 @@ getch()
 
 // Unix-like
 
-#include <stdio.h>
+#include <cstdio>    // getchar
 #include <termios.h> // termios, TCSANOW, ECHO, ICANON
 #include <unistd.h>  // STDIN_FILENO
 
@@ -30,7 +30,7 @@ newt.c_lflag &= ~(ICANON | ECHO);
 // TCSANOW tells tcsetattr to change attributes immediately.
 tcsetattr(STDIN_FILENO, TCSANOW, &newt);
 
-char c = getchar();
+auto const c = std::getchar();
 
 // Restore the old settings
 tcsetattr(STDIN_FILENO, TCSANOW, &oldt);

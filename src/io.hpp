@@ -3,7 +3,7 @@
 
 #include <cstdio>   // fclose, fflush, fopen, stdout
 #include <optional> // make_optional, nullopt
-#include <tuple>    // tuple
+#include <tuple>    // tuple, tuple_cat
 #include <utility>  // move, swap
 
 #include "read.hpp"
@@ -35,23 +35,25 @@ namespace clear
 
 		auto flush() -> bool { return std::fflush(handle) == 0; }
 
-		template <class T>
-		auto read() const -> T { return impl::read<T>(handle); }
+		template <class... Ts>
+		auto read() const
+		{
+			if constexpr (sizeof...(Ts) == 1)
+				return impl::read<Ts...>(handle);
+			else
+				return read_tuple<Ts...>();
+		}
 
-		// TODO: tuple_cat cannot use read that returns non-tuple!
+		template <class T, class... Ts>
+		auto read_tuple() const
+		{
+			auto x = std::tuple(read<T>());
 
-		// template <class T, class... Ts>
-		// auto read() const -> std::tuple<T, Ts...>
-		// {
-		// 	// Old code:
-		// 	auto x = std::tuple(read_one<T>());
-
-		// 	if constexpr (sizeof...(Ts) == 0)
-		// 		return x;
-		// 	else
-		// 		return std::tuple_cat(std::move(x), read_tuple<Ts...>(src));
-		// 	return TODO();
-		// }
+			if constexpr (sizeof...(Ts) == 0)
+				return x;
+			else
+				return std::tuple_cat(std::move(x), read_tuple<Ts...>());
+		}
 	};
 
 	struct file final : public io

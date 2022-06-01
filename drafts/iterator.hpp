@@ -1,33 +1,8 @@
-#ifndef FILE_HPP
-#define FILE_HPP
-
 #include <cctype>   // std::isspace
 #include <cstddef>  // std::ptrdiff_t, std::nullptr_t
 #include <fstream>  // std::fstream
 #include <istream>  // std::istream
 #include <iterator> // std::input_iterator_tag
-#include <tuple>    // std::tuple, std::tuple_cat
-#include <utility>  // std::move
-
-template <class T>
-constexpr auto read_one(std::istream &src)
-{
-	T x;
-	src >> x;
-	return x;
-}
-
-template <class T, class... Ts>
-constexpr auto read_tuple(std::istream &src)
-{
-	// No fold expressions! Argument evaluation order in unspecified!
-	auto x = std::tuple(read_one<T>(src));
-
-	if constexpr (sizeof...(Ts) == 0)
-		return x;
-	else
-		return std::tuple_cat(std::move(x), read_tuple<Ts...>(src));
-}
 
 class istream_iterator
 {
@@ -53,7 +28,7 @@ public:
 	template <class T>
 	operator T()
 	{
-		auto res = read_one<T>(src);
+		auto res = read<T>(src);
 		skip_ws();
 		return res;
 	}
@@ -85,7 +60,7 @@ struct ifstream_iterator : public istream_iterator
 	template <class T>
 	operator T()
 	{
-		auto res = read_one<T>(src);
+		auto res = read<T>(src);
 		skip_ws(EOF);
 		return res;
 	}
@@ -117,15 +92,4 @@ public:
 
 	constexpr auto begin() { return ifstream_iterator(stream); }
 	constexpr auto end() { return nullptr; }
-
-	template <class... Ts>
-	constexpr auto read()
-	{
-		if constexpr (sizeof...(Ts) == 1)
-			return read_one<Ts...>(stream);
-		else
-			return read_tuple<Ts...>(stream);
-	}
 };
-
-#endif

@@ -36,13 +36,19 @@ Include the public interface:
 To read a value of type `T`:
 
 ```cpp
-auto const x = clear::read<T>();
+auto const x = clear::read<T>(); // x: T
+```
+
+To read multiple values of types `Ts`:
+
+```cpp
+auto const xs = clear::read<Ts...>(); // xs: std::tuple<Ts...>
 ```
 
 ### Chars
 
 ```cpp
-auto const c = clear::read<char>();
+auto const [a, b] = clear::read<char, char>();
 ```
 
 ## Output
@@ -223,11 +229,17 @@ To open a file safely (because it can fail):
 auto maybe_file = clear::safe_open("maybe_file.txt", "w"); // returns std::optional
 ```
 
-To write to a file, simply use `print(ln)` and `flush` as member functions:
+To write to a file, simply use `print` / `println` and `flush` as member functions:
 
 ```cpp
 file.println("Helo, World! ", 42, ' ', true);
 
 if (maybe_file)
 	maybe_file->println("Helo, World! ", 42, ' ', true);
+```
+
+To read from a file, use `read` as a member function:
+
+```cpp
+auto const [a, b] = open("input.txt").read<char, char>();
 ```

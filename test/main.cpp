@@ -178,6 +178,6 @@ auto main() -> int
 
 	auto const in = open("in.txt");
 
-	assert(in.read<char>() == 'q');
-	assert(in.read<char>() == '\n');
+	auto const [a, b] = in.read<char, char>();
+	assert(a == 'q' && b == '\n');
 }

@@ -51,7 +51,8 @@ If the end of the file is reached or there are no values of type(s) `T`/`Ts` to 
 To read safely:
 
 ```cpp
-auto const maybe_x = clear::safe_read<T>(); // maybe_x: std::optional<T>
+// maybe_x: std::optional<T>
+auto const maybe_x = clear::safe_read<T>();
 
 // maybe_xs: std::optional<std::tuple<Ts...>>
 auto const maybe_xs = clear::safe_read<Ts...>();

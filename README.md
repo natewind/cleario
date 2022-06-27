@@ -46,7 +46,7 @@ To read multiple values of types `Ts`:
 auto const xs = clear::read<Ts...>(); // xs: std::tuple<Ts...>
 ```
 
-If the end of the file is reached or there are no values of type(s) `T`/`Ts` to read, the behaviour of is undefined.
+If the end of the file is reached or there are no values of type(s) `T`/`Ts` to read, the behaviour is undefined.
 
 To read safely:
 

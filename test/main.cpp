@@ -10,7 +10,7 @@ inline auto clear::io::print(Point const &point) -> bool
 }
 
 // template <>
-// inline auto clear::io::read<Point const &point>() -> std::optional<auto>
+// inline auto clear::io::read<Point>() -> std::optional<auto>
 // {
 // 	auto const xy = scan<int, int>('(', _, ", ", _, ')');
 // 	return xy ? Point {xy.first, xy.second} : {};
@@ -180,4 +180,7 @@ auto main() -> int
 
 	auto const [a, b] = in.read<char, char>();
 	assert(a == 'q' && b == '\n');
+
+	auto const n = in.safe_read<char>();
+	assert(!n);
 }

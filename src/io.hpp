@@ -2,7 +2,7 @@
 #define CLEARIO_IO_HPP
 
 #include <cstdio>   // fclose, fflush, fopen, stdout
-#include <optional> // make_optional, nullopt
+#include <optional> // make_optional, nullopt, optional
 #include <tuple>    // tuple, tuple_cat
 #include <utility>  // move, swap
 
@@ -36,7 +36,7 @@ namespace clear
 		auto flush() -> bool { return std::fflush(handle) == 0; }
 
 		template <class... Ts>
-		auto read() const
+		auto safe_read() const
 		{
 			if constexpr (sizeof...(Ts) == 1)
 				return impl::read<Ts...>(handle);
@@ -45,15 +45,28 @@ namespace clear
 		}
 
 		template <class T, class... Ts>
-		auto read_tuple() const
+		auto read_tuple() const -> std::optional<std::tuple<T, Ts...>>
 		{
-			auto x = std::tuple(read<T>());
+			auto x = safe_read<T>();
+
+			if (!x)
+				return {};
+
+			auto head = std::tuple(std::move(*x));
 
 			if constexpr (sizeof...(Ts) == 0)
-				return x;
+				return head;
+
 			else
-				return std::tuple_cat(std::move(x), read_tuple<Ts...>());
+			{
+				if (auto tail = read_tuple<Ts...>(); tail)
+					return std::tuple_cat(std::move(head), std::move(*tail));
+				else return {};
+			}
 		}
+
+		template <class... Ts>
+		auto read() const { return *safe_read<Ts...>(); }
 	};
 
 	struct file final : public io
@@ -92,6 +105,9 @@ namespace clear
 	auto print  (auto const&... xs) { return io(stdout).print  (xs...); }
 	auto println(auto const&... xs) { return io(stdout).println(xs...); }
 	inline auto flush()             { return io(stdout).flush(); }
+
+	template <class... Ts>
+	auto safe_read() { return io(stdin).safe_read<Ts...>(); }
 
 	template <class... Ts>
 	auto read() { return io(stdin).read<Ts...>(); }

@@ -18,10 +18,10 @@
 			* [ ] `::readln`
 		* [ ] Safe
 			* [ ] `io::safe_input`
-			* [ ] `io::safe_read<Ts...>() -> std::optional<std::tuple<Ts...>>`
-			* [ ] `io::safe_read<T> -> std::optional<T>`
+			* [x] `io::safe_read<Ts...>() -> std::optional<std::tuple<Ts...>>`
+			* [x] `io::safe_read<T> -> std::optional<T>`
 			* [ ] `io::safe_readln -> std::optional<std::string>`
-			* [ ] `::safe_read<Ts...>`
+			* [x] `::safe_read<Ts...>`
 			* [ ] `::safe_readln`
 		* [ ] Echoless read from `stdin`
 		* [ ] [?] Public `skip_ws` (for user-defined types)
@@ -117,3 +117,5 @@
 	* [ ] README warning about using echoless with multithreading (stream may stay echoless)
 	* [ ] Make `read` methods `const`
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)
+	* [ ] Disambiguate `read` and `impl::read` (like `print` and `write`)?
+	* [ ] Fix `write<optional<tuple>>` etc. (declaration order)

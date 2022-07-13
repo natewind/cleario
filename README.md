@@ -251,7 +251,7 @@ if (maybe_file)
 	maybe_file->println("Helo, World! ", 42, ' ', true);
 ```
 
-To read from a file, use `read` as a member function:
+To read from a file, use `read` / `safe_read` as a member function:
 
 ```cpp
 auto const [a, b] = open("input.txt").read<char, char>();

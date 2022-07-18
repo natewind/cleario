@@ -2,7 +2,6 @@
 #define CLEARIO_WRITE_HPP
 
 #include <algorithm>   // all_of
-#include <array>       // array
 #include <charconv>    // to_chars
 #include <concepts>    // floating_point, integral
 #include <cstdint>     // uintptr_t
@@ -43,7 +42,7 @@ namespace clear::impl
 	template <int Base, std::integral T>
 	auto write_base(cfile dest, T x) -> bool
 	{
-		auto buff = std::array<char, maxlen<T>(Base)>();
+		auto buff = digits<T, Base>();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 
@@ -79,7 +78,7 @@ namespace clear::impl
 	template <std::floating_point T>
 	auto write(cfile dest, T x) -> bool
 	{
-		auto buff = std::array<char, maxlen<T>()>();
+		auto buff = digits<T>();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 

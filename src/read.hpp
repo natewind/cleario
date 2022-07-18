@@ -2,7 +2,6 @@
 #define CLEARIO_READ_HPP
 
 #include <algorithm>   // min
-#include <array>       // array
 #include <concepts>    // integral
 #include <cstdio>      // EOF, fgetc, ungetc
 #include <optional>    // make_optional, nullopt, optional
@@ -22,9 +21,9 @@ namespace clear::impl
 		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
 	}
 
-	auto to_lower(char c) -> x
+	auto to_lower(char c) -> char
 	{
-		return x >= 'A' && c <= 'Z'
+		return c >= 'A' && c <= 'Z'
 		     ? c + 'a' - 'A'
 		     : c;
 	}
@@ -41,7 +40,7 @@ namespace clear::impl
 		c = to_lower(c);
 
 		return c >= 'a'
-		    && c <= std::min('a' + Base - 11, 'z');
+		    && c <= std::min<char>('a' + Base - 11, 'z');
 	}
 
 	template <int Base, std::integral T>
@@ -49,11 +48,11 @@ namespace clear::impl
 	{
 		// TODO: skip_ws
 
-		auto buff = std::array<char, maxlen<T>(Base)>();
+		auto buff = digits<T, Base>();
 		auto begin = buff.data();
 		auto end = begin + buff.size();
 
-		if constexpr (is_signed_v<T>)
+		if constexpr (std::is_signed_v<T>)
 		{
 			*begin = std::fgetc(src);
 
@@ -103,19 +102,19 @@ namespace clear::impl
 		//       b) min/max (iostream)
 		// TODO: from_chars
 
-		auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
-		return std::fwrite(begin, size, 1, dest) != 0;
+		// auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
+		// return std::fwrite(begin, size, 1, dest) != 0;
 	}
 
 
 	//=================================
 
-	template <>
-	auto read<char>(cfile src) -> std::optional<char>
-	{
-		auto const c = std::fgetc(src);
-		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
-	}
+	// template <>
+	// auto read<char>(cfile src) -> std::optional<char>
+	// {
+	// 	auto const c = std::fgetc(src);
+	// 	return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
+	// }
 }
 
 #endif

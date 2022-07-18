@@ -102,6 +102,12 @@ namespace clear::impl
 		return 4 + limits::max_digits10
 		     + std::max(2, log(10, limits::max_exponent10));
 	}
+
+	template <class T>
+	concept Numeric = std::integral<T> || std::floating_point<T>;
+
+	template <Numeric T, int... Base>
+	using digits = std::array<char, maxlen<T>(Base...)>;
 }
 
 namespace clear

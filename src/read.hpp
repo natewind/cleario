@@ -2,6 +2,7 @@
 #define CLEARIO_READ_HPP
 
 #include <algorithm>   // min
+#include <cctype>      // isspace, tolower
 #include <concepts>    // integral
 #include <cstdio>      // EOF, fgetc, ungetc
 #include <optional>    // make_optional, nullopt, optional
@@ -21,11 +22,14 @@ namespace clear::impl
 		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
 	}
 
-	auto to_lower(char c) -> char
+	void skip_ws(cfile src)
 	{
-		return c >= 'A' && c <= 'Z'
-		     ? c + 'a' - 'A'
-		     : c;
+		auto c = char();
+
+		do c = std::fgetc(src);
+		while (std::isspace(c));
+
+		std::ungetc(c, src);
 	}
 
 	template <int Base>
@@ -37,7 +41,7 @@ namespace clear::impl
 		if constexpr (Base <= 10)
 			return c < '0' + Base;
 
-		c = to_lower(c);
+		c = std::tolower(c);
 
 		return c >= 'a'
 		    && c <= std::min<char>('a' + Base - 11, 'z');
@@ -46,7 +50,7 @@ namespace clear::impl
 	template <int Base, std::integral T>
 	auto read_base(cfile src) -> std::optional<T>
 	{
-		// TODO: skip_ws
+		skip_ws(src);
 
 		auto buff = digit_buffer<T, Base>();
 		auto begin = buff.data();

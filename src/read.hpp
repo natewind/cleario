@@ -48,7 +48,7 @@ namespace clear::impl
 	{
 		// TODO: skip_ws
 
-		auto buff = digits<T, Base>();
+		auto buff = digit_buffer<T, Base>();
 		auto begin = buff.data();
 		auto end = begin + buff.size();
 

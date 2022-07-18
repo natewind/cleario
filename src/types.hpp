@@ -107,7 +107,7 @@ namespace clear::impl
 	concept Numeric = std::integral<T> || std::floating_point<T>;
 
 	template <Numeric T, int... Base>
-	using digits = std::array<char, maxlen<T>(Base...)>;
+	using digit_buffer = std::array<char, maxlen<T>(Base...)>;
 }
 
 namespace clear

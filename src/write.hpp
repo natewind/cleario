@@ -42,7 +42,7 @@ namespace clear::impl
 	template <int Base, std::integral T>
 	auto write_base(cfile dest, T x) -> bool
 	{
-		auto buff = digits<T, Base>();
+		auto buff = digit_buffer<T, Base>();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 
@@ -78,7 +78,7 @@ namespace clear::impl
 	template <std::floating_point T>
 	auto write(cfile dest, T x) -> bool
 	{
-		auto buff = digits<T>();
+		auto buff = digit_buffer<T>();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 

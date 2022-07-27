@@ -3,6 +3,7 @@
 
 #include <algorithm>   // min
 #include <cctype>      // isspace, tolower
+#include <charconv>    // from_chars
 #include <concepts>    // integral
 #include <cstdio>      // EOF, fgetc, ungetc
 #include <optional>    // make_optional, nullopt, optional
@@ -12,16 +13,6 @@
 
 namespace clear::impl
 {
-	template <class T>
-	auto read(cfile src) -> std::optional<T>;
-
-	template <>
-	auto read<char>(cfile src) -> std::optional<char>
-	{
-		auto const c = std::fgetc(src);
-		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
-	}
-
 	void skip_ws(cfile src)
 	{
 		auto c = char();
@@ -53,72 +44,72 @@ namespace clear::impl
 		skip_ws(src);
 
 		auto buff = digit_buffer<T, Base>();
-		auto begin = buff.data();
-		auto end = begin + buff.size();
+		auto it = buff.data();
+		auto end = it + buff.size();
 
 		if constexpr (std::is_signed_v<T>)
 		{
-			*begin = std::fgetc(src);
+			*it = std::fgetc(src);
 
-			if (*begin == '-')
-				++begin;
+			if (*it == '-')
+				++it;
 
 			else
 			{
-				std::ungetc(*begin, src);
-				--end; // No extra digit instead of the sign
+				std::ungetc(*it, src);
 
-				if (!is_digit(*begin))
+				if (!is_digit<Base>(*it))
 					return std::nullopt;
 			}
 		}
 
-		// TODO:
+		auto any_zero = false;
 
-		auto zero = char();
-
-		while ((zero = std::fgetc(src)) == '0')
-			*begin = zero;
-
-		if (!is_digit(*begin))
+		if ((*it = std::fgetc(src)) == '0')
 		{
-			std::ungetc(zero, src);
-			return (*begin == 0) ? std::make_optional<T>(0) : std::nullopt;
+			any_zero = true;
+			while ((*it = std::fgetc(src)) == '0');
 		}
 
-		*(begin++) == zero;
+		if (!is_digit<Base>(*it))
+		{
+			std::ungetc(*it, src);
+			return any_zero ? std::make_optional<T>(0) : std::nullopt;
+		}
 
+		while (true)
+		{
+			auto const next = std::fgetc(src);
 
+			if (!is_digit<Base>(next))
+			{
+				std::ungetc(next, src);
 
-		while (begin)
+				auto x = T(0);
+				std::from_chars(buff.data(), end, x, Base);
 
-		// TODO: Account for array length
+				return x == 0 ? std::nullopt : std::make_optional<T>(x);
+			}
 
+			if (++it == end)
+			{
+				std::ungetc(next, src);
+				return std::nullopt;
+			}
 
-		while (is_digit(*begin = std::fgetc(src)));
-
-		// 0001 -> 1
-		// 0000 -> 0
-		// -a   -> nullopt
-
-		// TODO: If the number is too big:
-		//       a) fail
-		//       b) min/max (iostream)
-		// TODO: from_chars
-
-		// auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
-		// return std::fwrite(begin, size, 1, dest) != 0;
+			*it = next;
+		}
 	}
 
+	template <std::integral T>
+	auto read(cfile src) -> std::optional<T> { return read_base<10, T>(src); }
 
-	//=================================
-
-	// template <>
-	// auto read<char>(cfile src) -> std::optional<char>
-	// {
-	// 	auto const c = std::fgetc(src);
-	// 	return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
-	// }
+	template <>
+	auto read<char>(cfile src) -> std::optional<char>
+	{
+		auto const c = std::fgetc(src);
+		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
+	}
 }
 
 #endif

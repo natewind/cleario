@@ -181,6 +181,9 @@ auto main() -> int
 	auto const [a, b] = in.read<char, char>();
 	assert(a == 'q' && b == '\n');
 
+	auto const [c, d, e, f] = in.read<int, int, int, char>();
+	assert(c == 12 && d == -34 && e == 56 && f == '\n');
+
 	auto const n = in.safe_read<char>();
 	assert(!n);
 }

@@ -119,4 +119,3 @@
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)
 	* [ ] Disambiguate `read` and `impl::read` (like `print` and `write`)?
 	* [ ] Fix `write<optional<tuple>>` etc. (declaration order)
-	* [ ] Split `read_base` into smaller functions?

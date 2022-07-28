@@ -29,7 +29,7 @@ namespace clear::impl
 		if (c < '0')
 			return false;
 
-		if constexpr (Base <= 10)
+		if (c <= '9')
 			return c < '0' + Base;
 
 		c = std::tolower(c);

@@ -38,6 +38,48 @@ namespace clear::impl
 		    && c <= std::min<char>('a' + Base - 11, 'z');
 	}
 
+	// template <int Base>
+	// auto skip_zeros(cfile src) -> char
+	// {
+	// 	auto any_zero = false;
+	// 	auto c = char();
+
+	// 	if ((c = std::fgetc(src)) == '0')
+	// 	{
+	// 		any_zero = true;
+	// 		while ((c = std::fgetc(src)) == '0');
+	// 	}
+
+	// 	if (is_digit<Base>(c))
+	// 		return c;
+
+	// 	std::ungetc(c, src);
+	// 	return any_zero ? '0' : -1;
+	// }
+
+	// template <int Base>
+	// auto skip_zeros1(cfile src) -> char
+	// {
+	// 	if ((c = std::fgetc(src)) == '0')
+
+
+	// 	auto any_zero = false;
+	// 	auto c = char();
+
+	// 	if (c = std::fgetc(src); c == '0')
+	// 	{
+	// 		any_zero = true;
+	// 		do c = std::fgetc(src);
+	// 		while (c == '0');
+	// 	}
+
+	// 	if (is_digit<Base>(c))
+	// 		return c;
+
+	// 	std::ungetc(c, src);
+	// 	return any_zero ? '0' : -1;
+	// }
+
 	template <int Base, std::integral T>
 	auto read_base(cfile src) -> std::optional<T>
 	{
@@ -59,16 +101,17 @@ namespace clear::impl
 				std::ungetc(*it, src);
 
 				if (!is_digit<Base>(*it))
-					return std::nullopt;
+					return {};
 			}
 		}
 
 		auto any_zero = false;
 
-		if ((*it = std::fgetc(src)) == '0')
+		if (*it = std::fgetc(src); *it == '0')
 		{
 			any_zero = true;
-			while ((*it = std::fgetc(src)) == '0');
+			do *it = std::fgetc(src);
+			while (*it == '0');
 		}
 
 		if (!is_digit<Base>(*it))
@@ -94,7 +137,7 @@ namespace clear::impl
 			if (++it == end)
 			{
 				std::ungetc(next, src);
-				return std::nullopt;
+				return {};
 			}
 
 			*it = next;

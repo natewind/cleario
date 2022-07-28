@@ -44,10 +44,11 @@ namespace clear::impl
 	// 	auto any_zero = false;
 	// 	auto c = char();
 
-	// 	if ((c = std::fgetc(src)) == '0')
+	// 	if (c = std::fgetc(src); c == '0')
 	// 	{
 	// 		any_zero = true;
-	// 		while ((c = std::fgetc(src)) == '0');
+	// 		do c = std::fgetc(src);
+	// 		while (c == '0');
 	// 	}
 
 	// 	if (is_digit<Base>(c))
@@ -60,11 +61,19 @@ namespace clear::impl
 	// template <int Base>
 	// auto skip_zeros1(cfile src) -> char
 	// {
-	// 	if ((c = std::fgetc(src)) == '0')
+	// 	auto c = char();
 
+	// 	if (c = std::fgetc(src); c == '0')
+	// 	{
+	// 		//
+	// 	}
+
+	// 	std::ungetc(c, src);
+
+
+	// 	//==================================
 
 	// 	auto any_zero = false;
-	// 	auto c = char();
 
 	// 	if (c = std::fgetc(src); c == '0')
 	// 	{
@@ -123,18 +132,19 @@ namespace clear::impl
 		while (true)
 		{
 			auto const next = std::fgetc(src);
+			++it;
 
 			if (!is_digit<Base>(next))
 			{
 				std::ungetc(next, src);
 
 				auto x = T(0);
-				std::from_chars(buff.data(), end, x, Base);
+				std::from_chars(buff.data(), it, x, Base);
 
 				return x == 0 ? std::nullopt : std::make_optional<T>(x);
 			}
 
-			if (++it == end)
+			if (it == end)
 			{
 				std::ungetc(next, src);
 				return {};
@@ -143,6 +153,65 @@ namespace clear::impl
 			*it = next;
 		}
 	}
+
+	// template <int Base, std::integral T>
+	// auto read_base1(cfile src) -> std::optional<T>
+	// {
+	// 	skip_ws(src);
+
+	// 	auto buff = digit_buffer<T, Base>();
+	// 	auto it = buff.data();
+	// 	auto end = it + buff.size();
+
+	// 	if constexpr (std::is_signed_v<T>)
+	// 	{
+	// 		*it = std::fgetc(src);
+
+	// 		if (*it == '-')
+	// 			++it;
+
+	// 		else std::ungetc(*it, src);
+	// 	}
+
+	// 	auto any_zero = false;
+
+	// 	if (*it = std::fgetc(src); *it == '0')
+	// 	{
+	// 		any_zero = true;
+	// 		do *it = std::fgetc(src);
+	// 		while (*it == '0');
+	// 	}
+
+	// 	if (!is_digit<Base>(*it))
+	// 	{
+	// 		std::ungetc(*it, src);
+	// 		return any_zero ? std::make_optional<T>(0) : std::nullopt;
+	// 	}
+
+	// 	while (true)
+	// 	{
+	// 		auto const next = std::fgetc(src);
+	// 		++it;
+
+	// 		if (!is_digit<Base>(next))
+	// 		{
+	// 			std::ungetc(next, src);
+
+	// 			auto x = T(0);
+	// 			std::from_chars(buff.data(), it, x, Base);
+
+	// 			return x == 0 ? std::nullopt : std::make_optional<T>(x);
+	// 		}
+
+	// 		if (it == end)
+	// 		{
+	// 			std::ungetc(next, src);
+	// 			return {};
+	// 		}
+
+	// 		*it = next;
+	// 	}
+	// }
 
 	template <std::integral T>
 	auto read(cfile src) -> std::optional<T> { return read_base<10, T>(src); }

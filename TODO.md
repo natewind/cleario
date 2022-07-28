@@ -81,7 +81,7 @@
 	* [ ] `bool`
 	* [ ] `std::string`
 	* [ ] Integral types
-		* [ ] `std::integral`
+		* [x] `std::integral`
 		* [ ] `dec` wrapper (for `char`)
 		* [ ] `bin` wrapper -> 0b00...
 		* [ ] `oct` wrapper -> 0o00...
@@ -107,6 +107,8 @@
 		* [ ] `std::optional`
 		* [ ] `std::tuple`
 	* [ ] User-defined types
+* [ ] README & testing (implemented)
+	* [ ] `read<std::integral T>`
 * [ ] Improvements
 	* [ ] Modularize cleario when GCC gets module support
 	* [ ] Print quotation marks around strings inside containers

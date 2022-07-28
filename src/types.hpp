@@ -112,17 +112,33 @@ namespace clear::impl
 
 namespace clear
 {
-	template <std::integral T>
-	struct bin { T value; };
+	template <std::integral Int>
+	struct bin
+	{
+		using T = Int;
+		T value;
+	};
 
-	template <std::integral T>
-	struct oct { T value; };
+	template <std::integral Int>
+	struct oct
+	{
+		using T = Int;
+		T value;
+	};
 
-	template <std::integral T>
-	struct dec { T value; };
+	template <std::integral Int>
+	struct dec
+	{
+		using T = Int;
+		T value;
+	};
 
-	template <std::integral T>
-	struct hex { T value; };
+	template <std::integral Int>
+	struct hex
+	{
+		using T = Int;
+		T value;
+	};
 }
 
 #endif

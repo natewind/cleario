@@ -104,8 +104,45 @@ namespace clear::impl
 		}
 	}
 
+	// TODO: e. g. optional<int> -> optional<bin<int>>
+	// TODO: Generalize?
+
+	template <impl::Specialization<bin> Based>
+	auto read(cfile src) -> std::optional<Based>
+	{
+		return expect(src, '0') && expect(src, 'b')
+		     ? read_base<2, typename Based::T>(src)
+		     : std::nullopt;
+	}
+
+	template <impl::Specialization<oct> Based>
+	auto read(cfile src) -> std::optional<Based>
+	{
+		return expect(src, '0') && expect(src, 'o')
+		     ? read_base<8, typename Based::T>(src)
+		     : std::nullopt;
+	}
+
+	template <impl::Specialization<dec> Based>
+	auto read(cfile src) -> std::optional<Based>
+	{
+		return read_base<10, typename Based::T>(src);
+	}
+
+	template <impl::Specialization<hex> Based>
+	auto read(cfile src) -> std::optional<Based>
+	{
+		return expect(src, '0') && expect(src, 'x')
+		     ? read_base<16, typename Based::T>(src)
+		     : std::nullopt;
+	}
+
 	template <std::integral T>
-	auto read(cfile src) -> std::optional<T> { return read_base<10, T>(src); }
+	auto read(cfile src) -> std::optional<T>
+	{
+		auto const x = read<dec<T>>(src);
+		return x ? std::make_optional(x->value) : std::nullopt;
+	}
 
 	template <>
 	auto read<char>(cfile src) -> std::optional<char>

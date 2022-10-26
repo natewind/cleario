@@ -184,6 +184,9 @@ auto main() -> int
 	auto const [c, d, e, f] = in.read<int, int, int, char>();
 	assert(c == 12 && d == -34 && e == 56 && f == '\n');
 
+	auto const [g, h] = in.read<hex<unsigned char>, char>();
+	assert(g.value == 255 && h == '\n');
+
 	auto const n = in.safe_read<int>();
 	assert(!n);
 }

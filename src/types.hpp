@@ -108,37 +108,41 @@ namespace clear::impl
 
 	template <Numeric T, int... Base>
 	using digit_buffer = std::array<char, maxlen<T>(Base...)>;
+
+	template <std::integral T, int B, char P = 0>
+	struct int_based
+	{
+		using type = T;
+		static constexpr auto base = B;
+		static constexpr auto prefix = P;
+
+		type value;
+		constexpr explicit int_based(type x) : value(x) {}
+	};
+
+	template <class>
+	struct is_int_based : std::false_type {};
+
+	template <class T, int Base, char Prefix>
+	struct is_int_based<int_based<T, Base, Prefix>> : std::true_type {};
+
+	template <class T>
+	concept IntBased = is_int_based<T>::value;
 }
 
 namespace clear
 {
-	template <std::integral Int>
-	struct bin
-	{
-		using T = Int;
-		T value;
-	};
+	template <std::integral T>
+	using bin = impl::int_based<T, 2, 'b'>;
 
-	template <std::integral Int>
-	struct oct
-	{
-		using T = Int;
-		T value;
-	};
+	template <std::integral T>
+	using oct = impl::int_based<T, 8, 'o'>;
 
-	template <std::integral Int>
-	struct dec
-	{
-		using T = Int;
-		T value;
-	};
+	template <std::integral T>
+	using dec = impl::int_based<T, 10>;
 
-	template <std::integral Int>
-	struct hex
-	{
-		using T = Int;
-		T value;
-	};
+	template <std::integral T>
+	using hex = impl::int_based<T, 16, 'x'>;
 }
 
 #endif

@@ -80,12 +80,12 @@
 	* [x] `char`
 	* [ ] `bool`
 	* [ ] `std::string`
-	* [ ] Integral types
+	* [x] Integral types
 		* [x] `std::integral`
-		* [ ] `dec` wrapper (for `char`)
-		* [ ] `bin` wrapper -> 0b00...
-		* [ ] `oct` wrapper -> 0o00...
-		* [ ] `hex` wrapper -> 0x00...
+		* [x] `dec` wrapper (for `char`)
+		* [x] `bin` wrapper -> 0b00...
+		* [x] `oct` wrapper -> 0o00...
+		* [x] `hex` wrapper -> 0x00...
 	* [ ] Floating types
 	* [ ] Pointers (`T*`)
 	* [ ] Sequence containers
@@ -121,3 +121,5 @@
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)
 	* [ ] Disambiguate `read` and `impl::read` (like `print` and `write`)?
 	* [ ] Fix `write<optional<tuple>>` etc. (declaration order)
+	* [ ] Fix negative bin/hex/oct values (0x-ff -> -0xff)!
+	* [ ] README note about consumed characters on failed read

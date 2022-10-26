@@ -23,7 +23,7 @@ git submodule add git@github.com:natewind/cleario.git
 Or simply clone:
 
 ```bash
-git clone git@github.com:natewind/cleario.git
+git clone --recurse-submodules git@github.com:natewind/cleario.git
 ```
 
 Include the public interface:

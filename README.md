@@ -81,6 +81,8 @@ Explicit decimal base to read an integer into `char`:
 auto const e = clear::read<clear::dec<char>>(); // 123
 ```
 
+If a read fails, characters from the input stream are consumed until the one that induced the failure.
+
 ## Output
 
 To print one or more values without a newline:

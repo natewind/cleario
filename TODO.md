@@ -121,5 +121,4 @@
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)
 	* [ ] Disambiguate `read` and `impl::read` (like `print` and `write`)?
 	* [ ] Fix `write<optional<tuple>>` etc. (declaration order)
-	* [ ] Fix negative bin/hex/oct values (0x-ff -> -0xff)!
 	* [ ] README note about consumed characters on failed read

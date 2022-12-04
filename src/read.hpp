@@ -80,22 +80,16 @@ namespace clear::impl
 	template <IntBased T>
 	auto read(cfile src) -> std::optional<T>
 	{
-		auto buff = digit_buffer<typename T::type, T::base>();
+		auto buff = typename T::buffer();
 		auto it = buff.begin();
 
 		skip_ws(src);
 
-		if constexpr (std::is_signed_v<typename T::type>)
-		{
-			if (expect(src, '-'))
-				*it++ = '-';
-		}
+		if (std::is_signed_v<typename T::type> && expect(src, '-'))
+			*it++ = '-';
 
-		if constexpr (T::base != 10)
-		{
-			if (!expect(src, '0') || !expect(src, T::prefix))
-				return {};
-		}
+		if (T::base != 10 && !(expect(src, '0') && expect(src, T::prefix)))
+			return {};
 
 		auto const any_zero = skip_zeros(src);
 		it = read_digits<T::base>(src, it, buff.end());

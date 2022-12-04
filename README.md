@@ -69,16 +69,16 @@ auto const [a, b] = clear::read<char, char>();
 Integral types (except for char) in different bases:
 
 ```cpp
-auto const a = clear::read<int>();             // 123
-auto const b = clear::read<clear::bin<int>>(); // 0b1111011
-auto const c = clear::read<clear::oct<int>>(); // 0o173
-auto const d = clear::read<clear::hex<int>>(); // 0x7b
+auto const a = clear::read<int>();                   // 123
+auto const b = clear::read<clear::bin<int>>().value; // 0b1111011
+auto const c = clear::read<clear::oct<int>>().value; // 0o173
+auto const d = clear::read<clear::hex<int>>().value; // 0x7b
 ```
 
 Explicit decimal base to read an integer into `char`:
 
 ```cpp
-auto const e = clear::read<clear::dec<char>>(); // 123
+auto const e = clear::read<clear::dec<char>>().value; // 123
 ```
 
 If a read fails, characters from the input stream are consumed until the one that induced the failure.

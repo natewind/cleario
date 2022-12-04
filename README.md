@@ -8,7 +8,7 @@ The library is under development and subject to change. Contributions are welcom
 
 * Clean and consistent interface
 * Pretty-printing STL containers and pointers
-* Initalizing (multiple) variables on read (no mutation necessary)
+* Initializing (multiple) variables on read (no mutation necessary)
 * No `sync_with_stdio`, so should be faster than `iostream`
 * No runtime format strings, so might be faster than `stdio`
 
@@ -23,7 +23,7 @@ git submodule add git@github.com:natewind/cleario.git
 Or simply clone:
 
 ```bash
-git clone git@github.com:natewind/cleario.git
+git clone --recurse-submodules git@github.com:natewind/cleario.git
 ```
 
 Include the public interface:
@@ -63,6 +63,25 @@ auto const maybe_xs = clear::safe_read<Ts...>();
 ```cpp
 auto const [a, b] = clear::read<char, char>();
 ```
+
+### Integers
+
+Integral types (except for char) in different bases:
+
+```cpp
+auto const a = clear::read<int>();                   // 123
+auto const b = clear::read<clear::bin<int>>().value; // 0b1111011
+auto const c = clear::read<clear::oct<int>>().value; // 0o173
+auto const d = clear::read<clear::hex<int>>().value; // 0x7b
+```
+
+Explicit decimal base to read an integer into `char`:
+
+```cpp
+auto const e = clear::read<clear::dec<char>>().value; // 123
+```
+
+If a read fails, characters from the input stream are consumed until the one that induced the failure.
 
 ## Output
 

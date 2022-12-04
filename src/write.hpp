@@ -39,35 +39,28 @@ namespace clear::impl
 		    || std::fwrite(view.data(), view.size(), 1, dest) != 0;
 	}
 
-	template <int Base, std::integral T>
-	auto write_base(cfile dest, T x) -> bool
+	template <IntBased T>
+	auto write(cfile dest, T x) -> bool
 	{
-		auto buff = digit_buffer<T, Base>();
+		if (std::is_signed_v<typename T::type> && x.value < 0)
+		{
+		 	if (!write(dest, '-'))
+				return false;
+
+			x.value = -x.value;
+		}
+
+		if (T::base != 10 && !(write(dest, '0') && write(dest, T::prefix)))
+			return false;
+
+		auto buff = typename T::buffer();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 
-		auto const size = std::to_chars(begin, end, x, Base).ptr - begin;
+		auto const result = std::to_chars(begin, end, x.value, T::base);
+		auto const size = result.ptr - begin;
+
 		return std::fwrite(begin, size, 1, dest) != 0;
-	}
-
-	auto write(cfile dest, bin<auto> x) -> bool
-	{
-		return write(dest, "0b") && write_base<2>(dest, x.value);
-	}
-
-	auto write(cfile dest, oct<auto> x) -> bool
-	{
-		return write(dest, "0o") && write_base<8>(dest, x.value);
-	}
-
-	auto write(cfile dest, dec<auto> x) -> bool
-	{
-		return write_base<10>(dest, x.value);
-	}
-
-	auto write(cfile dest, hex<auto> x) -> bool
-	{
-		return write(dest, "0x") && write_base<16>(dest, x.value);
 	}
 
 	auto write(cfile dest, std::integral auto x) -> bool

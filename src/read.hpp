@@ -65,47 +65,52 @@ namespace clear::impl
 		    && c <= std::min<char>('a' + Base - 11, 'z');
 	}
 
-	template <int Base, std::integral T>
-	auto read_base(cfile src) -> std::optional<T>
+	template <int Base, class InputIt>
+	auto read_digits(cfile src, InputIt dest, InputIt end) -> InputIt
 	{
-		auto buff = digit_buffer<T, Base>();
+		auto digit = char();
+
+		while (is_digit<Base>(digit = std::fgetc(src)) && dest != end)
+			*dest++ = digit;
+
+		std::ungetc(digit, src);
+		return dest;
+	}
+
+	template <IntBased T>
+	auto read(cfile src) -> std::optional<T>
+	{
+		auto buff = typename T::buffer();
 		auto it = buff.begin();
 
 		skip_ws(src);
 
-		if (std::is_signed_v<T> && expect(src, '-'))
+		if (std::is_signed_v<typename T::type> && expect(src, '-'))
 			*it++ = '-';
 
+		if (T::base != 10 && !(expect(src, '0') && expect(src, T::prefix)))
+			return {};
+
 		auto const any_zero = skip_zeros(src);
+		it = read_digits<T::base>(src, it, buff.end());
 
-		while (true)
-		{
-			auto const next = std::fgetc(src);
+		if (it == buff.end())
+			return {};
 
-			if (!is_digit<Base>(next))
-			{
-				std::ungetc(next, src);
+		auto x = typename T::type(0);
+		std::from_chars(buff.data(), it, x, T::base);
 
-				auto x = T(0);
-				std::from_chars(buff.data(), it, x, Base);
-
-				return x != 0 || any_zero
-				     ? std::make_optional<T>(x)
-				     : std::nullopt;
-			}
-
-			if (it == buff.end())
-			{
-				std::ungetc(next, src);
-				return {};
-			}
-
-			*it++ = next;
-		}
+		return x != 0 || any_zero
+		     ? std::make_optional<T>(x)
+		     : std::nullopt;
 	}
 
 	template <std::integral T>
-	auto read(cfile src) -> std::optional<T> { return read_base<10, T>(src); }
+	auto read(cfile src) -> std::optional<T>
+	{
+		auto const x = read<dec<T>>(src);
+		return x ? std::make_optional(x->value) : std::nullopt;
+	}
 
 	template <>
 	auto read<char>(cfile src) -> std::optional<char>

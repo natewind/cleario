@@ -8,7 +8,7 @@ The library is under development and subject to change. Contributions are welcom
 
 * Clean and consistent interface
 * Pretty-printing STL containers and pointers
-* Initalizing (multiple) variables on read (no mutation necessary)
+* Initializing (multiple) variables on read (no mutation necessary)
 * No `sync_with_stdio`, so should be faster than `iostream`
 * No runtime format strings, so might be faster than `stdio`
 

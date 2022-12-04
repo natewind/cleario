@@ -65,56 +65,50 @@ namespace clear::impl
 		    && c <= std::min<char>('a' + Base - 11, 'z');
 	}
 
-	template <int Base, std::integral T>
-	auto read_base(cfile src) -> std::optional<T>
+	template <int Base, class InputIt>
+	auto read_digits(cfile src, InputIt dest, InputIt end) -> InputIt
 	{
-		auto buff = digit_buffer<T, Base>();
-		auto it = buff.begin();
+		auto digit = char();
 
-		skip_ws(src);
+		while (is_digit<Base>(digit = std::fgetc(src)) && dest != end)
+			*dest++ = digit;
 
-		if (std::is_signed_v<T> && expect(src, '-'))
-			*it++ = '-';
-
-		auto const any_zero = skip_zeros(src);
-
-		while (true)
-		{
-			auto const next = std::fgetc(src);
-
-			if (!is_digit<Base>(next))
-			{
-				std::ungetc(next, src);
-
-				auto x = T(0);
-				std::from_chars(buff.data(), it, x, Base);
-
-				return x != 0 || any_zero
-				     ? std::make_optional<T>(x)
-				     : std::nullopt;
-			}
-
-			if (it == buff.end())
-			{
-				std::ungetc(next, src);
-				return {};
-			}
-
-			*it++ = next;
-		}
+		std::ungetc(digit, src);
+		return dest;
 	}
 
 	template <IntBased T>
 	auto read(cfile src) -> std::optional<T>
 	{
+		auto buff = digit_buffer<typename T::type, T::base>();
+		auto it = buff.begin();
+
+		skip_ws(src);
+
+		if constexpr (std::is_signed_v<typename T::type>)
+		{
+			if (expect(src, '-'))
+				*it++ = '-';
+		}
+
 		if constexpr (T::base != 10)
 		{
 			if (!expect(src, '0') || !expect(src, T::prefix))
 				return {};
 		}
 
-		auto const x = read_base<T::base, typename T::type>(src);
-		return x ? std::make_optional<T>(*x) : std::nullopt;
+		auto const any_zero = skip_zeros(src);
+		it = read_digits<T::base>(src, it, buff.end());
+
+		if (it == buff.end())
+			return {};
+
+		auto x = typename T::type(0);
+		std::from_chars(buff.data(), it, x, T::base);
+
+		return x != 0 || any_zero
+		     ? std::make_optional<T>(x)
+		     : std::nullopt;
 	}
 
 	template <std::integral T>

@@ -64,6 +64,23 @@ auto const maybe_xs = clear::safe_read<Ts...>();
 auto const [a, b] = clear::read<char, char>();
 ```
 
+### Integers
+
+Integral types (except for char) in different bases:
+
+```cpp
+auto const a = clear::read<int>();             // 123
+auto const b = clear::read<clear::bin<int>>(); // 0b1111011
+auto const c = clear::read<clear::oct<int>>(); // 0o173
+auto const d = clear::read<clear::hex<int>>(); // 0x7b
+```
+
+Explicit decimal base to read an integer into `char`:
+
+```cpp
+auto const e = clear::read<clear::dec<char>>(); // 123
+```
+
 ## Output
 
 To print one or more values without a newline:

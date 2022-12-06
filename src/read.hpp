@@ -78,7 +78,7 @@ namespace clear::impl
 	}
 
 	template <IntBased T>
-	auto read(cfile src) -> std::optional<T>
+	auto read(cfile src) -> std::optional<typename T::type>
 	{
 		auto buff = typename T::buffer();
 		auto it = buff.begin();
@@ -101,7 +101,7 @@ namespace clear::impl
 		std::from_chars(buff.data(), it, x, T::base);
 
 		return x != 0 || any_zero
-		     ? std::make_optional<T>(x)
+		     ? std::make_optional(x)
 		     : std::nullopt;
 	}
 
@@ -109,7 +109,7 @@ namespace clear::impl
 	auto read(cfile src) -> std::optional<T>
 	{
 		auto const x = read<dec<T>>(src);
-		return x ? std::make_optional(x->value) : std::nullopt;
+		return x ? std::make_optional(*x) : std::nullopt;
 	}
 
 	template <>

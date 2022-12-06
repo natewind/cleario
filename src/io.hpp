@@ -16,6 +16,9 @@ namespace clear
 	protected:
 		impl::cfile handle;
 
+		template <class... Ts>
+		using read_result = std::tuple<decltype(*impl::read<Ts>(handle))...>;
+
 	public:
 		constexpr io() : handle(nullptr) {}
 		explicit constexpr io(impl::cfile h) : handle(h) {}
@@ -45,7 +48,7 @@ namespace clear
 		}
 
 		template <class T, class... Ts>
-		auto read_tuple() const -> std::optional<std::tuple<T, Ts...>>
+		auto read_tuple() const -> std::optional<read_result<T, Ts...>>
 		{
 			auto x = safe_read<T>();
 
@@ -55,7 +58,7 @@ namespace clear
 			auto head = std::tuple(std::move(*x));
 
 			if constexpr (sizeof...(Ts) == 0)
-				return head;
+				return std::make_optional(head);
 
 			else
 			{

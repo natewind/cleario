@@ -121,4 +121,3 @@
 	* [ ] Investigate MSVC deprecation of `fopen` (check other functions?)
 	* [ ] Disambiguate `read` and `impl::read` (like `print` and `write`)?
 	* [ ] Fix `write<optional<tuple>>` etc. (declaration order)
-	* [ ] Make `read<IntBased<T>>` return `T` (to get rid of `.value`)

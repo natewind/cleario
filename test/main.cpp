@@ -185,7 +185,7 @@ auto main() -> int
 	assert(c == 12 && d == -34 && e == 56 && f == '\n');
 
 	auto const [g, h] = in.read<hex<char>, char>();
-	assert(g.value == -10 && h == '\n');
+	assert(g == -10 && h == '\n');
 
 	auto const n = in.safe_read<int>();
 	assert(!n);

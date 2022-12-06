@@ -113,13 +113,13 @@ namespace clear::impl
 	struct int_based
 	{
 		using type = T;
-		using buffer = digit_buffer<T, B>;
 
 		static constexpr auto base = B;
 		static constexpr auto prefix = P;
-
 		type value;
+
 		constexpr explicit int_based(type x) : value(x) {}
+		static constexpr auto buffer() { return digit_buffer<T, B>(); }
 	};
 
 	template <class>

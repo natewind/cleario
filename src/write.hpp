@@ -53,7 +53,7 @@ namespace clear::impl
 		if (T::base != 10 && !(write(dest, '0') && write(dest, T::prefix)))
 			return false;
 
-		auto buff = typename T::buffer();
+		auto buff = T::buffer();
 		auto const begin = buff.data();
 		auto const end = begin + buff.size();
 

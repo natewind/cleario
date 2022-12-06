@@ -80,7 +80,7 @@ namespace clear::impl
 	template <IntBased T>
 	auto read(cfile src) -> std::optional<typename T::type>
 	{
-		auto buff = typename T::buffer();
+		auto buff = T::buffer();
 		auto it = buff.begin();
 
 		skip_ws(src);

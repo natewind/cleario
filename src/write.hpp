@@ -42,7 +42,7 @@ namespace clear::impl
 	template <IntBased T>
 	auto write(cfile dest, T x) -> bool
 	{
-		if (std::is_signed_v<typename T::type> && x.value < 0)
+		if (T::is_signed && x.value < 0)
 		{
 		 	if (!write(dest, '-'))
 				return false;

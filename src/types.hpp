@@ -12,7 +12,7 @@
 #include <map>           // map, multimap
 #include <memory>        // shared_ptr, unique_ptr
 #include <set>           // multiset, set
-#include <type_traits>   // false_type, is_pointer_v, true_type
+#include <type_traits>   // false_type, is_pointer_v, is_signed_v, true_type
 #include <unordered_map> // unordered_map, unordered_multimap
 #include <unordered_set> // unordered_multiset, unordered_set
 #include <vector>        // vector
@@ -113,9 +113,10 @@ namespace clear::impl
 	struct int_based
 	{
 		using type = T;
-
 		static constexpr auto base = B;
 		static constexpr auto prefix = P;
+		static constexpr auto is_signed = std::is_signed_v<T>;
+
 		type value;
 
 		constexpr explicit int_based(type x) : value(x) {}

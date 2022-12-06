@@ -7,7 +7,6 @@
 #include <concepts>    // integral
 #include <cstdio>      // EOF, fgetc, ungetc
 #include <optional>    // make_optional, nullopt, optional
-#include <type_traits> // is_signed_v
 
 #include "types.hpp"
 
@@ -85,7 +84,7 @@ namespace clear::impl
 
 		skip_ws(src);
 
-		if (std::is_signed_v<typename T::type> && expect(src, '-'))
+		if (T::is_signed && expect(src, '-'))
 			*it++ = '-';
 
 		if (T::base != 10 && !(expect(src, '0') && expect(src, T::prefix)))

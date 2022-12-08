@@ -273,5 +273,5 @@ if (maybe_file)
 To read from a file, use `read` / `safe_read` as a member function:
 
 ```cpp
-auto const [a, b] = open("input.txt").read<char, char>();
+auto const [a, b] = open("input.txt").read<char, int>();
 ```

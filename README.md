@@ -78,7 +78,7 @@ auto const d = clear::read<clear::hex<int>>(); // 0x7b
 Explicit decimal base to read an integer into `char`:
 
 ```cpp
-auto const e = clear::read<clear::dec<char>>().value; // 123
+auto const e = clear::read<clear::dec<char>>(); // 123
 ```
 
 If a read fails, characters from the input stream are consumed until the one that induced the failure.

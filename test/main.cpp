@@ -184,9 +184,15 @@ auto main() -> int
 	auto const [c, d, e, f] = in.read<int, int, int, char>();
 	assert(c == 12 && d == -34 && e == 56 && f == '\n');
 
-	auto const [g, h] = in.read<hex<char>, char>();
-	assert(g == -10 && h == '\n');
+	auto const g = in.read<hex<char>>();
+	assert(g == -10);
 
-	auto const n = in.safe_read<int>();
-	assert(!n);
+	auto const [t, fa] = in.read<bool, bool>();
+	assert(t && !fa);
+
+	auto const n = in.read<char>();
+	assert(n == '\n');
+
+	auto const end = in.safe_read<int>();
+	assert(!end);
 }

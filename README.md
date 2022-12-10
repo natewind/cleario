@@ -61,7 +61,13 @@ auto const maybe_xs = clear::safe_read<Ts...>();
 ### Chars
 
 ```cpp
-auto const [a, b] = clear::read<char, char>();
+auto const [a, b] = clear::read<char, char>(); // qw
+```
+
+### Booleans
+
+```cpp
+auto const [t, f] = clear::read<bool, bool>(); // True False
 ```
 
 ### Integers

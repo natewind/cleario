@@ -1,12 +1,13 @@
 #ifndef CLEARIO_READ_HPP
 #define CLEARIO_READ_HPP
 
-#include <algorithm>   // min
+#include <algorithm>   // min, ranges::all_of
 #include <cctype>      // isspace, tolower
 #include <charconv>    // from_chars
 #include <concepts>    // integral
 #include <cstdio>      // EOF, fgetc, ungetc
 #include <optional>    // make_optional, nullopt, optional
+#include <string_view> // string_view
 
 #include "types.hpp"
 
@@ -21,6 +22,15 @@ namespace clear::impl
 
 		std::ungetc(c, src);
 		return false;
+	}
+
+	auto expect(cfile src, std::string_view expected) -> bool
+	{
+		return std::ranges::all_of
+		(
+			expected,
+			[src](char c) { return expect(src, c); }
+		);
 	}
 
 	void skip_ws(cfile src)
@@ -115,7 +125,27 @@ namespace clear::impl
 	auto read<char>(cfile src) -> std::optional<char>
 	{
 		auto const c = std::fgetc(src);
-		return (c == EOF) ? std::nullopt : std::make_optional<char>(c);
+		return (c == EOF) ? std::nullopt : std::make_optional(c);
+	}
+
+	template <>
+	auto read<bool>(cfile src) -> std::optional<bool>
+	{
+		skip_ws(src);
+
+		if (expect(src, 'F'))
+		{
+			return expect(src, "alse")
+			     ? std::make_optional<bool>(false)
+			     : std::nullopt;
+		}
+
+		else
+		{
+			return expect(src, "True")
+			     ? std::make_optional<bool>(true)
+			     : std::nullopt;
+		}
 	}
 }
 

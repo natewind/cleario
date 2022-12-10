@@ -78,7 +78,7 @@
 * [ ] `impl::read`
 	* [ ] Entire file
 	* [x] `char`
-	* [ ] `bool`
+	* [x] `bool`
 	* [ ] `std::string`
 	* [x] Integral types
 		* [x] `std::integral`

@@ -1,10 +1,11 @@
 #ifndef CLEARIO_IO_HPP
 #define CLEARIO_IO_HPP
 
-#include <cstdio>   // fclose, fflush, fopen, stdout
-#include <optional> // make_optional, nullopt, optional
-#include <tuple>    // tuple, tuple_cat
-#include <utility>  // move, swap
+#include <cstdio>      // fclose, fflush, fopen, stdout
+#include <optional>    // make_optional, nullopt, optional
+#include <tuple>       // tuple, tuple_cat
+#include <type_traits> // remove_reference_t
+#include <utility>     // move, swap
 
 #include "read.hpp"
 #include "write.hpp"
@@ -17,7 +18,10 @@ namespace clear
 		impl::cfile handle;
 
 		template <class... Ts>
-		using read_result = std::tuple<decltype(*impl::read<Ts>(handle))...>;
+		using read_result = std::tuple
+		<
+			std::remove_reference_t<decltype(*impl::read<Ts>(handle))>...
+		>;
 
 	public:
 		constexpr io() : handle(nullptr) {}

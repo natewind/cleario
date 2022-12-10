@@ -107,8 +107,6 @@
 		* [ ] `std::optional`
 		* [ ] `std::tuple`
 	* [ ] User-defined types
-* [ ] README & testing (implemented)
-	* [ ] `read<std::integral T>`
 * [ ] Improvements
 	* [ ] Modularize cleario when GCC gets module support
 	* [ ] Print quotation marks around strings inside containers

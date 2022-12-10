@@ -184,8 +184,8 @@ auto main() -> int
 	auto const [c, d, e, f] = in.read<int, int, int, char>();
 	assert(c == 12 && d == -34 && e == 56 && f == '\n');
 
-	auto const g = in.read<hex<char>>();
-	assert(g == -10);
+	auto const [g, h] = in.read<hex<char>, bin<short>>();
+	assert(g == -10 && h == 4);
 
 	auto const [t, fa] = in.read<bool, bool>();
 	assert(t && !fa);

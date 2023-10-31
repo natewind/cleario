@@ -1,5 +1,5 @@
-#ifndef CLEARIO_TRAITS_HPP
-#define CLEARIO_TRAITS_HPP
+#ifndef CLEARIO_TYPES_HPP
+#define CLEARIO_TYPES_HPP
 
 #include <algorithm>     // max
 #include <array>         // array

@@ -2,7 +2,7 @@
 
 A header-only IO library implemented in C++20, internally a wrapper over `stdio`.
 
-The library is under development and subject to change. Contributions are welcome (but keep in mind that I’m very opinionated). You can also [log an issue](https://github.com/natewind/cleario/issues) if you spot a bug or if you want a particular feature not already listed in [TODO](https://github.com/natewind/cleario/blob/master/TODO.md).
+The library is under development and subject to change. Contributions are welcome (but keep in mind that I’m very opinionated). You can also [log an issue](https://github.com/natewind/cleario/issues) if you spot a bug or if you want a particular feature not already listed in [TODO](TODO.md).
 
 ## Advantages
 
